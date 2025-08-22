@@ -59,8 +59,13 @@ public class GridManager : MonoBehaviour
                     {
                         if (!CheckDistance(grid.transform))
                             return;
+
+                        grid.OnDragByManager();
                     }
-                    grid.OnDragByManager();
+                    else if (routeGrids.Count == 0 && grid.transform.position.x == playerObject.transform.position.x && grid.transform.position.z == playerObject.transform.position.z)
+                    {
+                        grid.OnDragByManager();
+                    }
                 }
             }
         }
@@ -237,6 +242,8 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public bool CheckDistance(Transform gridPos)
     {
+        if (routeGrids.Count == 0) return false;
+
         return Vector3.Distance(routeGrids.Last().transform.position, gridPos.position) <= 1f;
     }
 
