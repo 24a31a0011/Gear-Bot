@@ -97,6 +97,9 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     /// </summary>
     private void OnDrag()
     {
+        if (!GridManager.Instance.CheckDistance(this.transform))
+            return;
+
         currentState = GridState.OnDrag;
         meshRenderer.material = dragMaterial;
         GridManager.Instance.RegisterRouteGrid(this);

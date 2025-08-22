@@ -55,6 +55,11 @@ public class GridManager : MonoBehaviour
                 var grid = result.gameObject.GetComponent<ClickGrid>();
                 if (grid != null)
                 {
+                    if (routeGrids.Count != 0)
+                    {
+                        if (!CheckDistance(grid.transform))
+                            return;
+                    }
                     grid.OnDragByManager();
                 }
             }
@@ -225,6 +230,14 @@ public class GridManager : MonoBehaviour
         yield return null;
 
         routeGrids[0].ResetState();
+    }
+
+    /// <summary>
+    /// すでにあるルートの最後の位置と新しいルートの位置の絶対値が1（隣接している）かどうか
+    /// </summary>
+    public bool CheckDistance(Transform gridPos)
+    {
+        return Vector3.Distance(routeGrids.Last().transform.position, gridPos.position) <= 1f;
     }
 
 }
