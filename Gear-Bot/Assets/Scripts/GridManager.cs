@@ -40,7 +40,6 @@ public class GridManager : MonoBehaviour
         // 右クリックを押した瞬間
         if (Input.GetMouseButtonDown(1))
         {
-            ResetState();
             isRightDragging = true;
 
             // 押下した位置にあるGridも塗る
@@ -130,6 +129,11 @@ public class GridManager : MonoBehaviour
     public bool GetIsRightDragging()
     {
         return isRightDragging;
+    }
+
+    public void OnClickResetRoute()
+    {
+        ResetState();
     }
 
     // ボタンが押されたらプレイヤーをルート通りに動かす
