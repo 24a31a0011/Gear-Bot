@@ -97,12 +97,22 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     /// </summary>
     private void OnDrag()
     {
-        if (!GridManager.Instance.CheckDistance(this.transform))
-            return;
+        if (currentState != GridState.OnDrag)
+        {
+            if (!GridManager.Instance.CheckDistance(this.transform))
+                return;
 
-        currentState = GridState.OnDrag;
-        meshRenderer.material = dragMaterial;
-        GridManager.Instance.RegisterRouteGrid(this);
+            currentState = GridState.OnDrag;
+            meshRenderer.material = dragMaterial;
+            GridManager.Instance.RegisterRouteGrid(this);
+        }
+        else if (currentState == GridState.OnDrag)
+        {
+            if (!GridManager.Instance.CheckLastRoute(this))
+                return;
+
+            ResetState();
+        }
     }
 
     public void SetRouteNumber(int num)
@@ -112,8 +122,18 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     public void OnDragByManager()
     {
-        currentState = GridState.OnDrag;
-        meshRenderer.material = dragMaterial;
-        GridManager.Instance.RegisterRouteGrid(this);
+        if (currentState != GridState.OnDrag)
+        {
+            currentState = GridState.OnDrag;
+            meshRenderer.material = dragMaterial;
+            GridManager.Instance.RegisterRouteGrid(this);
+        }
+        else if (currentState == GridState.OnDrag)
+        {
+            if (!GridManager.Instance.CheckLastRoute(this))
+                return;
+
+            ResetState();
+        }
     }
 }

@@ -240,4 +240,15 @@ public class GridManager : MonoBehaviour
         return Vector3.Distance(routeGrids.Last().transform.position, gridPos.position) <= 1f;
     }
 
+    /// <summary>
+    /// 選択されたグリッドがルートの最後の地点のグリッドか否か
+    /// </summary>
+    public bool CheckLastRoute(ClickGrid clickGrid)
+    {
+        if (routeGrids == null || routeGrids.Count == 0)
+            return false;
+
+        // 最後の要素と比較
+        return routeGrids[routeGrids.Count - 1] == clickGrid;
+    }
 }
