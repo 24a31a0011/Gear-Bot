@@ -1206,7 +1206,7 @@ PrefabInstance:
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: cornerPrefab
       value: 
-      objectReference: {fileID: 5043701866528472906, guid: 47e2f8f02b046c0428c1511748c92634, type: 3}
+      objectReference: {fileID: 938235182200623040, guid: 5eb4da150973d484e8cb1bddc8c4daac, type: 3}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: playerObject
       value: 
