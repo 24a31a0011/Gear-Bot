@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    enum GridState
+    public enum GridState
     {
         Normal,
         OnClick,
@@ -21,7 +21,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     private MeshRenderer meshRenderer;
 
-    private GridState currentState = GridState.Normal;
+    public GridState currentState = GridState.Normal;
 
     // ƒ‹[ƒg‚Æ‚µ‚Äg‚í‚ê‚½Û‚Ì”Ô†‚ğŠi”[
     public int routeNumber = 0;

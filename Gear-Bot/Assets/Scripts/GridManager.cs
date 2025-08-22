@@ -3,10 +3,8 @@
 ///
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 
 public class GridManager : MonoBehaviour
 {
@@ -14,7 +12,8 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
 
     [SerializeField] GameObject playerObject;
-    [SerializeField] GameObject markObject;
+    [SerializeField] GameObject markPrefab;
+    private GameObject cloneMark;
 
     // シーン内の全てのGridを登録するリスト
     private List<ClickGrid> clickGrids = new List<ClickGrid>();
@@ -40,7 +39,7 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        routeGrids.OnChanged += () => Instantiate(markObject, new Vector3(0, 0, 0), Quaternion.identity);
+        routeGrids.OnChanged += () => SetMark();
     }
 
     private void Update()
@@ -149,6 +148,30 @@ public class GridManager : MonoBehaviour
         return isRightDragging;
     }
 
+    private void SetMark()
+    {
+        if (cloneMark != null)
+            Destroy(cloneMark);
+
+        if (routeGrids.Count == 0)
+            return;
+
+        if (routeGrids.Count != 1)
+        {
+            // Grid1からGrid2への方向ベクトル
+            Vector3 direction = (routeGrids[routeGrids.Count - 2].transform.position - routeGrids[routeGrids.Count - 1].transform.position).normalized;
+
+            cloneMark = Instantiate(markPrefab, routeGrids.Last.transform.position, Quaternion.LookRotation(direction));
+        }
+        else
+        {
+            Vector3 direction = (playerObject.transform.position - routeGrids[routeGrids.Count - 1].transform.position).normalized;
+
+            cloneMark = Instantiate(markPrefab, routeGrids.Last.transform.position, Quaternion.LookRotation(direction));
+        }
+    }
+
+    // ボタンが押されたらルートを消す
     public void OnClickResetRoute()
     {
         ResetState();
@@ -264,6 +287,6 @@ public class GridManager : MonoBehaviour
             return false;
 
         // 最後の要素と比較
-        return routeGrids[routeGrids.Count - 1] == clickGrid;
+        return routeGrids.Last == clickGrid;
     }
 }
