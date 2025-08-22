@@ -215,10 +215,11 @@ public class GridManager : MonoBehaviour
 
             // ‚·‚Å‚Éi‚ñ‚¾•ª‚Ìƒ‹[ƒg‚ÍÁ‚·
             routeGrids[copyRouteList.Count - index].ResetState();
+
+            yield return new WaitForSeconds(0.5f);
         }
         yield return null;
-        yield return null;
-        yield return null;
+
         routeGrids[0].ResetState();
     }
 
