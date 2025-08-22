@@ -12,7 +12,13 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
 
     [SerializeField] GameObject playerObject;
-    [SerializeField] GameObject markPrefab;
+
+    [Header("矢印のオブジェクト")]
+    [SerializeField] GameObject arrowTipPrefab;
+    [SerializeField] GameObject verticalPrefab;
+    [SerializeField] GameObject horizontalPrefab;
+    [SerializeField] GameObject cornerPrefab;
+
     private GameObject cloneMark;
 
     // シーン内の全てのGridを登録するリスト
@@ -39,7 +45,7 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        routeGrids.OnChanged += () => SetMark();
+        routeGrids.OnChanged += () => PlaceArrows();
     }
 
     private void Update()
@@ -148,26 +154,99 @@ public class GridManager : MonoBehaviour
         return isRightDragging;
     }
 
-    private void SetMark()
+    /// <summary>
+    /// 現在のルートに沿って矢印を設置する
+    /// </summary>
+    private List<GameObject> arrowObjects = new List<GameObject>(); // 生成した矢印を保持
+
+    public void PlaceArrows()
     {
-        if (cloneMark != null)
-            Destroy(cloneMark);
+        // 既存の矢印を削除
+        foreach (var obj in arrowObjects)
+            Destroy(obj);
+        arrowObjects.Clear();
 
-        if (routeGrids.Count == 0)
-            return;
+        if (routeGrids.Count == 0) return;
 
-        if (routeGrids.Count != 1)
+        for (int i = 0; i < routeGrids.Count; i++)
         {
-            // Grid1からGrid2への方向ベクトル
-            Vector3 direction = (routeGrids[routeGrids.Count - 2].transform.position - routeGrids[routeGrids.Count - 1].transform.position).normalized;
+            GameObject arrowPrefab = null;
+            Quaternion rotation = Quaternion.identity;
 
-            cloneMark = Instantiate(markPrefab, routeGrids.Last.transform.position, Quaternion.LookRotation(direction));
-        }
-        else
-        {
-            Vector3 direction = (playerObject.transform.position - routeGrids[routeGrids.Count - 1].transform.position).normalized;
+            if (i == routeGrids.Count - 1)
+            {
+                // 最後は矢印の先端
+                arrowPrefab = arrowTipPrefab;
 
-            cloneMark = Instantiate(markPrefab, routeGrids.Last.transform.position, Quaternion.LookRotation(direction));
+                if (i > 0)
+                {
+                    Vector3 dir = (routeGrids[i -1].transform.position - routeGrids[i].transform.position).normalized;
+                    rotation = Quaternion.LookRotation(dir);
+                }
+            }
+            else if(i > 0)
+            {
+                // 道中
+                Vector3 prevDir = (routeGrids[i].transform.position - routeGrids[i - 1].transform.position).normalized;
+                Vector3 nextDir = (routeGrids[i + 1].transform.position - routeGrids[i].transform.position).normalized;
+
+                if (Vector3.Angle(prevDir, nextDir) > 0.1f)
+                {
+                    // 曲がり角
+                    Vector2 prev = new Vector2(prevDir.x, prevDir.z).normalized;
+                    Vector2 next = new Vector2(nextDir.x, nextDir.z).normalized;
+
+                    // Z軸の外積に相当する値を計算
+                    float cross = prev.x * next.y - prev.y * next.x;
+
+                    if (cross > 0)
+                    {
+                        // 反時計回り (左に曲がる)
+                        rotation = Quaternion.LookRotation(nextDir) * Quaternion.Euler(0, 180, 0);
+                    }
+                    else if (cross < 0)
+                    {
+                        // 時計回り (右に曲がる)
+                        rotation = Quaternion.LookRotation(nextDir) * Quaternion.Euler(0, -90, 0);
+                    }
+                    
+                    arrowPrefab = cornerPrefab;
+                }
+                else
+                {
+                    // 直線
+                    if (Mathf.Abs(nextDir.x) > Mathf.Abs(nextDir.z))
+                    {
+                        // 横方向
+                        arrowPrefab = horizontalPrefab;
+                        rotation = Quaternion.LookRotation(nextDir);
+                    }
+                    else
+                    {
+                        // 縦方向
+                        arrowPrefab = verticalPrefab;
+                        rotation = Quaternion.LookRotation(nextDir);
+                    }
+                }
+            }
+            else
+            {
+                // ルート最初のマス
+                Vector3 dir = (routeGrids[i + 1].transform.position - routeGrids[i].transform.position).normalized;
+
+                if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z))
+                    arrowPrefab = horizontalPrefab;
+                else
+                    arrowPrefab = verticalPrefab;
+
+                rotation = Quaternion.LookRotation(dir);
+            }
+
+            if (arrowPrefab != null)
+            {
+                GameObject arrow = Instantiate(arrowPrefab, routeGrids[i].transform.position, rotation);
+                arrowObjects.Add(arrow);
+            }
         }
     }
 
