@@ -1,10 +1,12 @@
+///
+/// 作成者 : グエン
+///
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.Rendering;
 
 public class GridManager : MonoBehaviour
 {
@@ -12,12 +14,13 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
 
     [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject markObject;
 
     // シーン内の全てのGridを登録するリスト
     private List<ClickGrid> clickGrids = new List<ClickGrid>();
 
     // プレイヤーが進むルートを登録するリスト
-    private List<ClickGrid> routeGrids = new List<ClickGrid>();
+    private routeGrids<ClickGrid> routeGrids = new routeGrids<ClickGrid>();
 
     // 右クリックドラッグ中かどうか
     private bool isRightDragging = false;
@@ -33,6 +36,11 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        routeGrids.OnChanged += () => Instantiate(markObject, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
     private void Update()
@@ -183,7 +191,7 @@ public class GridManager : MonoBehaviour
         float moveSpeed = 2f;     // 移動速度
         float rotateSpeed = 5f;   // 回転速度
 
-        List<ClickGrid> copyRouteList = new List<ClickGrid>(routeGrids);
+        routeGrids<ClickGrid> copyRouteList = new routeGrids<ClickGrid>(routeGrids.ToList());
 
         int index = copyRouteList.Count;
 
@@ -244,7 +252,7 @@ public class GridManager : MonoBehaviour
     {
         if (routeGrids.Count == 0) return false;
 
-        return Vector3.Distance(routeGrids.Last().transform.position, gridPos.position) <= 1f;
+        return Vector3.Distance(routeGrids.Last.transform.position, gridPos.position) <= 1f;
     }
 
     /// <summary>
