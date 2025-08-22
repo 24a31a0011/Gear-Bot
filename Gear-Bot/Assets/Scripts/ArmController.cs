@@ -12,6 +12,7 @@ public class ObjectRotationController : MonoBehaviour
     [SerializeField] private Vector3 detectionDirection = Vector3.down; // 検出方向（真下がデフォルト）
     [SerializeField] private float liftHeight = 2f; // 持ち上げる高さ
     [SerializeField] private float liftSpeed = 3f; // 持ち上げ・降下の速度
+    [SerializeField] private float fallSpeed = 1.0f; // 落下速度（秒/1ユニット）
 
     private Transform targetObject; // 掴んでいるオブジェクト
     private Vector3 originalPosition; // 掴んだオブジェクトの元の位置
@@ -21,11 +22,16 @@ public class ObjectRotationController : MonoBehaviour
     private bool isRotating = false; // 回転中かどうか
     private float currentRotation = 0f; // 現在の回転角度
 
-    // クレーン動作用の変数
     private enum CraneState { Idle, Lifting, Rotating, Lowering }
     private CraneState currentState = CraneState.Idle;
     private float liftStartY; // 持ち上げ開始時のY座標
     private float liftTargetY; // 持ち上げ目標のY座標
+
+    // 電源管理（インスペクターで変更可能にする）
+    [SerializeField] private bool isPowerOn = true; // 電源がオンかオフか
+
+    private bool isDropping = false; // 落下中かどうか
+    private float targetDropHeight; // 落下目標のY座標
 
     void Start()
     {
@@ -52,24 +58,39 @@ public class ObjectRotationController : MonoBehaviour
 
     void Update()
     {
+        // 電源がオフなら、アームの動作を停止してオブジェクトを落とす
+        if (!isPowerOn && targetObject != null && !isDropping)
+        {
+            StartDropping();
+        }
+
+        if (isDropping)
+        {
+            // 落下処理
+            DropObjectOverTime();
+        }
+
         // 左クリックを検出
-        if (Input.GetMouseButtonDown(0) && currentState == CraneState.Idle)
+        if (isPowerOn && Input.GetMouseButtonDown(0) && currentState == CraneState.Idle)
         {
             HandleMouseClick();
         }
 
         // クレーン動作の状態管理
-        switch (currentState)
+        if (isPowerOn)
         {
-            case CraneState.Lifting:
-                UpdateLifting();
-                break;
-            case CraneState.Rotating:
-                UpdateRotation();
-                break;
-            case CraneState.Lowering:
-                UpdateLowering();
-                break;
+            switch (currentState)
+            {
+                case CraneState.Lifting:
+                    UpdateLifting();
+                    break;
+                case CraneState.Rotating:
+                    UpdateRotation();
+                    break;
+                case CraneState.Lowering:
+                    UpdateLowering();
+                    break;
+            }
         }
     }
 
@@ -348,83 +369,31 @@ public class ObjectRotationController : MonoBehaviour
         targetObject = null;
     }
 
-    // デバッグ用：先端と検出範囲、土台を可視化
-    void OnDrawGizmosSelected()
+    // 落下処理
+    private void StartDropping()
     {
-        if (tipTransform == null) return;
+        // 落下開始時の目標高さを設定（現在のY座標から1.0f下に設定）
+        targetDropHeight = targetObject.position.y - 1.0f;
+        isDropping = true;
+        Debug.Log("落下開始");
+    }
 
-        // 先端の位置
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(tipTransform.position, 0.2f);
-
-        // 土台の位置（回転中心）
-        if (baseTransform != null)
+    private void DropObjectOverTime()
+    {
+        if (targetObject != null)
         {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(baseTransform.position, 0.3f);
+            // 現在のY座標から目標Y座標へ徐々に移動
+            float newY = Mathf.MoveTowards(targetObject.position.y, targetDropHeight, fallSpeed * Time.deltaTime);
+            Vector3 newPosition = targetObject.position;
+            newPosition.y = newY;
+            targetObject.position = newPosition;
 
-            // 土台からのY軸方向を示す線
-            Gizmos.DrawLine(baseTransform.position, baseTransform.position + Vector3.up * 2f);
-        }
-
-        // 検出範囲とレイの可視化
-        Gizmos.color = Color.yellow;
-        Vector3 tipPosition = tipTransform.position;
-        Vector3 searchDirection = detectionDirection.normalized;
-
-        // レイを描画
-        Gizmos.DrawLine(tipPosition, tipPosition + searchDirection * detectionDistance);
-
-        // 検出終点
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(tipPosition + searchDirection * detectionDistance, 0.1f);
-
-        // 方向を示す矢印（簡易版）
-        Vector3 endPoint = tipPosition + searchDirection * detectionDistance;
-        Vector3 right = Vector3.Cross(searchDirection, Vector3.up) * 0.3f;
-        Vector3 arrowPoint1 = endPoint - searchDirection * 0.5f + right;
-        Vector3 arrowPoint2 = endPoint - searchDirection * 0.5f - right;
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(endPoint, arrowPoint1);
-        Gizmos.DrawLine(endPoint, arrowPoint2);
-
-        // 回転中の場合、ArmとBoxの回転軌道を表示
-        if (isRotating && baseTransform != null)
-        {
-            Vector3 basePos = baseTransform.position;
-
-            // Armの回転軌道（オレンジ色）
-            Gizmos.color = Color.red;
-            Vector3 armStartPos = armOriginalPosition;
-            float armRadius = Vector3.Distance(new Vector3(basePos.x, armStartPos.y, basePos.z),
-                                             new Vector3(armStartPos.x, armStartPos.y, armStartPos.z));
-
-            for (int i = 0; i <= 18; i++) // 10度間隔で点を描画
+            // 落下完了チェック
+            if (Mathf.Approximately(newY, targetDropHeight))
             {
-                float angle = i * 10f;
-                Vector3 armRelativePos = armOriginalPosition - basePos;
-                Vector3 armRotatedPos = Quaternion.AngleAxis(angle, Vector3.up) * armRelativePos;
-                Vector3 armPointOnCircle = basePos + armRotatedPos;
-
-                Gizmos.DrawWireSphere(armPointOnCircle, 0.08f);
-            }
-
-            // Boxの回転軌道（マゼンタ色）
-            if (targetObject != null)
-            {
-                Gizmos.color = Color.magenta;
-                Vector3 boxStartPos = originalPosition;
-
-                for (int i = 0; i <= 18; i++) // 10度間隔で点を描画
-                {
-                    float angle = i * 10f;
-                    Vector3 boxRelativePos = originalPosition - basePos;
-                    Vector3 boxRotatedPos = Quaternion.AngleAxis(angle, Vector3.up) * boxRelativePos;
-                    Vector3 boxPointOnCircle = basePos + boxRotatedPos;
-
-                    Gizmos.DrawWireSphere(boxPointOnCircle, 0.05f);
-                }
+                isDropping = false;
+                Debug.Log("オブジェクトの落下完了");
+                CompleteCraneOperation();
             }
         }
     }
