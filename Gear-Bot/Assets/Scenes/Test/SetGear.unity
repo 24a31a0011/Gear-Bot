@@ -971,10 +971,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 920234122343519106, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 1266111053966136413, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 2082173964628246992, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 2314788059862458070, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 2347099887336847022, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 2735756049084844933, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
     - target: {fileID: 3085259967461875904, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 3502298873773870217, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 3560654570042858363, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 3935432326733472431, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 4656238183599080489, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 5040110820182902809, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 5168354554860074327, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
     - target: {fileID: 5314763730439911395, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1015,6 +1063,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5351735398377825931, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 5575956893439770409, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 5907921021219563777, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 5933048756964137195, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 6345075820591973050, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 6520677817494502675, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 6834378911060632529, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 6879028519010312737, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 7963626256180158957, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 8005576644193386744, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 8864661363698031414, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 8969531467978074155, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
+    - target: {fileID: 8995666444100663035, guid: b216a17321e053e4cae7c2cd695ef31f, type: 3}
+      propertyPath: setGears
+      value: 
+      objectReference: {fileID: 1143558403}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1049,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce90332df0aa8db498035d2a8808eac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearObject: {fileID: 0}
+  gearObject: {fileID: 9164109130855148184, guid: ea677e1a260da3c40b9ae2933849bd0e, type: 3}
   gearList:
   - gearprefab: {fileID: 1306956229}
     rotatecount: 1
@@ -1952,9 +2052,9 @@ SceneRoots:
   - {fileID: 1172880172}
   - {fileID: 571442534}
   - {fileID: 1895739991}
+  - {fileID: 1143558404}
   - {fileID: 1143256044}
   - {fileID: 2066057755}
   - {fileID: 967382968}
   - {fileID: 1447405258}
   - {fileID: 1762618936}
-  - {fileID: 1143558404}

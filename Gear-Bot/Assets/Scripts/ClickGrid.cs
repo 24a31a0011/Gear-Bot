@@ -19,6 +19,8 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [SerializeField] private Material ClickMaterial;
     [SerializeField] private Material dragMaterial;
 
+    [SerializeField] private SetGears setGears;
+
     private MeshRenderer meshRenderer;
 
     public GridState currentState = GridState.Normal;
@@ -48,6 +50,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
             {
                 currentState = GridState.OnClick;
                 meshRenderer.material = ClickMaterial;
+
             }
             else if (currentState == GridState.OnClick)
             {

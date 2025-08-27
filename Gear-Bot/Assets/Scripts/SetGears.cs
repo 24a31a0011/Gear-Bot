@@ -60,7 +60,7 @@ public class SetGears : MonoBehaviour
     public void SetGear (Transform pos)
     {
         // Transformをギアの生成に必要なVectorに変換する
-        Vector3 gearpostion = new Vector3 (pos.position.x, pos.position.y, pos.position.x);
+        Vector3 gearpostion = new Vector3 (pos.position.x, pos.position.y, pos.position.z);
         // ギアが選ばれているかつギアが1個以上持っている時、ギアを設置する
         if (seleteGearNumber >= 0 && gearList[seleteGearNumber].gearPieces > 0)
         {
