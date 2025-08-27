@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8375a49252d99604589b6f3c3937ab70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: Bit_Select
-  tutorialScene: Bit_Tutorial
-  optionScene: Bit_Option
-  titleScene: Bit_Title
-  clearScene: Bit_clear
+  startScene: Select
+  tutorialScene: Tutorial
+  optionScene: Option
+  titleScene: Title
+  clearScene: clear
   mainGameStageList:
   - Bit_Stage1
   - Bit_Stage2
