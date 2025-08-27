@@ -1196,33 +1196,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: markObject
-      value: 
-      objectReference: {fileID: 8955781050067787271, guid: 08129064ad01d8140881fa9692b9513b, type: 3}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: markPrefab
-      value: 
-      objectReference: {fileID: 8955781050067787271, guid: 08129064ad01d8140881fa9692b9513b, type: 3}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: cornerPrefab
-      value: 
-      objectReference: {fileID: 938235182200623040, guid: 5eb4da150973d484e8cb1bddc8c4daac, type: 3}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 715622107}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: arrowTipPrefab
-      value: 
-      objectReference: {fileID: 8955781050067787271, guid: 08129064ad01d8140881fa9692b9513b, type: 3}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: verticalPrefab
-      value: 
-      objectReference: {fileID: 6901776365163998703, guid: 35dace87028c3f04896d58f312043252, type: 3}
-    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
-      propertyPath: horizontalPrefab
-      value: 
-      objectReference: {fileID: 6901776365163998703, guid: 35dace87028c3f04896d58f312043252, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 0}
+  arrowTipPrefab: {fileID: 8955781050067787271, guid: 08129064ad01d8140881fa9692b9513b, type: 3}
+  verticalPrefab: {fileID: 6901776365163998703, guid: 35dace87028c3f04896d58f312043252, type: 3}
+  horizontalPrefab: {fileID: 6901776365163998703, guid: 35dace87028c3f04896d58f312043252, type: 3}
+  cornerPrefab: {fileID: 938235182200623040, guid: 5eb4da150973d484e8cb1bddc8c4daac, type: 3}
