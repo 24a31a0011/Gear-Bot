@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1583753421124936591}
   - component: {fileID: 7617273502329182156}
   - component: {fileID: 3355961419792408871}
+  - component: {fileID: 6969685940655077860}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -121,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: ReturnScene
+      - m_Target: {fileID: 6969685940655077860}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickGameStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6969685940655077860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47907067937282722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1632742962212455366
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +158,7 @@ GameObject:
   - component: {fileID: 3819389660140173501}
   - component: {fileID: 1993106535002257720}
   - component: {fileID: 6231102443544144202}
+  - component: {fileID: 4234560681130887516}
   m_Layer: 5
   m_Name: Stage3Button
   m_TagString: Untagged
@@ -254,9 +268,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: StageChange
+      - m_Target: {fileID: 4234560681130887516}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickStageChange
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -266,6 +280,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4234560681130887516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632742962212455366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3799041693561844966
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +567,7 @@ GameObject:
   - component: {fileID: 3023990080995818986}
   - component: {fileID: 643125068168678561}
   - component: {fileID: 127262842572893470}
+  - component: {fileID: 7993481672169398235}
   m_Layer: 5
   m_Name: Stage2Button
   m_TagString: Untagged
@@ -650,9 +677,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: StageChange
+      - m_Target: {fileID: 7993481672169398235}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickStageChange
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -662,6 +689,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7993481672169398235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700482723650341153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5837935575429298782
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +871,7 @@ GameObject:
   - component: {fileID: 1255896148214054214}
   - component: {fileID: 6546538561958375878}
   - component: {fileID: 7658898284535701803}
+  - component: {fileID: 7557835125420204164}
   m_Layer: 5
   m_Name: Stage1Button
   m_TagString: Untagged
@@ -941,9 +981,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: StageChange
+      - m_Target: {fileID: 7557835125420204164}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickStageChange
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -953,3 +993,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7557835125420204164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005848595666523331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

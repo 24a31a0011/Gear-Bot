@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class Bit_SceneController : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     // シングルトンパターン:どこからでもアクセス出来るように
-    public static Bit_SceneController Instance { get; private set; }
+    public static SceneController Instance { get; private set; }
 
 
     [SerializeField] private string startScene;

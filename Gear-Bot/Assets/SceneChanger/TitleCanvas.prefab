@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4436578000967558386}
   - component: {fileID: 82873010324825376}
   - component: {fileID: 7485760140184155989}
+  - component: {fileID: 8016808830441493162}
   m_Layer: 5
   m_Name: EndButton
   m_TagString: Untagged
@@ -121,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: EndGame
+      - m_Target: {fileID: 8016808830441493162}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8016808830441493162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284640298157446570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &463164922881525738
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +158,7 @@ GameObject:
   - component: {fileID: 3868386448075439282}
   - component: {fileID: 2306577060050301509}
   - component: {fileID: 5196026696072447581}
+  - component: {fileID: 1229732479783785342}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -254,9 +268,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: GameStart
+      - m_Target: {fileID: 1229732479783785342}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickStageSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -266,6 +280,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1229732479783785342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463164922881525738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &770712775149872393
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +383,7 @@ GameObject:
   - component: {fileID: 888071328571039665}
   - component: {fileID: 3117028175491809662}
   - component: {fileID: 8598593793701186611}
+  - component: {fileID: 2330019572397055267}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -466,9 +493,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: OptionStart
+      - m_Target: {fileID: 2330019572397055267}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickOption
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -478,6 +505,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2330019572397055267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159764305765815396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2235136198725071778
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +687,7 @@ GameObject:
   - component: {fileID: 7239248406615122078}
   - component: {fileID: 1506103029254305928}
   - component: {fileID: 7395581610889044368}
+  - component: {fileID: 8838936505168328706}
   m_Layer: 5
   m_Name: TutorialButton
   m_TagString: Untagged
@@ -757,9 +797,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: TutorialStart
+      - m_Target: {fileID: 8838936505168328706}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClickTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -769,6 +809,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8838936505168328706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625309601104972424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3829ef503d323f84dbdd2c5127d73117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2724978533137726844
 GameObject:
   m_ObjectHideFlags: 0

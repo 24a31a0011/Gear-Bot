@@ -4,36 +4,36 @@ public class ButtonManager : MonoBehaviour
 {
     public void OnClickReturn()
     {
-        Bit_SceneController.Instance.ReturnScene();
+        SceneController.Instance.ReturnScene();
     }
 
     public void OnClickGameStart()
     {
-        Bit_SceneController.Instance.TitleScene();
+        SceneController.Instance.TitleScene();
     }
 
     public void OnClickStageSelect()
     {
-        Bit_SceneController.Instance.GameStart();
+        SceneController.Instance.GameStart();
     }
 
     public void OnClickTutorial()
     {
-        Bit_SceneController.Instance.TutorialStart();
+        SceneController.Instance.TutorialStart();
     }
 
     public void OnClickOption()
     {
-        Bit_SceneController.Instance.OptionStart();
+        SceneController.Instance.OptionStart();
     }
 
     public void OnClickEnd()
     {
-        Bit_SceneController.Instance.EndGame();
+        SceneController.Instance.EndGame();
     }
 
     public void OnClickStageChange(int stageNum)
     {
-        Bit_SceneController.Instance.StageChange(stageNum);
+        SceneController.Instance.StageChange(stageNum);
     }
 }
