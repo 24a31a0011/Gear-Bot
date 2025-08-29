@@ -110,4 +110,12 @@ public class SetGears : MonoBehaviour
         // ‰Ÿ‚³‚ê‚½ƒMƒA‚ğÁ‚·
         Destroy(obj);
     }
+
+    /// <summary>
+    /// Œ»İƒMƒA‚ğİ’u‚Å‚«‚éó‘Ô‚©‚ğ•Ô‚·ŠÖ”
+    /// </summary>
+    public bool CheckGearPlacement()
+    {
+        return seleteGearNumber >= 0 && gearList[seleteGearNumber].gearPieces > 0;
+    }
 }

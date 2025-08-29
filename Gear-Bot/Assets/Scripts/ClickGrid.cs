@@ -46,7 +46,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // 現在のStateによりクリックした時の処理を変更
-            if (currentState == GridState.Normal)
+            if (currentState == GridState.Normal && SetGears.Instance.CheckGearPlacement())
             {
                 currentState = GridState.OnClick;
                 meshRenderer.material = ClickMaterial;
