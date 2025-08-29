@@ -1,6 +1,7 @@
 // 榊の担当スクリプト
 // 生成したギアに情報を持たせるスクリプト
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GearDataBase : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class GearDataBase : MonoBehaviour
     private byte gearRotateCount;
     // ギアが回転した回数をカウントする変数
     private int gearRotating;
+    // ギアの残り回転数を表示する変数
+    private Text gearText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // ギアの子テキストを取得
+        gearText = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+        RotateCountChange();
     }
 
     // Update is called once per frame
@@ -29,6 +34,7 @@ public class GearDataBase : MonoBehaviour
         GetgearNumber = number;
         GetgearRotateCount = count;
         Debug.Log(this.gearNumber + " : " + this.gearRotateCount);
+        RotateCountChange();
     }
     /// <summary>
     /// そのギアの回転可能回数を減らす関数
@@ -45,6 +51,10 @@ public class GearDataBase : MonoBehaviour
     public int ReturnRotateCount()
     {
         return GetgearRotating;
+    }
+    private void RotateCountChange()
+    {
+        gearText.text = GetgearRotateCount.ToString();
     }
     // 各種ゲッター
     public sbyte GetgearNumber
