@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8922840491777188658}
   - component: {fileID: 8368702063984258732}
   - component: {fileID: 4841621032845729674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,5 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onMaterial: {fileID: 2100000, guid: 97f23ffe128c5c24b8ea577a7b5af644, type: 2}
   offMaterial: {fileID: 2100000, guid: d44f7b1a7a783d146bc946d7d1fed536, type: 2}
-  ClickMaterial: {fileID: 2100000, guid: fe433d5e1ba9cea4281ac0d8d26a9e29, type: 2}
   dragMaterial: {fileID: 2100000, guid: c80ae04d27fa58142acb994e89fcd2d7, type: 2}
+  setGears: {fileID: 0}
+  currentState: 0
+  routeNumber: 0
