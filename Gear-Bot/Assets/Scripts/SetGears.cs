@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class SetGears : MonoBehaviour
 {
+    // シングルトンパターン:どこからでもアクセス出来るように
+    public static SetGears Instance { get; private set; }
+
     [SerializeField] private GameObject gearObject;
     // 各ギアの情報
     [System.Serializable]
@@ -26,6 +29,20 @@ public class SetGears : MonoBehaviour
 
     // 選ばれているギアの番号(リストの配列から取得する)
     private sbyte seleteGearNumber = -1;
+
+    private void Awake()
+    {
+        // シングルトンの設定
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

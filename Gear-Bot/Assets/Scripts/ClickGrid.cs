@@ -51,11 +51,19 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
                 currentState = GridState.OnClick;
                 meshRenderer.material = ClickMaterial;
 
+                SetGears.Instance.SetGear(this.transform);
             }
             else if (currentState == GridState.OnClick)
             {
                 currentState = GridState.Normal;
                 meshRenderer.material = onMaterial;
+
+                // 自分自身を含めて子オブジェクトを検索
+                GearDataBase gear = GetComponentInChildren<GearDataBase>();
+                if (gear != null)
+                {
+                    SetGears.Instance.RemoveGear(gear.gameObject);
+                }
             }
         }
     }
