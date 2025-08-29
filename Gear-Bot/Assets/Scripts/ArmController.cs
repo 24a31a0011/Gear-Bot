@@ -13,6 +13,7 @@ public class ObjectRotationController : MonoBehaviour
 
     [Header("動作時間設定")]
     [SerializeField] private float operationDuration = 2f; // 各段階の動作時間（秒）
+    [SerializeField] private float cooldownTime = 1f; // クールタイム（秒）
 
     [Header("電源状態")]
     [SerializeField] private bool isPowerOn = false; // 電源状態（デバッグ用表示）
@@ -25,14 +26,16 @@ public class ObjectRotationController : MonoBehaviour
     private Quaternion armOriginalRotation; // Armの元の回転
 
     // クレーン動作用の変数
-    private enum CraneState { Idle, Lifting, Rotating, Lowering }
+    private enum CraneState { Idle, Lifting, Rotating, Lowering, Cooldown }
     private CraneState currentState = CraneState.Idle;
     private float operationTimer = 0f; // 各動作の進行時間
+    private float cooldownTimer = 0f; // クールタイムの残り時間
     private float liftStartY; // 持ち上げ開始時のY座標
     private float liftTargetY; // 持ち上げ目標のY座標
     private float rotationStartAngle = 0f; // 回転開始角度
     private float rotationTargetAngle = 180f; // 回転目標角度
     private float currentRotation = 0f; // 現在の回転角度
+    private bool isTriggerActive = false; // トリガーオブジェクトが接触中かどうか
 
     void Start()
     {
@@ -57,15 +60,16 @@ public class ObjectRotationController : MonoBehaviour
 
     void Update()
     {
-        // 電源がONになったら即座にクレーン動作開始
-        if (isPowerOn && currentState == CraneState.Idle)
-        {
-            StartCraneOperation();
-        }
-
         // クレーン動作の状態管理
         switch (currentState)
         {
+            case CraneState.Idle:
+                // トリガーが有効で電源ONなら動作開始
+                if (isTriggerActive && isPowerOn)
+                {
+                    StartCraneOperation();
+                }
+                break;
             case CraneState.Lifting:
                 UpdateLifting();
                 break;
@@ -75,27 +79,34 @@ public class ObjectRotationController : MonoBehaviour
             case CraneState.Lowering:
                 UpdateLowering();
                 break;
+            case CraneState.Cooldown:
+                UpdateCooldown();
+                break;
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        // 指定レイヤーのオブジェクトが触れたら電源ON
+        // 指定レイヤーのオブジェクトが接触中で、動作可能な状態なら電源ON
         if (IsInLayerMask(other.gameObject.layer, triggerLayerMask))
         {
-            if (!isPowerOn)
+            isTriggerActive = true;
+
+            if (!isPowerOn && (currentState == CraneState.Idle))
             {
                 isPowerOn = true;
-                if (showPowerStatus) Debug.Log($"電源ON - トリガー: {other.gameObject.name}");
+                if (showPowerStatus) Debug.Log($"電源ON - トリガー接触: {other.gameObject.name}");
             }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        // 指定レイヤーのオブジェクトが離れたら電源OFF（動作中でなければ）
+        // 指定レイヤーのオブジェクトが離れたら電源OFF
         if (IsInLayerMask(other.gameObject.layer, triggerLayerMask))
         {
+            isTriggerActive = false;
+
             if (isPowerOn && currentState == CraneState.Idle)
             {
                 isPowerOn = false;
@@ -327,19 +338,47 @@ public class ObjectRotationController : MonoBehaviour
 
     private void CompleteCraneOperation()
     {
-        currentState = CraneState.Idle;
+        // クールタイム開始
+        StartCooldown();
 
         // デバッグ用ログ
         string message = targetObject != null ?
             $"クレーン動作完了: Arm位置 {transform.position}, {targetObject.name} 位置 {targetObject.position}" :
             $"クレーン動作完了: Arm位置 {transform.position} (Boxなし)";
 
-        if (showPowerStatus) Debug.Log(message);
-
-        // 電源を再びOFFにする
-        isPowerOn = false;
+        if (showPowerStatus) Debug.Log(message + $" - CT開始: {cooldownTime}秒");
 
         targetObject = null;
+    }
+
+    private void StartCooldown()
+    {
+        currentState = CraneState.Cooldown;
+        cooldownTimer = cooldownTime;
+
+        if (showPowerStatus) Debug.Log($"クールタイム開始: {cooldownTime}秒");
+    }
+
+    private void UpdateCooldown()
+    {
+        cooldownTimer -= Time.deltaTime;
+
+        if (cooldownTimer <= 0f)
+        {
+            // クールタイム終了
+            currentState = CraneState.Idle;
+
+            // トリガーがまだ接触中なら電源ON
+            if (isTriggerActive)
+            {
+                isPowerOn = true;
+                if (showPowerStatus) Debug.Log("クールタイム終了 - 電源ON（トリガー接触中）");
+            }
+            else
+            {
+                if (showPowerStatus) Debug.Log("クールタイム終了 - 待機状態");
+            }
+        }
     }
 
     // デバッグ用：先端と検出範囲、土台を可視化
@@ -378,6 +417,12 @@ public class ObjectRotationController : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(transform.position, Vector3.one * 0.5f);
+        }
+        else if (currentState == CraneState.Cooldown)
+        {
+            // クールタイム中はオレンジ色で表示
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position, Vector3.one * 0.3f);
         }
     }
 }
