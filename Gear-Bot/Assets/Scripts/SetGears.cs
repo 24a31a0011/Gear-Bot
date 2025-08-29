@@ -65,7 +65,9 @@ public class SetGears : MonoBehaviour
         if (seleteGearNumber >= 0 && gearList[seleteGearNumber].gearPieces > 0)
         {
             // ギアを生成する
-            GameObject gear = Instantiate(gearObject, gearpostion, Quaternion.identity);
+            GameObject gear = (GameObject)Instantiate(gearObject, gearpostion, Quaternion.identity);
+            // ギアをマスの子オブジェクトにする。
+            gear.transform.parent = pos.transform;
             // 生成したギアに情報を受け渡す
             gear.GetComponent<GearDataBase>().SetGearDateBase(seleteGearNumber,
                                                             gearList[seleteGearNumber].rotatecount);
