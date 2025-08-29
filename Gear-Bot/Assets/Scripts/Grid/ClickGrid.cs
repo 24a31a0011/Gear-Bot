@@ -3,6 +3,7 @@
 ///
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -41,7 +42,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // クリックされたらStateを変更する
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && SceneManager.GetActiveScene().name != "Stage1")
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
