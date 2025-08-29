@@ -16,7 +16,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [Header("Gridの色")]
     [SerializeField] private Material onMaterial;
     [SerializeField] private Material offMaterial;
-    [SerializeField] private Material ClickMaterial;
     [SerializeField] private Material dragMaterial;
 
     [SerializeField] private SetGears setGears;
@@ -42,23 +41,21 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // クリックされたらStateを変更する
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 左クリック時の処理
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            // 現在のStateによりクリックした時の処理を変更
-            if (currentState == GridState.Normal && SetGears.Instance.CheckGearPlacement())
+            if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
-                currentState = GridState.OnClick;
-                meshRenderer.material = ClickMaterial;
-
+                // OnClick を追加
+                currentState |= GridState.OnClick;
+                meshRenderer.material = offMaterial;
                 SetGears.Instance.SetGear(this.transform);
             }
-            else if (currentState == GridState.OnClick)
+            else if ((currentState & GridState.OnClick) != 0)
             {
-                currentState = GridState.Normal;
-                meshRenderer.material = onMaterial;
+                // OnClick を解除
+                currentState &= ~GridState.OnClick;
+                meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? dragMaterial : onMaterial; ;
 
-                // 自分自身を含めて子オブジェクトを検索
                 GearDataBase gear = GetComponentInChildren<GearDataBase>();
                 if (gear != null)
                 {
@@ -96,11 +93,11 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     /// </summary>
     public void ResetState()
     {
-        if (currentState == GridState.OnDrag)
+        if ((currentState & GridState.OnDrag) != 0)
         {
             GridManager.Instance.UnregisterRouteGrid(this);
             routeNumber = 0;
-            currentState = GridState.Normal;
+            currentState &= ~GridState.OnDrag;
             meshRenderer.material = offMaterial;
         }
     }
@@ -110,21 +107,24 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     /// </summary>
     private void OnDrag()
     {
-        if (currentState != GridState.OnDrag)
+        if ((currentState & GridState.OnDrag) == 0)
         {
             if (!GridManager.Instance.CheckDistance(this.transform))
                 return;
 
-            currentState = GridState.OnDrag;
+            currentState |= GridState.OnDrag; // OnDrag を追加
             meshRenderer.material = dragMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
-        else if (currentState == GridState.OnDrag)
+        else if ((currentState & GridState.OnDrag) != 0)
         {
             if (!GridManager.Instance.CheckLastRoute(this))
                 return;
 
-            ResetState();
+            // OnDrag を解除
+            currentState &= ~GridState.OnDrag;
+            meshRenderer.material = offMaterial;
+            GridManager.Instance.UnregisterRouteGrid(this);
         }
     }
 

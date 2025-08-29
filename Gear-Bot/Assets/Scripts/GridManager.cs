@@ -68,8 +68,10 @@ public class GridManager : MonoBehaviour
                 var grid = result.gameObject.GetComponent<ClickGrid>();
                 if (grid != null)
                 {
+                    // ルートの最初か否かで処理を変更
                     if (routeGrids.Count != 0)
                     {
+                        // タイルが隣同士か確認
                         if (!CheckDistance(grid.transform))
                             return;
 
