@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 8ec8f4c15cad77141a5a4868f065d891
 =======
 guid: 40755b503803e6e4f92e3ae8986a491f
 >>>>>>> feature/grid
+=======
+guid: 4c62c33e5ef0d2b479f1b25547da2a64
+>>>>>>> feature/UI
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
