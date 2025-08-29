@@ -46,7 +46,11 @@ public class SetGears : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        // ギアの初期所持数をテキストに反映する
+        for (sbyte i = 0; i < gearList.Count; i++)
+        {
+            GearNumTextChange(i);
+        }
     }
 
     // Update is called once per frame
@@ -91,8 +95,7 @@ public class SetGears : MonoBehaviour
             // 置いた種類のギアの所持数を減らす
             gearList[seleteGearNumber].gearPieces -= 1;
             // テキストの数字を変更する
-            gearList[seleteGearNumber].gearPiecesText.text =
-                gearList[seleteGearNumber].gearPieces.ToString();
+            GearNumTextChange(seleteGearNumber);
         }
     }
     /// <summary>
@@ -105,8 +108,7 @@ public class SetGears : MonoBehaviour
         // 外した種類のギアの所持数を増やす
         gearList[number].gearPieces += 1;
         // テキストの数字を変更する
-        gearList[number].gearPiecesText.text =
-            gearList[number].gearPieces.ToString();
+        GearNumTextChange(number);
         // 押されたギアを消す
         Destroy(obj);
     }
@@ -117,5 +119,14 @@ public class SetGears : MonoBehaviour
     public bool CheckGearPlacement()
     {
         return seleteGearNumber >= 0 && gearList[seleteGearNumber].gearPieces > 0;
+    }
+    /// <summary>
+    /// ギアの所持数のテキストを変える関数
+    /// </summary>
+    /// <param name="num"></param>
+    void GearNumTextChange(sbyte num)
+    {
+        gearList[num].gearPiecesText.text =
+                gearList[num].gearPieces.ToString();
     }
 }

@@ -8,6 +8,8 @@ public class GearDataBase : MonoBehaviour
     private sbyte gearNumber;
     // ¶¬‚µ‚½ƒMƒA‚Ì‰ñ“]‰Â”\‰ñ”‚ğŠi”[‚·‚é•Ï”
     private byte gearRotateCount;
+    // ƒMƒA‚ª‰ñ“]‚µ‚½‰ñ”‚ğƒJƒEƒ“ƒg‚·‚é•Ï”
+    private int gearRotating;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +30,23 @@ public class GearDataBase : MonoBehaviour
         GetgearRotateCount = count;
         Debug.Log(this.gearNumber + " : " + this.gearRotateCount);
     }
-
+    /// <summary>
+    /// ‚»‚ÌƒMƒA‚Ì‰ñ“]‰Â”\‰ñ”‚ğŒ¸‚ç‚·ŠÖ”
+    /// </summary>
+    public void RotatingGear()
+    {
+        GetgearRotating += 1;
+        GetgearRotateCount -= 1;
+    }
+    /// <summary>
+    /// ‚»‚ÌƒMƒA‚Ì‰ñ“]‚µ‚½‰ñ”‚ğ•Ô‚·•Ï”
+    /// </summary>
+    /// <returns></returns>
+    public int ReturnRotateCount()
+    {
+        return GetgearRotating;
+    }
+    // ŠeíƒQƒbƒ^[
     public sbyte GetgearNumber
     {
         get { return this.gearNumber; }
@@ -40,4 +58,10 @@ public class GearDataBase : MonoBehaviour
         get { return this.gearRotateCount; }
         set { this.gearRotateCount = value; }
     }
+    public int GetgearRotating
+    {
+        get { return this.gearRotating; }
+        private set { this.gearRotating = value; }
+    }
+
 }
