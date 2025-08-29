@@ -36,6 +36,8 @@ public class ObjectRotationController : MonoBehaviour
     private float rotationStartAngle = 0f; // 回転開始角度
     private float rotationTargetAngle = 180f; // 回転目標角度
     private float currentRotation = 0f; // 現在の回転角度
+    private float pausedRotation = 0f; // 一時停止時の回転角度
+    private float pausedOperationTimer = 0f; // 一時停止時の動作タイマー
     private bool isTriggerActive = false; // トリガーオブジェクトが接触中かどうか
     private int activeTriggerCount = 0; // 接触中のトリガーオブジェクトの数
 
@@ -43,12 +45,6 @@ public class ObjectRotationController : MonoBehaviour
     private Vector3 armInitialPosition; // Armの初期位置
     private Quaternion armInitialRotation; // Armの初期回転
     private bool hasStoredInitialState = false; // 初期状態を保存済みかどうか
-
-    private bool isPaused = false;  // 一時停止フラグ
-    private bool needsToResume = false;  // 再開すべき動作があるかどうかのフラグ
-    private Vector3 savedPosition;  // 一時停止前の位置
-    private Quaternion savedRotation;  // 一時停止前の回転
-    private float savedTime;  // 一時停止前の時間（もし時間に基づく処理があれば）
 
     void Start()
     {
@@ -98,7 +94,7 @@ public class ObjectRotationController : MonoBehaviour
         }
 
         // 電源がONになったら一時停止を解除
-        if (isPowerOn && currentState == CraneState.Paused)
+        if (isPowerOn && isTriggerActive && currentState == CraneState.Paused)
         {
             ResumeOperation();
         }
@@ -136,7 +132,15 @@ public class ObjectRotationController : MonoBehaviour
         // 指定レイヤーのオブジェクトが接触中の場合
         if (IsInLayerMask(other.gameObject.layer, triggerLayerMask))
         {
-            // 既に電源ONで動作可能な状態なら動作開始
+            // 一時停止中なら即座に電源ONして復帰
+            if (currentState == CraneState.Paused && !isPowerOn)
+            {
+                isPowerOn = true;
+                if (showPowerStatus) Debug.Log($"一時停止中 - 電源ON（Stay）: {other.gameObject.name}");
+                return;
+            }
+
+            // 通常の電源ON処理
             if (isTriggerActive && !isPowerOn && (currentState == CraneState.Idle))
             {
                 isPowerOn = true;
@@ -155,6 +159,14 @@ public class ObjectRotationController : MonoBehaviour
             isTriggerActive = true;
 
             if (showPowerStatus) Debug.Log($"トリガー有効化: {other.gameObject.name} (アクティブ数: {activeTriggerCount})");
+
+            // 一時停止中の場合は即座に電源ONして復帰処理
+            if (currentState == CraneState.Paused)
+            {
+                isPowerOn = true;
+                if (showPowerStatus) Debug.Log($"一時停止中にトリガー接触 - 電源ON: {other.gameObject.name}");
+                return;
+            }
 
             // 電源ON条件の詳細チェック
             if (showPowerStatus) Debug.Log($"電源ON条件チェック: isPowerOn={isPowerOn}, currentState={currentState}, 条件満足={(!isPowerOn && currentState == CraneState.Idle)}");
@@ -500,8 +512,13 @@ public class ObjectRotationController : MonoBehaviour
     {
         if (showPowerStatus) Debug.Log($"電源OFF - 動作一時停止（状態: {currentState}）");
 
-        // 現在の状態を保存して一時停止
+        // 現在の状態と進行状況を保存
         pausedFromState = currentState;
+        pausedRotation = currentRotation;
+        pausedOperationTimer = operationTimer;
+
+        if (showPowerStatus) Debug.Log($"一時停止時の進行状況保存: 回転角度={pausedRotation:F1}度, タイマー={pausedOperationTimer:F2}秒");
+
         currentState = CraneState.Paused;
 
         // Boxを持っている場合は落下させる
@@ -518,10 +535,59 @@ public class ObjectRotationController : MonoBehaviour
         // 一時停止前の状態に戻す（ただし、初期位置からは開始しない）
         currentState = pausedFromState;
 
+        // Boxが落下してしまったので、再検索が必要
+        if (pausedFromState == CraneState.Lifting || pausedFromState == CraneState.Rotating || pausedFromState == CraneState.Lowering)
+        {
+            // Box参照をクリアして新しく検索
+            targetObject = null;
+
+            // 新しいBoxを検索
+            FindAndGrabObjectBelow();
+
+            // 見つからなければArmのみで動作継続
+            if (targetObject != null)
+            {
+                // 新しいBoxの情報を更新
+                originalPosition = targetObject.position;
+                originalRotation = targetObject.rotation;
+                if (showPowerStatus) Debug.Log($"復帰時に新しいBox発見: {targetObject.name}");
+            }
+            else
+            {
+                if (showPowerStatus) Debug.Log("復帰時にBox見つからず - Armのみで動作継続");
+            }
+
+            // 一時停止前の状態に応じて適切なタイマー設定
+            switch (pausedFromState)
+            {
+                case CraneState.Lifting:
+                    // 持ち上げの途中から再開
+                    if (targetObject != null)
+                    {
+                        liftStartY = targetObject.position.y;
+                        liftTargetY = liftStartY + liftHeight;
+                    }
+                    break;
+                case CraneState.Rotating:
+                    // 回転動作を最初から開始
+                    operationTimer = 0f;
+                    currentRotation = 0f;
+                    break;
+                case CraneState.Lowering:
+                    // 降下動作は新しいBoxの場合最初から
+                    if (targetObject != null)
+                    {
+                        liftStartY = targetObject.position.y;
+                        liftTargetY = originalPosition.y;
+                    }
+                    operationTimer = 0f;
+                    break;
+            }
+        }
+
         // 電源を一時的にOFFにして重複動作を防ぐ
         isPowerOn = false;
     }
-
 
     private void DropBox()
     {
@@ -531,34 +597,22 @@ public class ObjectRotationController : MonoBehaviour
         Vector3 boxPosition = targetObject.position;
         RaycastHit hit;
 
-        // 地面に向かってレイキャストを行い、地面の位置を取得
         if (Physics.Raycast(boxPosition, Vector3.down, out hit, Mathf.Infinity))
         {
             // 地面が見つかった場合、その位置にBox配置
             Vector3 dropPosition = hit.point;
-
-            // Boxの高さを考慮して位置を調整（Boxの下端が地面に接するようにする）
-            Vector3 boxColliderCenter = targetObject.GetComponent<Collider>().bounds.center;
-            float boxHeight = targetObject.GetComponent<Collider>().bounds.extents.y;
-
-            // 地面の上に置くためにBoxのY位置を調整
-            dropPosition.y += boxHeight;
-
-            // Boxを新しい位置に配置
             targetObject.position = dropPosition;
 
-            if (showPowerStatus)
-                Debug.Log($"Box落下: {targetObject.name} を {dropPosition} に落下");
+            if (showPowerStatus) Debug.Log($"Box落下: {targetObject.name} を {dropPosition} に落下");
         }
         else
         {
-            // 地面が見つからない場合、元の高さに戻す
+            // 地面が見つからない場合、元の高さまで下げる
             Vector3 dropPosition = targetObject.position;
             dropPosition.y = originalPosition.y;
             targetObject.position = dropPosition;
 
-            if (showPowerStatus)
-                Debug.Log($"Box落下: {targetObject.name} を元の高さ {dropPosition} に落下");
+            if (showPowerStatus) Debug.Log($"Box落下: {targetObject.name} を元の高さ {dropPosition} に落下");
         }
 
         // 回転は元に戻す
@@ -567,7 +621,6 @@ public class ObjectRotationController : MonoBehaviour
         // Boxの参照をクリア
         targetObject = null;
     }
-
 
     // デバッグ用：先端と検出範囲、土台を可視化
     void OnDrawGizmosSelected()

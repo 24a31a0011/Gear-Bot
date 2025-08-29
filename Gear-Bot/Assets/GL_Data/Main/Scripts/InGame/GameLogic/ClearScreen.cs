@@ -1,5 +1,4 @@
-﻿using UnityEditor.EditorTools;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI; // UIを扱うために必要
 
 public class ClearScreen : MonoBehaviour
