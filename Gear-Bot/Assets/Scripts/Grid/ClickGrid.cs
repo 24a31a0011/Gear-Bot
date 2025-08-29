@@ -19,8 +19,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [SerializeField] private Material offMaterial;
     [SerializeField] private Material dragMaterial;
 
-    [SerializeField] private SetGears setGears;
-
     private MeshRenderer meshRenderer;
 
     public GridState currentState = GridState.Normal;

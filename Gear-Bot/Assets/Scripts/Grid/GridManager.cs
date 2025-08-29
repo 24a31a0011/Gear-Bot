@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GridManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GridManager : MonoBehaviour
 
     [Header("荷物のオブジェクト")]
     [SerializeField] GameObject bagObject;
+
+    [Header("ゴールのオブジェクト")]
+    [SerializeField] GameObject goalObject;
 
     [Header("矢印のオブジェクト")]
     [SerializeField] GameObject arrowTipPrefab;
@@ -34,7 +38,7 @@ public class GridManager : MonoBehaviour
     private bool isRightDragging = false;
 
     bool isButtonEnabled = true;
-
+    bool activeBag = false;
     private void Awake()
     {
         // シングルトンの設定
@@ -360,11 +364,18 @@ public class GridManager : MonoBehaviour
             {
                 bagObject.SetActive(false);
                 pBagObject.SetActive(true);
+                activeBag = true;
             }
 
             yield return new WaitForSeconds(0.5f);
         }
         yield return null;
+
+        // プレイヤーがゴールと接触したら
+        if (playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
+        {
+            SceneController.Instance.ClearScene();
+        }
 
         routeGrids[0].ResetState();
 
