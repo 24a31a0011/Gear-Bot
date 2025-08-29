@@ -11,15 +11,18 @@ public class GridManager : MonoBehaviour
     // シングルトンパターン:どこからでもアクセス出来るように
     public static GridManager Instance { get; private set; }
 
+    [Header("プレイヤー関連のオブジェクト")]
     [SerializeField] GameObject playerObject;
+    [SerializeField] GameObject pBagObject;
+
+    [Header("荷物のオブジェクト")]
+    [SerializeField] GameObject bagObject;
 
     [Header("矢印のオブジェクト")]
     [SerializeField] GameObject arrowTipPrefab;
     [SerializeField] GameObject verticalPrefab;
     [SerializeField] GameObject horizontalPrefab;
     [SerializeField] GameObject cornerPrefab;
-
-    private GameObject cloneMark;
 
     // シーン内の全てのGridを登録するリスト
     private List<ClickGrid> clickGrids = new List<ClickGrid>();
@@ -29,6 +32,8 @@ public class GridManager : MonoBehaviour
 
     // 右クリックドラッグ中かどうか
     private bool isRightDragging = false;
+
+    bool isButtonEnabled = true;
 
     private void Awake()
     {
@@ -46,6 +51,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         routeGrids.OnChanged += () => PlaceArrows();
+        pBagObject.SetActive(false);
     }
 
     private void Update()
@@ -255,39 +261,46 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらルートを消す
     public void OnClickResetRoute()
     {
-        ResetState();
+        if (isButtonEnabled)
+        {
+            ResetState();
+        }
     }
 
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
-        if (routeGrids.Count == 0)
+        if (isButtonEnabled)
         {
-            Debug.LogWarning("ルートが設定されていません");
-            return;
-        }
-
-        // プレイヤーがルートの最初のマスにいなければエラー
-        if (playerObject.transform.position.x != routeGrids[0].transform.position.x ||
-            playerObject.transform.position.z != routeGrids[0].transform.position.z)
-        {
-            Debug.LogWarning("ルートの最初のマスがプレイヤーの位置と合致していません");
-            return;
-        }
-
-        // ルートが途中で途切れていたらエラー
-        for (int i = 0; i < routeGrids.Count - 1; i++)
-        {
-            float distance = Vector3.Distance(routeGrids[i].transform.position, routeGrids[i + 1].transform.position);
-            if (distance != 1)
+            isButtonEnabled = false;
+            if (routeGrids.Count == 0)
             {
-                Debug.LogWarning("ルートが途中で途切れています");
+                Debug.LogWarning("ルートが設定されていません");
                 return;
             }
-        }
 
-        // 移動開始（コルーチン）
-        StartCoroutine(MovePlayerSmoothly());
+            // プレイヤーがルートの最初のマスにいなければエラー
+            if (playerObject.transform.position.x != routeGrids[0].transform.position.x ||
+                playerObject.transform.position.z != routeGrids[0].transform.position.z)
+            {
+                Debug.LogWarning("ルートの最初のマスがプレイヤーの位置と合致していません");
+                return;
+            }
+
+            // ルートが途中で途切れていたらエラー
+            for (int i = 0; i < routeGrids.Count - 1; i++)
+            {
+                float distance = Vector3.Distance(routeGrids[i].transform.position, routeGrids[i + 1].transform.position);
+                if (distance != 1)
+                {
+                    Debug.LogWarning("ルートが途中で途切れています");
+                    return;
+                }
+            }
+
+            // 移動開始（コルーチン）
+            StartCoroutine(MovePlayerSmoothly());
+        }
     }
 
     private IEnumerator MovePlayerSmoothly()
@@ -342,11 +355,20 @@ public class GridManager : MonoBehaviour
             // すでに進んだ分のルートは消す
             routeGrids[copyRouteList.Count - index].ResetState();
 
+            // プレイヤーがbagと接触したら
+            if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
+            {
+                bagObject.SetActive(false);
+                pBagObject.SetActive(true);
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
         yield return null;
 
         routeGrids[0].ResetState();
+
+        isButtonEnabled = true;
     }
 
     /// <summary>
