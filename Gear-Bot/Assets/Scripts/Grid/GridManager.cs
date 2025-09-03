@@ -55,6 +55,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         routeGrids.OnChanged += () => PlaceArrows();
+        if (pBagObject == null) return;
         pBagObject.SetActive(false);
     }
 
@@ -363,6 +364,7 @@ public class GridManager : MonoBehaviour
             if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
             {
                 bagObject.SetActive(false);
+                if (pBagObject == null) break;
                 pBagObject.SetActive(true);
                 activeBag = true;
             }
@@ -372,7 +374,7 @@ public class GridManager : MonoBehaviour
         yield return null;
 
         // プレイヤーがゴールと接触したら
-        if (playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
+        if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
         {
             SceneController.Instance.ClearScene();
         }
