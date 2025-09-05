@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bridge
       objectReference: {fileID: 0}
+    - target: {fileID: 318904023006054311, guid: 5c69757e73785864e89aabf8dcce5579, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4247862266003779582, guid: 5c69757e73785864e89aabf8dcce5579, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -423,6 +427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bridge (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 318904023006054311, guid: 5c69757e73785864e89aabf8dcce5579, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4247862266003779582, guid: 5c69757e73785864e89aabf8dcce5579, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -555,13 +563,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454224928}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 1, y: 8, z: -5}
+  m_LocalRotation: {x: 0.55854166, y: 0, z: 0, w: 0.8294765}
+  m_LocalPosition: {x: 3.46, y: 8.98, z: -6.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.91, y: 0, z: 0}
 --- !u!114 &1454224932
 MonoBehaviour:
   m_ObjectHideFlags: 0

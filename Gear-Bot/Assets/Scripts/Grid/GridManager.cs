@@ -401,6 +401,17 @@ public class GridManager : MonoBehaviour
                 }
             }
 
+            // プレイヤーがゴールと接触したら
+            if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
+            {
+                SceneController.Instance.ClearScene();
+            }
+            else if (i + 1 == copyRouteList.Count)
+            {
+                // 最終地点でゴールに接触していなかったら
+                StartCoroutine(FadeSequence());
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
         yield return null;
