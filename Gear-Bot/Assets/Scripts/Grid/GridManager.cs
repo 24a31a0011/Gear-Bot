@@ -33,9 +33,9 @@ public class GridManager : MonoBehaviour
 
     // プレイヤーが進むルートを登録するリスト
     private routeGrids<ClickGrid> routeGrids = new routeGrids<ClickGrid>();
-
-    // 右クリックドラッグ中かどうか
-    private bool isRightDragging = false;
+    
+    // 左クリックドラッグ中かどうか
+    private bool isLeftDragging = false;
 
     bool isButtonEnabled = true;
     bool activeBag = false;
@@ -61,10 +61,10 @@ public class GridManager : MonoBehaviour
 
     private void Update()
     {
-        // 右クリックを押した瞬間
-        if (Input.GetMouseButtonDown(1))
+        // 左クリックを押した瞬間
+        if (Input.GetMouseButtonDown(0))
         {
-            isRightDragging = true;
+            isLeftDragging = true;
 
             // 押下した位置にあるGridも塗る
             var pointer = new PointerEventData(EventSystem.current)
@@ -96,10 +96,10 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        // 右クリックを離した瞬間
-        if (Input.GetMouseButtonUp(1))
+        // 左クリックを離した瞬間
+        if (Input.GetMouseButtonUp(0))
         {
-            isRightDragging = false;
+            isLeftDragging = false;
         }
     }
 
@@ -160,11 +160,11 @@ public class GridManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 右クリック中かどうか
+    /// 左クリック中かどうか
     /// </summary>
-    public bool GetIsRightDragging()
+    public bool GetIsLeftDragging()
     {
-        return isRightDragging;
+        return isLeftDragging;
     }
 
     /// <summary>

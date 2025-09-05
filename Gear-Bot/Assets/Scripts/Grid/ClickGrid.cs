@@ -21,7 +21,8 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
 
     private MeshRenderer meshRenderer;
 
-    public GridState currentState = GridState.Normal;
+    // 現在のState
+    private GridState currentState = GridState.Normal;
 
     // ルートとして使われた際の番号を格納
     public int routeNumber = 0;
@@ -40,7 +41,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // クリックされたらStateを変更する
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left && SceneManager.GetActiveScene().name != "Stage1")
+        if (eventData.button == PointerEventData.InputButton.Right && SceneManager.GetActiveScene().name != "Stage1")
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
@@ -67,8 +68,8 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // マウスポインタがオブジェクトと重なっている
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // 右ドラッグ中なら即塗り
-        if (GridManager.Instance.GetIsRightDragging())
+        // 左ドラッグ中なら即塗り
+        if (GridManager.Instance.GetIsLeftDragging())
         {
             OnDrag();
         }
@@ -102,7 +103,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     }
 
     /// <summary>
-    /// 右クリック時の処理
+    /// 左クリック時の処理
     /// </summary>
     private void OnDrag()
     {
