@@ -12,13 +12,13 @@ public class GearDataBase : MonoBehaviour
     // ギアが回転した回数をカウントする変数
     private int gearRotating;
     // ギアの残り回転数を表示する変数
-    // private Text gearText; (まだマージしていないプログラムに使うので提出用に一旦無効化します。)
+    private Text gearText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // ギアの子テキストを取得
-        // gearText = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>();
-        // RotateCountChange();
+        gearText = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+        RotateCountChange();
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class GearDataBase : MonoBehaviour
         GetgearNumber = number;
         GetgearRotateCount = count;
         Debug.Log(this.gearNumber + " : " + this.gearRotateCount);
-        // RotateCountChange();
+        RotateCountChange();
     }
     /// <summary>
     /// そのギアの回転可能回数を減らす関数
@@ -54,7 +54,7 @@ public class GearDataBase : MonoBehaviour
     }
     private void RotateCountChange()
     {
-        // gearText.text = GetgearRotateCount.ToString();
+        gearText.text = GetgearRotateCount.ToString();
     }
     // 各種ゲッター
     public sbyte GetgearNumber
