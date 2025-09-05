@@ -33,9 +33,13 @@ public class ConveyorBelt : MonoBehaviour
     private readonly List<Collider> tempColliderList = new List<Collider>(32);
     private readonly Collider[] pushCheckBuffer = new Collider[16];
 
+    Animator animator;
+    private float animationNormalizedTime = 0f;
+
     private void Start()
     {
         UpdateCache();  // 初回キャッシュ更新
+        animator = GetComponent<Animator>();
     }
 
     private void OnValidate()
@@ -76,7 +80,8 @@ public class ConveyorBelt : MonoBehaviour
         Vector3 center = transform.position + Vector3.up * detectionHeight;
 
         // OverlapBoxで検出、結果をoverlapBufferに格納
-        int count = Physics.OverlapBoxNonAlloc(center, cachedHalfExtents, overlapBuffer, transform.rotation, affectedLayers);
+        // 回転を無視して検出したい場合
+        int count = Physics.OverlapBoxNonAlloc(center, cachedHalfExtents, overlapBuffer, Quaternion.identity, affectedLayers);
 
         tempColliderList.Clear();
 
@@ -142,14 +147,18 @@ public class ConveyorBelt : MonoBehaviour
     /// </summary>
     private IEnumerator SlideObject(Transform obj, Vector3 targetPos)
     {
-        movingObjects.Add(obj);  // 移動中リストに追加
+        // アニメーション再生開始
+        if (!animator.GetBool("IsMoving"))
+            animator.SetBool("IsMoving", true);
+
+        movingObjects.Add(obj);
 
         Vector3 startPos = obj.position;
         float invDuration = 1f / slidespeed;
 
         for (float elapsed = 0f; elapsed < slidespeed; elapsed += Time.deltaTime)
         {
-            if (obj == null) break;  // オブジェクトが途中で消えた場合の安全処理
+            if (obj == null) break;
 
             float t = elapsed * invDuration;
             obj.position = Vector3.Lerp(startPos, targetPos, t);
@@ -158,11 +167,16 @@ public class ConveyorBelt : MonoBehaviour
 
         if (obj != null)
         {
-            obj.position = targetPos;  // 最終位置を確実にセット
+            obj.position = targetPos;
         }
 
-        movingObjects.Remove(obj);  // 移動完了
+        movingObjects.Remove(obj);
+
+        // 最後の1つの荷物が移動完了したらアニメーション停止
+        if (movingObjects.Count == 0)
+            animator.SetBool("IsMoving", false);
     }
+
 
     /// <summary>
     /// 位置をグリッドにスナップ（中央揃え）
@@ -199,6 +213,8 @@ public class ConveyorBelt : MonoBehaviour
     {
         return movingObjects.Count > 0;
     }
+
+
 
     /// <summary>
     /// ギズモで検出範囲と移動方向を可視化
