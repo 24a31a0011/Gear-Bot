@@ -6,15 +6,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
     // シングルトンパターン:どこからでもアクセス出来るように
     public static GridManager Instance { get; private set; }
 
-    [Header("プレイヤー関連のオブジェクト")]
+    [Header("プレイヤー関連のデータ")]
     [SerializeField] GameObject playerObject;
     [SerializeField] GameObject pBagObject;
+    [SerializeField] Vector3 startPosition;
 
     [Header("荷物のオブジェクト")]
     [SerializeField] GameObject bagObject;
@@ -28,12 +30,23 @@ public class GridManager : MonoBehaviour
     [SerializeField] GameObject horizontalPrefab;
     [SerializeField] GameObject cornerPrefab;
 
+    [Header("移動可能回数")]
+    [SerializeField] int availableMoves;
+    // 残り移動可能回数
+    private int remainingMoves;
+    [SerializeField] Text showRemainingMoves;
+
+    private FadeController fadeController;
+
     // シーン内の全てのGridを登録するリスト
     private List<ClickGrid> clickGrids = new List<ClickGrid>();
 
     // プレイヤーが進むルートを登録するリスト
-    private routeGrids<ClickGrid> routeGrids = new routeGrids<ClickGrid>();
-    
+    private routeGrids<ClickGrid> routes = new routeGrids<ClickGrid>();
+
+    // 開始buttonを押した直前のルートの状態を保存
+    private routeGrids<ClickGrid> currentRouteGrids = new routeGrids<ClickGrid>();
+
     // 左クリックドラッグ中かどうか
     private bool isLeftDragging = false;
 
@@ -54,13 +67,17 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        routeGrids.OnChanged += () => PlaceArrows();
+        routes.OnChanged += () => PlaceArrows();
+        remainingMoves = availableMoves;
+        fadeController = GetComponent<FadeController>();
         if (pBagObject == null) return;
         pBagObject.SetActive(false);
     }
 
     private void Update()
     {
+        showRemainingMoves.text = remainingMoves.ToString();
+
         // 左クリックを押した瞬間
         if (Input.GetMouseButtonDown(0))
         {
@@ -80,7 +97,7 @@ public class GridManager : MonoBehaviour
                 if (grid != null)
                 {
                     // ルートの最初か否かで処理を変更
-                    if (routeGrids.Count != 0)
+                    if (routes.Count != 0)
                     {
                         // タイルが隣同士か確認
                         if (!CheckDistance(grid.transform))
@@ -88,7 +105,7 @@ public class GridManager : MonoBehaviour
 
                         grid.OnDragByManager();
                     }
-                    else if (routeGrids.Count == 0 && grid.transform.position.x == playerObject.transform.position.x && grid.transform.position.z == playerObject.transform.position.z)
+                    else if (routes.Count == 0 && grid.transform.position.x == playerObject.transform.position.x && grid.transform.position.z == playerObject.transform.position.z)
                     {
                         grid.OnDragByManager();
                     }
@@ -130,10 +147,10 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void RegisterRouteGrid(ClickGrid grid)
     {
-        if (!routeGrids.Contains(grid))
+        if (!routes.Contains(grid))
         {
-            routeGrids.Add(grid);
-            grid.SetRouteNumber(routeGrids.Count);
+            routes.Add(grid);
+            grid.SetRouteNumber(routes.Count);
         }
     }
 
@@ -142,9 +159,9 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void UnregisterRouteGrid(ClickGrid grid)
     {
-        if (routeGrids.Contains(grid))
+        if (routes.Contains(grid))
         {
-            routeGrids.Remove(grid);
+            routes.Remove(grid);
         }
     }
 
@@ -179,29 +196,29 @@ public class GridManager : MonoBehaviour
             Destroy(obj);
         arrowObjects.Clear();
 
-        if (routeGrids.Count == 0) return;
+        if (routes.Count == 0) return;
 
-        for (int i = 0; i < routeGrids.Count; i++)
+        for (int i = 0; i < routes.Count; i++)
         {
             GameObject arrowPrefab = null;
             Quaternion rotation = Quaternion.identity;
 
-            if (i == routeGrids.Count - 1)
+            if (i == routes.Count - 1)
             {
                 // 最後は矢印の先端
                 arrowPrefab = arrowTipPrefab;
 
                 if (i > 0)
                 {
-                    Vector3 dir = (routeGrids[i -1].transform.position - routeGrids[i].transform.position).normalized;
+                    Vector3 dir = (routes[i -1].transform.position - routes[i].transform.position).normalized;
                     rotation = Quaternion.LookRotation(dir);
                 }
             }
             else if(i > 0)
             {
                 // 道中
-                Vector3 prevDir = (routeGrids[i].transform.position - routeGrids[i - 1].transform.position).normalized;
-                Vector3 nextDir = (routeGrids[i + 1].transform.position - routeGrids[i].transform.position).normalized;
+                Vector3 prevDir = (routes[i].transform.position - routes[i - 1].transform.position).normalized;
+                Vector3 nextDir = (routes[i + 1].transform.position - routes[i].transform.position).normalized;
 
                 if (Vector3.Angle(prevDir, nextDir) > 0.1f)
                 {
@@ -245,7 +262,7 @@ public class GridManager : MonoBehaviour
             else
             {
                 // ルート最初のマス
-                Vector3 dir = (routeGrids[i + 1].transform.position - routeGrids[i].transform.position).normalized;
+                Vector3 dir = (routes[i + 1].transform.position - routes[i].transform.position).normalized;
 
                 if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z))
                     arrowPrefab = horizontalPrefab;
@@ -257,7 +274,7 @@ public class GridManager : MonoBehaviour
 
             if (arrowPrefab != null)
             {
-                GameObject arrow = Instantiate(arrowPrefab, routeGrids[i].transform.position, rotation);
+                GameObject arrow = Instantiate(arrowPrefab, routes[i].transform.position, rotation);
                 arrowObjects.Add(arrow);
             }
         }
@@ -275,27 +292,28 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
+        currentRouteGrids = new routeGrids<ClickGrid>(routes.ToList());
         if (isButtonEnabled)
         {
             isButtonEnabled = false;
-            if (routeGrids.Count == 0)
+            if (routes.Count == 0)
             {
                 Debug.LogWarning("ルートが設定されていません");
                 return;
             }
 
             // プレイヤーがルートの最初のマスにいなければエラー
-            if (playerObject.transform.position.x != routeGrids[0].transform.position.x ||
-                playerObject.transform.position.z != routeGrids[0].transform.position.z)
+            if (playerObject.transform.position.x != routes[0].transform.position.x ||
+                playerObject.transform.position.z != routes[0].transform.position.z)
             {
                 Debug.LogWarning("ルートの最初のマスがプレイヤーの位置と合致していません");
                 return;
             }
 
             // ルートが途中で途切れていたらエラー
-            for (int i = 0; i < routeGrids.Count - 1; i++)
+            for (int i = 0; i < routes.Count - 1; i++)
             {
-                float distance = Vector3.Distance(routeGrids[i].transform.position, routeGrids[i + 1].transform.position);
+                float distance = Vector3.Distance(routes[i].transform.position, routes[i + 1].transform.position);
                 if (distance != 1)
                 {
                     Debug.LogWarning("ルートが途中で途切れています");
@@ -313,7 +331,7 @@ public class GridManager : MonoBehaviour
         float moveSpeed = 2f;     // 移動速度
         float rotateSpeed = 5f;   // 回転速度
 
-        routeGrids<ClickGrid> copyRouteList = new routeGrids<ClickGrid>(routeGrids.ToList());
+        routeGrids<ClickGrid> copyRouteList = new routeGrids<ClickGrid>(routes.ToList());
 
         int index = copyRouteList.Count;
 
@@ -358,7 +376,7 @@ public class GridManager : MonoBehaviour
             playerObject.transform.position = targetPos;
 
             // すでに進んだ分のルートは消す
-            routeGrids[copyRouteList.Count - index].ResetState();
+            routes[copyRouteList.Count - index].ResetState();
 
             // プレイヤーがbagと接触したら
             if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
@@ -367,6 +385,20 @@ public class GridManager : MonoBehaviour
                 if (pBagObject == null) break;
                 pBagObject.SetActive(true);
                 activeBag = true;
+            }
+
+            remainingMoves--;
+
+            // 移動可能数より多く移動しようとした場合
+            if (i+1 < copyRouteList.Count)
+            {
+                if (i >= availableMoves)
+                {
+                    Debug.LogWarning("移動可能数より多く移動しようとしています");
+                    // 画面を暗転させてプレイヤーを初期位置に移動させます
+                    StartCoroutine(FadeSequence());
+                    break;
+                }
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -378,8 +410,13 @@ public class GridManager : MonoBehaviour
         {
             SceneController.Instance.ClearScene();
         }
+        else
+        {
+            // 最終地点でゴールに接触していなかったら
+            StartCoroutine(FadeSequence());
+        }
 
-        routeGrids[0].ResetState();
+        routes[0].ResetState();
 
         isButtonEnabled = true;
     }
@@ -389,9 +426,9 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public bool CheckDistance(Transform gridPos)
     {
-        if (routeGrids.Count == 0) return false;
+        if (routes.Count == 0) return false;
 
-        return Vector3.Distance(routeGrids.Last.transform.position, gridPos.position) <= 1f;
+        return Vector3.Distance(routes.Last.transform.position, gridPos.position) <= 1f;
     }
 
     /// <summary>
@@ -399,10 +436,29 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public bool CheckLastRoute(ClickGrid clickGrid)
     {
-        if (routeGrids == null || routeGrids.Count == 0)
+        if (routes == null || routes.Count == 0)
             return false;
 
         // 最後の要素と比較
-        return routeGrids.Last == clickGrid;
+        return routes.Last == clickGrid;
+    }
+
+    private IEnumerator FadeSequence()
+    {
+        // 1. 暗転
+        yield return StartCoroutine(fadeController.FadeOut());
+
+        // 2. 演出
+        playerObject.transform.position = startPosition;
+        ResetState();
+        remainingMoves = availableMoves;
+        for (int i = 0; i < currentRouteGrids.Count; i++)
+        {
+            currentRouteGrids[i].SetOnDrag();
+        }
+        yield return new WaitForSeconds(1f); // 例: 2秒待機
+
+        // 3. 明るく戻す
+        yield return StartCoroutine(fadeController.FadeIn());
     }
 }

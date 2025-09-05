@@ -149,4 +149,11 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
             ResetState();
         }
     }
+
+    public void SetOnDrag()
+    {
+        currentState = GridState.OnDrag;
+        meshRenderer.material = dragMaterial;
+        GridManager.Instance.RegisterRouteGrid(this);
+    }
 }
