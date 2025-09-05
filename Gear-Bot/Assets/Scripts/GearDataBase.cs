@@ -9,16 +9,12 @@ public class GearDataBase : MonoBehaviour
     private sbyte gearNumber;
     // 生成したギアの回転可能回数を格納する変数
     private byte gearRotateCount;
-    // ギアが回転した回数をカウントする変数
-    private int gearRotating;
-    // ギアの残り回転数を表示する変数
-    private Text gearText;
+    // 子オブジェクトを格納する変数
+    private GameObject gearChild;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // ギアの子テキストを取得
-        gearText = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>();
-        RotateCountChange();
+        
     }
 
     // Update is called once per frame
@@ -32,46 +28,39 @@ public class GearDataBase : MonoBehaviour
     public void SetGearDateBase(sbyte number, byte count)
     {
         GetgearNumber = number;
-        GetgearRotateCount = count;
+        gearRotateCount = count;
         Debug.Log(this.gearNumber + " : " + this.gearRotateCount);
-        RotateCountChange();
+        RotateMaterialChange();
     }
     /// <summary>
     /// そのギアの回転可能回数を減らす関数
     /// </summary>
     public void RotatingGear()
     {
-        GetgearRotating += 1;
-        GetgearRotateCount -= 1;
+        gearRotateCount -= 1;
+        RotateMaterialChange();
     }
     /// <summary>
-    /// そのギアの回転した回数を返す変数
+    /// ギアの数字のマテリアルを変える関数
     /// </summary>
-    /// <returns></returns>
-    public int ReturnRotateCount()
+    private void RotateMaterialChange()
     {
-        return GetgearRotating;
-    }
-    private void RotateCountChange()
-    {
-        gearText.text = GetgearRotateCount.ToString();
+        // 子オブジェクトを取得
+        gearChild = this.transform.GetChild(0).gameObject;
+        // 回転可能回数がマテリアルの種類より少ない時
+        if (gearRotateCount < SetGears.Instance.GetgearMaterialLength.Length)
+        {
+            // 子オブジェクトのマテリアルを変える
+            Material[] mats = gearChild.GetComponent<MeshRenderer>().materials;
+            mats[1] = SetGears.Instance.GetgearMaterial(gearRotateCount);
+            gearChild.GetComponent<MeshRenderer>().materials = mats;
+        }
     }
     // 各種ゲッター
     public sbyte GetgearNumber
     {
         get { return this.gearNumber; }
         private set { this.gearNumber = value; }
-    }
-
-    public byte GetgearRotateCount
-    {
-        get { return this.gearRotateCount; }
-        set { this.gearRotateCount = value; }
-    }
-    public int GetgearRotating
-    {
-        get { return this.gearRotating; }
-        private set { this.gearRotating = value; }
     }
 
 }

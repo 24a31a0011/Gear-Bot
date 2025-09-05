@@ -30,6 +30,9 @@ public class SetGears : MonoBehaviour
     // 選ばれているギアの番号(リストの配列から取得する)
     private sbyte seleteGearNumber = -1;
 
+    // ギアに表示する数字のマテリアル
+    [SerializeField] private Material[] gearMaterial;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -89,8 +92,10 @@ public class SetGears : MonoBehaviour
             GameObject gear = (GameObject)Instantiate(gearObject, gearpostion, Quaternion.identity);
             // ギアをマスの子オブジェクトにする。
             gear.transform.parent = pos.transform;
+            // 生成したギアの子オブジェクトを取得
+            GameObject gearChild = gear.transform.GetChild(1).gameObject;
             // 生成したギアに情報を受け渡す
-            gear.GetComponent<GearDataBase>().SetGearDateBase(seleteGearNumber,
+            gearChild.GetComponent<GearDataBase>().SetGearDateBase(seleteGearNumber,
                                                             gearList[seleteGearNumber].rotatecount);
             // 置いた種類のギアの所持数を減らす
             gearList[seleteGearNumber].gearPieces -= 1;
@@ -128,5 +133,15 @@ public class SetGears : MonoBehaviour
     {
         gearList[num].gearPiecesText.text =
                 gearList[num].gearPieces.ToString();
+    }
+
+    public Material[] GetgearMaterialLength
+    {
+        get { return this.gearMaterial; }
+    }
+
+    public Material GetgearMaterial(byte num)
+    {
+        return this.gearMaterial[num];
     }
 }
