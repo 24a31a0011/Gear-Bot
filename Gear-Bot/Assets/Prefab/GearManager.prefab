@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce90332df0aa8db498035d2a8808eac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearObject: {fileID: 9164109130855148184, guid: ea677e1a260da3c40b9ae2933849bd0e, type: 3}
+  gearObject: {fileID: 8616917104501123206, guid: d876482f72b462048b15575a1ce340e1, type: 3}
   gearList:
   - gearprefab: {fileID: 0}
     rotatecount: 1
@@ -58,3 +58,8 @@ MonoBehaviour:
     rotatecount: 3
     gearPieces: 2
     gearPiecesText: {fileID: 0}
+  gearMaterial:
+  - {fileID: 2100000, guid: 2aa3bb661daf9d84e81b50c771555948, type: 2}
+  - {fileID: 2100000, guid: 2652ab87a92869247909a254ba0caaf7, type: 2}
+  - {fileID: 2100000, guid: bbf687d0fafd2b349a95c1d14569a7cb, type: 2}
+  - {fileID: 2100000, guid: ba37da0fca67f8846a7c9f21ba111f0c, type: 2}
