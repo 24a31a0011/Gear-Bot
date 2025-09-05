@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum GridState
     {
@@ -41,7 +41,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // クリックされたらStateを変更する
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right && SceneManager.GetActiveScene().name != "Stage1")
+        if (eventData.button == PointerEventData.InputButton.Right && SceneManager.GetActiveScene().name != "Stage1" && GridManager.Instance.GetEnable())
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
@@ -56,10 +56,14 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
                 currentState &= ~GridState.OnClick;
                 meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? dragMaterial : onMaterial; ;
 
-                GearDataBase gear = GetComponentInChildren<GearDataBase>();
-                if (gear != null)
+                GearDataBase gearData = GetComponentInChildren<GearDataBase>();
+                if (gearData != null)
                 {
-                    SetGears.Instance.RemoveGear(gear.gameObject);
+                    SetGears.Instance.RemoveGear(gearData.gameObject);
+                }
+                for (int i = transform.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
                 }
             }
         }
