@@ -39,19 +39,20 @@ public class GridManager : MonoBehaviour
     private FadeController fadeController;
 
     // シーン内の全てのGridを登録するリスト
-    private List<ClickGrid> clickGrids = new List<ClickGrid>();
+    private List<SetGrid> clickGrids = new List<SetGrid>();
 
     // プレイヤーが進むルートを登録するリスト
-    private routeGrids<ClickGrid> routes = new routeGrids<ClickGrid>();
+    private routeGrids<SetGrid> routes = new routeGrids<SetGrid>();
 
     // 開始buttonを押した直前のルートの状態を保存
-    private routeGrids<ClickGrid> currentRouteGrids = new routeGrids<ClickGrid>();
+    private routeGrids<SetGrid> currentRouteGrids = new routeGrids<SetGrid>();
 
     // 左クリックドラッグ中かどうか
     private bool isLeftDragging = false;
 
     bool isButtonEnabled = true;
     bool activeBag = false;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -79,7 +80,7 @@ public class GridManager : MonoBehaviour
         showRemainingMoves.text = remainingMoves.ToString();
 
         // 左クリックを押した瞬間
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isButtonEnabled)
         {
             isLeftDragging = true;
 
@@ -93,7 +94,7 @@ public class GridManager : MonoBehaviour
 
             foreach (var result in results)
             {
-                var grid = result.gameObject.GetComponent<ClickGrid>();
+                var grid = result.gameObject.GetComponent<SetGrid>();
                 if (grid != null)
                 {
                     // ルートの最初か否かで処理を変更
@@ -123,7 +124,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// Gridをマネージャーに登録する
     /// </summary>
-    public void RegisterClickGrid(ClickGrid grid)
+    public void RegisterClickGrid(SetGrid grid)
     {
         if (!clickGrids.Contains(grid))
         {
@@ -134,7 +135,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// Gridをマネージャーから登録解除する（オブジェクトが破壊された時など）
     /// </summary>
-    public void UnregisterClickGrid(ClickGrid grid)
+    public void UnregisterClickGrid(SetGrid grid)
     {
         if (clickGrids.Contains(grid))
         {
@@ -145,7 +146,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// ルートをマネージャーに登録する
     /// </summary>
-    public void RegisterRouteGrid(ClickGrid grid)
+    public void RegisterRouteGrid(SetGrid grid)
     {
         if (!routes.Contains(grid))
         {
@@ -157,7 +158,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// ルートをマネージャーから登録解除する（オブジェクトが破壊された時など）
     /// </summary>
-    public void UnregisterRouteGrid(ClickGrid grid)
+    public void UnregisterRouteGrid(SetGrid grid)
     {
         if (routes.Contains(grid))
         {
@@ -182,6 +183,14 @@ public class GridManager : MonoBehaviour
     public bool GetIsLeftDragging()
     {
         return isLeftDragging;
+    }
+
+    /// <summary>
+    /// 処理中かどうか
+    /// </summary>
+    public bool GetEnable()
+    {
+        return isButtonEnabled;
     }
 
     /// <summary>
@@ -292,7 +301,7 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
-        currentRouteGrids = new routeGrids<ClickGrid>(routes.ToList());
+        currentRouteGrids = new routeGrids<SetGrid>(routes.ToList());
         if (isButtonEnabled)
         {
             isButtonEnabled = false;
@@ -331,7 +340,7 @@ public class GridManager : MonoBehaviour
         float moveSpeed = 2f;     // 移動速度
         float rotateSpeed = 5f;   // 回転速度
 
-        routeGrids<ClickGrid> copyRouteList = new routeGrids<ClickGrid>(routes.ToList());
+        routeGrids<SetGrid> copyRouteList = new routeGrids<SetGrid>(routes.ToList());
 
         int index = copyRouteList.Count;
 
@@ -377,6 +386,9 @@ public class GridManager : MonoBehaviour
 
             // すでに進んだ分のルートは消す
             routes[copyRouteList.Count - index].ResetState();
+
+            GearManager.Instance.SearchGears();
+            GearManager.Instance.ActivGimmcik();
 
             // プレイヤーがbagと接触したら
             if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
@@ -445,7 +457,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// 選択されたグリッドがルートの最後の地点のグリッドか否か
     /// </summary>
-    public bool CheckLastRoute(ClickGrid clickGrid)
+    public bool CheckLastRoute(SetGrid clickGrid)
     {
         if (routes == null || routes.Count == 0)
             return false;

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum GridState
     {
@@ -17,7 +17,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     [Header("Gridの色")]
     [SerializeField] private Material onMaterial;
     [SerializeField] private Material offMaterial;
-    [SerializeField] private Material dragMaterial;
 
     private MeshRenderer meshRenderer;
 
@@ -41,7 +40,7 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     // クリックされたらStateを変更する
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right && SceneManager.GetActiveScene().name != "Stage1")
+        if (eventData.button == PointerEventData.InputButton.Right && SceneManager.GetActiveScene().name != "Stage1" && GridManager.Instance.GetEnable())
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
@@ -54,12 +53,16 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
             {
                 // OnClick を解除
                 currentState &= ~GridState.OnClick;
-                meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? dragMaterial : onMaterial; ;
+                meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? offMaterial : onMaterial; ;
 
-                GearDataBase gear = GetComponentInChildren<GearDataBase>();
-                if (gear != null)
+                GearDataBase gearData = GetComponentInChildren<GearDataBase>();
+                if (gearData != null)
                 {
-                    SetGears.Instance.RemoveGear(gear.gameObject);
+                    SetGears.Instance.RemoveGear(gearData.gameObject);
+                }
+                for (int i = transform.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
                 }
             }
         }
@@ -113,7 +116,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
                 return;
 
             currentState |= GridState.OnDrag; // OnDrag を追加
-            meshRenderer.material = dragMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if ((currentState & GridState.OnDrag) != 0)
@@ -138,7 +140,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         if (currentState != GridState.OnDrag)
         {
             currentState = GridState.OnDrag;
-            meshRenderer.material = dragMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if (currentState == GridState.OnDrag)
@@ -153,7 +154,6 @@ public class ClickGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     public void SetOnDrag()
     {
         currentState = GridState.OnDrag;
-        meshRenderer.material = dragMaterial;
         GridManager.Instance.RegisterRouteGrid(this);
     }
 }
