@@ -67,8 +67,18 @@ public class Gear : MonoBehaviour
         }
     }
 
+    public void DecrementGearNum()
+    {
+        foreach (var obj in visitedObjects)
+        {
+            if (obj.transform.parent.GetComponentInChildren<GearDataBase>() == null) return;
+            obj.transform.parent.GetComponentInChildren<GearDataBase>().RotatingGear();
+        }
+    }
+
     public void Search()
     {
+        visitedObjects.Clear();
         SearchGear(transform);
     }
 }

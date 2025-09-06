@@ -116,6 +116,7 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 return;
 
             currentState |= GridState.OnDrag; // OnDrag ‚ð’Ç‰Á
+            meshRenderer.material = offMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if ((currentState & GridState.OnDrag) != 0)
@@ -140,6 +141,7 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         if (currentState != GridState.OnDrag)
         {
             currentState = GridState.OnDrag;
+            meshRenderer.material = offMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if (currentState == GridState.OnDrag)

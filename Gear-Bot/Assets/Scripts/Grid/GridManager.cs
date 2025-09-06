@@ -388,7 +388,7 @@ public class GridManager : MonoBehaviour
             routes[copyRouteList.Count - index].ResetState();
 
             GearManager.Instance.SearchGears();
-            GearManager.Instance.ActivGimmcik();
+            GearManager.Instance.DecrementGearNumber();
 
             // ƒvƒŒƒCƒ„[‚ªbag‚ÆÚG‚µ‚½‚ç
             if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)

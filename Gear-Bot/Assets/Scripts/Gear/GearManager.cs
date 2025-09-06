@@ -46,17 +46,6 @@ public class GearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterClickGear(GameObject gear)
-    {
-        if (gearObj.Contains(gear))
-        {
-            gearObj.Remove(gear);
-        }
-    }
-
-    /// <summary>
     /// PowerGearをマネージャーに登録する
     /// </summary>
     public void RegisterPowerGear(GameObject gear)
@@ -68,42 +57,29 @@ public class GearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// PowerGearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterPowerGear(GameObject gear)
-    {
-        if (powerGear.Contains(gear))
-        {
-            powerGear.Remove(gear);
-        }
-    }
-
-    /// <summary>
     /// GimmcikGearをマネージャーに登録する
     /// </summary>
     public void RegisterGimmickGear(GameObject gear)
     {
-        if (!currentGimmick.Contains(gear))
-        {
-            currentGimmick.Add(gear);
-        }
+        currentGimmick.Add(gear);
     }
 
-    /// <summary>
-    /// GimmickGearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterGimmickGear(GameObject gear)
+    private void Update()
     {
-        if (currentGimmick.Contains(gear))
+        // null（Destroyされたもの）が含まれていないかチェック
+        for (int i = gearObj.Count - 1; i >= 0; i--)
         {
-            currentGimmick.Remove(gear);
+            if (gearObj[i] == null)
+            {
+                Debug.Log("リスト内のオブジェクトが削除されました！");
+                gearObj.RemoveAt(i);
+            }
         }
     }
 
     public void SearchGears()
     {
-        currentGimmick.Clear();
-
+        gearObj.Clear();
         for (int i = 0; i < powerGear.Count; i++)
         {
             powerGear[i].GetComponent<Gear>().Search();
@@ -112,12 +88,16 @@ public class GearManager : MonoBehaviour
         // AにあってBにないもの
         var onlyInA = previewGimmcik.Except(currentGimmick).ToList();
 
-        foreach (var obj in onlyInA)
+        if (previewGimmcik.Count != 0)
         {
-            obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+            foreach (var obj in onlyInA)
+            {
+                obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+            }
         }
 
         previewGimmcik = currentGimmick.ToList();
+        ActivGimmcik();
     }
 
     public void ActivGimmcik()
@@ -125,6 +105,15 @@ public class GearManager : MonoBehaviour
         for (int i = 0; i < currentGimmick.Count; i++)
         {
             currentGimmick[i].GetComponent<GimmcikGear>().ActivGimmick();
+        }
+        currentGimmick.Clear();
+    }
+
+    public void DecrementGearNumber()
+    {
+        for (int i = 0; i < powerGear.Count; i++)
+        {
+            powerGear[i].GetComponent<Gear>().DecrementGearNum();
         }
     }
 }
