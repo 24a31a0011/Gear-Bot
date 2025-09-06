@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 47df986c103b3704b884d132705237ac, type: 2}
     - target: {fileID: 919132149155446097, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_Name
-      value: gear_MainUnit1
+      value: PowerGear
       objectReference: {fileID: 0}
     - target: {fileID: 1366278540751589237, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -119,6 +119,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5011851423061130009}
+    - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2391341593331302908}
   m_SourcePrefab: {fileID: 100100000, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
 --- !u!1 &4677236474441080893 stripped
 GameObject:
@@ -146,3 +149,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 52.43583
   m_Center: {x: -0.000005722046, y: 0, z: 0.000009536743}
+--- !u!114 &2391341593331302908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4677236474441080893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471c2f6b1e40f91428fc504e654e68d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanIntervalAngle: 15
+  childGearMask:
+    serializedVersion: 2
+    m_Bits: 128
+  gimmickGearMask:
+    serializedVersion: 2
+    m_Bits: 256

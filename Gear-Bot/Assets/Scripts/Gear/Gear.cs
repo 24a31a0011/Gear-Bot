@@ -12,6 +12,14 @@ public class Gear : MonoBehaviour
 
     private HashSet<GameObject> visitedObjects = new();     // 探索済みオブジェクトを記録（無限ループ防止）
 
+    private void Start()
+    {
+        GearManager.Instance.RegisterPowerGear(this.gameObject);
+    }
+
+    /// <summary>
+    /// 再帰的にギアを探索してギミックに到達するまで探索を続ける
+    /// </summary>
     private void SearchGear(Transform origin)
     {
         // スケールを考慮したワールド空間でのSphereColliderの半径を取得
@@ -36,6 +44,8 @@ public class Gear : MonoBehaviour
                 // 自分自身または既に探索済みのギアは無視
                 if (!visitedObjects.Contains(hitObj))
                 {
+                    GearManager.Instance.RegisterClickGear(hitObj);
+                    visitedObjects.Add(hitObj);
                     SearchGear(hit.transform); // 未探索なら再帰的に探索
                 }
             }
@@ -47,12 +57,18 @@ public class Gear : MonoBehaviour
                 // 同様に訪問済みチェック
                 if (!visitedObjects.Contains(hitObj))
                 {
+                    GearManager.Instance.RegisterGimmickGear(hitObj);
                     visitedObjects.Add(hitObj);
                 }
             }
 
             // レイの可視化（デバッグ用）
-            Debug.DrawRay(origin.position, direction * rayLength, Color.green, 0.2f);
+            Debug.DrawRay(origin.position, direction * rayLength, Color.red, 0.2f);
         }
+    }
+
+    public void Search()
+    {
+        SearchGear(transform);
     }
 }

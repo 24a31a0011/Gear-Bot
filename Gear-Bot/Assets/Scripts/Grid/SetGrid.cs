@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum GridState
     {
@@ -17,7 +17,6 @@ public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [Header("GridÇÃêF")]
     [SerializeField] private Material onMaterial;
     [SerializeField] private Material offMaterial;
-    [SerializeField] private Material dragMaterial;
 
     private MeshRenderer meshRenderer;
 
@@ -54,7 +53,7 @@ public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
             {
                 // OnClick Çâèú
                 currentState &= ~GridState.OnClick;
-                meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? dragMaterial : onMaterial; ;
+                meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? offMaterial : onMaterial; ;
 
                 GearDataBase gearData = GetComponentInChildren<GearDataBase>();
                 if (gearData != null)
@@ -117,7 +116,6 @@ public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 return;
 
             currentState |= GridState.OnDrag; // OnDrag Çí«â¡
-            meshRenderer.material = dragMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if ((currentState & GridState.OnDrag) != 0)
@@ -142,7 +140,6 @@ public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         if (currentState != GridState.OnDrag)
         {
             currentState = GridState.OnDrag;
-            meshRenderer.material = dragMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if (currentState == GridState.OnDrag)
@@ -157,7 +154,6 @@ public class SetGear : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public void SetOnDrag()
     {
         currentState = GridState.OnDrag;
-        meshRenderer.material = dragMaterial;
         GridManager.Instance.RegisterRouteGrid(this);
     }
 }
