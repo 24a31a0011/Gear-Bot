@@ -304,6 +304,7 @@ public class GridManager : MonoBehaviour
             if (routes.Count == 0)
             {
                 Debug.LogWarning("ルートが設定されていません");
+                isButtonEnabled = true;
                 return;
             }
 
@@ -312,6 +313,7 @@ public class GridManager : MonoBehaviour
                 playerObject.transform.position.z != routes[0].transform.position.z)
             {
                 Debug.LogWarning("ルートの最初のマスがプレイヤーの位置と合致していません");
+                isButtonEnabled = true;
                 return;
             }
 
@@ -322,6 +324,7 @@ public class GridManager : MonoBehaviour
                 if (distance != 1)
                 {
                     Debug.LogWarning("ルートが途中で途切れています");
+                    isButtonEnabled = true;
                     return;
                 }
             }
@@ -386,6 +389,14 @@ public class GridManager : MonoBehaviour
             GearManager.Instance.SearchGears();
             GearManager.Instance.DecrementGearNumber();
 
+            TileData tile = MapData.Instance.GetTileData(playerObject.transform.position);
+
+            if (tile != null && tile.type == TileType.Abyss)
+            {
+                StartCoroutine(FadeSequence());
+                break;
+            }
+
             // プレイヤーがbagと接触したら
             if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
             {
@@ -418,6 +429,7 @@ public class GridManager : MonoBehaviour
             {
                 // 最終地点でゴールに接触していなかったら
                 StartCoroutine(FadeSequence());
+                break;
             }
 
             yield return new WaitForSeconds(0.5f);

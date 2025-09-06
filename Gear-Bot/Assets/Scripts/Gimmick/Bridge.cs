@@ -1,3 +1,6 @@
+///
+/// ì¬Ò : ƒOƒGƒ“
+///
 using UnityEngine;
 
 public class Bridge : MonoBehaviour
