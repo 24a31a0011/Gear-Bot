@@ -44,9 +44,6 @@ public class GridManager : MonoBehaviour
     // プレイヤーが進むルートを登録するリスト
     private routeGrids<SetGrid> routes = new routeGrids<SetGrid>();
 
-    // 開始buttonを押した直前のルートの状態を保存
-    private routeGrids<SetGrid> currentRouteGrids = new routeGrids<SetGrid>();
-
     // 左クリックドラッグ中かどうか
     private bool isLeftDragging = false;
 
@@ -301,7 +298,6 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
-        currentRouteGrids = new routeGrids<SetGrid>(routes.ToList());
         if (isButtonEnabled)
         {
             isButtonEnabled = false;
@@ -472,16 +468,9 @@ public class GridManager : MonoBehaviour
         yield return StartCoroutine(fadeController.FadeOut());
 
         // 2. 演出
-        playerObject.transform.position = startPosition;
-        ResetState();
-        remainingMoves = availableMoves;
-        for (int i = 0; i < currentRouteGrids.Count; i++)
-        {
-            currentRouteGrids[i].SetOnDrag();
-        }
-        yield return new WaitForSeconds(1f); // 例: 2秒待機
+        yield return new WaitForSeconds(1f); // 例: 1秒待機
 
-        // 3. 明るく戻す
-        yield return StartCoroutine(fadeController.FadeIn());
+        // 3. Scene再読み込み
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

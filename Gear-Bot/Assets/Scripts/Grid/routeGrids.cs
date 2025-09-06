@@ -1,17 +1,19 @@
-///
-/// 作成者　グエン
-///
-
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
 
-public class routeGrids<T>
+public class routeGrids<T> : IEnumerable<T>
 {
     private List<T> list = new List<T>();
 
     // 変更時のイベント
     public event Action OnChanged;
+
+    public void Clear()
+    {
+        list.Clear();
+        OnChanged?.Invoke();
+    }
 
     // コンストラクタ
     public routeGrids()
@@ -72,6 +74,18 @@ public class routeGrids<T>
     // 最後の要素を安全に取得（存在しなければdefault）
     public T LastOrDefault => list.Count > 0 ? list[list.Count - 1] : default;
 
-    // 内部のListをコピーして取得したい場合
+    // 内部のListをコピーして取得
     public List<T> ToList() => new List<T>(list);
+
+    // -----------------------------------
+    // IEnumerable<T> の実装（foreach用）
+    public IEnumerator<T> GetEnumerator()
+    {
+        return list.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return list.GetEnumerator();
+    }
 }
