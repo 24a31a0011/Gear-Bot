@@ -2,6 +2,7 @@
 /// 作成者 : グエン
 ///
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GearManager : MonoBehaviour
@@ -99,25 +100,24 @@ public class GearManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        // null（Destroyされたもの）が含まれていないかチェック
-        for (int i = gearObj.Count - 1; i >= 0; i--)
-        {
-            if (gearObj[i] == null)
-            {
-                Debug.Log("リスト内のオブジェクトが削除されました！");
-                gearObj.RemoveAt(i);
-            }
-        }
-    }
-
     public void SearchGears()
     {
+        currentGimmick.Clear();
+
         for (int i = 0; i < powerGear.Count; i++)
         {
             powerGear[i].GetComponent<Gear>().Search();
         }
+
+        // AにあってBにないもの
+        var onlyInA = previewGimmcik.Except(currentGimmick).ToList();
+
+        foreach (var obj in onlyInA)
+        {
+            obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+        }
+
+        previewGimmcik = currentGimmick.ToList();
     }
 
     public void ActivGimmcik()
