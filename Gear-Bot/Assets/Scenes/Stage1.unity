@@ -7385,7 +7385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
       propertyPath: map.Array.data[1].tiles.Array.data[4].type
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
       propertyPath: map.Array.data[1].tiles.Array.data[5].type
@@ -7409,7 +7409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
       propertyPath: map.Array.data[2].tiles.Array.data[6].type
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
       propertyPath: map.Array.data[3].tiles.Array.data[0].type

@@ -449,7 +449,7 @@ public class GridManager : MonoBehaviour
             }
 
             // ƒvƒŒƒCƒ„[‚ªbag‚ÆÚG‚µ‚½‚ç
-            if (tile != null && tile.type == TileType.Bag)
+            if (bagObject.transform.position.x == copyRouteList[i].transform.position.x && bagObject.transform.position.z == copyRouteList[i].transform.position.z)
             {
                 bagObject.SetActive(false);
                 if (pBagObject == null) break;

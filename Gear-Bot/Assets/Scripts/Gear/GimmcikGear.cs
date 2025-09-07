@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class GimmcikGear : MonoBehaviour
 {
     [SerializeField] UnityEvent activGimmcikGearEvent;
-    [SerializeField] UnityEvent deactivateGimmickGearEvent;
+    [SerializeField] UnityEvent deactivateGimmickGearEvent = null;
 
     public void ActivGimmick()
     {
@@ -16,6 +16,7 @@ public class GimmcikGear : MonoBehaviour
 
     public void DeactivateGimmick()
     {
+        if (deactivateGimmickGearEvent == null) return;
         deactivateGimmickGearEvent.Invoke();
     }
 }

@@ -11,6 +11,7 @@ public enum TileType
     PowerGear,  // 電源ギア
     GimmickGear,// ギミックギア
     Bridge,     // 橋
+    Belt,
     Obstacle,   // 障害物
     Goal,       // ゴール
     Bag         // 荷物
