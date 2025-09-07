@@ -129,4 +129,4 @@ MonoBehaviour:
   detectionLength: 1.75
   affectedLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
