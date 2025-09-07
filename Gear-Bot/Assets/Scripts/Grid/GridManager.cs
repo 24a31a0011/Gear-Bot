@@ -21,9 +21,6 @@ public class GridManager : MonoBehaviour
     [Header("荷物のオブジェクト")]
     [SerializeField] GameObject bagObject;
 
-    [Header("ゴールのオブジェクト")]
-    [SerializeField] GameObject goalObject;
-
     [Header("矢印のオブジェクト")]
     [SerializeField] GameObject arrowTipPrefab;
     [SerializeField] GameObject verticalPrefab;
@@ -452,7 +449,7 @@ public class GridManager : MonoBehaviour
             }
 
             // プレイヤーがbagと接触したら
-            if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
+            if (tile != null && tile.type == TileType.Bag)
             {
                 bagObject.SetActive(false);
                 if (pBagObject == null) break;
@@ -474,8 +471,8 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            // プレイヤーがゴールと接触したら
-            if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
+            // プレイヤーがゴールと接触し、かつbagを持ってたら
+            if (tile != null && tile.type == TileType.Goal && activeBag)
             {
                 SceneController.Instance.ClearScene();
             }
