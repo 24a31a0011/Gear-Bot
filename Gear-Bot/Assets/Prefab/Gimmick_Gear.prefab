@@ -112,6 +112,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4104618583793713401}
+    - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 357217013619502661}
   m_SourcePrefab: {fileID: 100100000, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
 --- !u!1 &846901379733455296 stripped
 GameObject:
@@ -139,3 +142,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 52.43584
   m_Center: {x: -0.0000057220473, y: 0, z: 0.000009536745}
+--- !u!114 &357217013619502661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846901379733455296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87efb1d9ce933bb48beed2cfdcaabf73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activGimmcikGearEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  deactivateGimmickGearEvent:
+    m_PersistentCalls:
+      m_Calls: []

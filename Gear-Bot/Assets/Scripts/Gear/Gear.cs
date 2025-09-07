@@ -22,12 +22,8 @@ public class Gear : MonoBehaviour
     /// </summary>
     private void SearchGear(Transform origin)
     {
-        // スケールを考慮したワールド空間でのSphereColliderの半径を取得
-        float maxScale = Mathf.Max(origin.lossyScale.x, origin.lossyScale.y, origin.lossyScale.z);
-        float worldRadius = origin.GetComponent<SphereCollider>().radius * maxScale;
-
         // 半径の少し大きい値をrayの長さとする
-        float rayLength = worldRadius;
+        float rayLength = 0.5f;
 
         // 360度を指定角度ずつ回転してレイを飛ばす
         for (float angle = 0f; angle < 360f; angle += scanIntervalAngle)
@@ -68,13 +64,15 @@ public class Gear : MonoBehaviour
     }
 
     public void DecrementGearNum()
+{
+    foreach (var obj in visitedObjects)
     {
-        foreach (var obj in visitedObjects)
-        {
-            if (obj.transform.parent.GetComponentInChildren<GearDataBase>() == null) return;
-            obj.transform.parent.GetComponentInChildren<GearDataBase>().RotatingGear();
-        }
+        var gearData = obj.transform.parent.GetComponentInChildren<GearDataBase>();
+        if (gearData == null) continue;
+
+        gearData.RotatingGear();
     }
+}
 
     public void Search()
     {
