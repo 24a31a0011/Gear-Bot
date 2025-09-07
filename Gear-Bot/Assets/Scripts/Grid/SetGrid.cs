@@ -44,11 +44,16 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
-                // OnClick ‚ğ’Ç‰Á
-                currentState |= GridState.OnClick;
-                meshRenderer.material = offMaterial;
-                SetGears.Instance.SetGear(this.transform);
-                GridManager.Instance.RegisterGear(this.gameObject);
+                // áŠQ•¨‚ª–³‚¢êŠ‚Å‚Ì‚İ
+                TileData tile = MapData.Instance.GetTileData(this.transform.position);
+                if (tile != null && (tile.type == TileType.Abyss || tile.type == TileType.Ground))
+                {
+                    // OnClick ‚ğ’Ç‰Á
+                    currentState |= GridState.OnClick;
+                    meshRenderer.material = offMaterial;
+                    SetGears.Instance.SetGear(this.transform);
+                    GridManager.Instance.RegisterGear(this.gameObject);
+                }
             }
             else if ((currentState & GridState.OnClick) != 0)
             {

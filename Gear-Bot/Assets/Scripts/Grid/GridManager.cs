@@ -42,7 +42,7 @@ public class GridManager : MonoBehaviour
     private List<SetGrid> clickGrids = new List<SetGrid>();
 
     // どの座標にGearが設置されているか登録するリスト
-    public List<Transform> gearPos = new List<Transform>();
+    private List<Transform> gearPos = new List<Transform>();
 
     // プレイヤーが進むルートを登録するリスト
     private routeGrids<SetGrid> routes = new routeGrids<SetGrid>();

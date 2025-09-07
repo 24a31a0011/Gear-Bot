@@ -6,12 +6,14 @@ using UnityEngine;
 
 public enum TileType
 {
-    Abyss = 0,      // 奈落
-    Ground = 1,     // 地面
-    PowerGear = 2,  // 電源ギア
-    GimmickGear = 3,// ギミックギア
-    Bridge = 4,     // 橋
-    Obstacle        // 障害物
+    Abyss,      // 奈落
+    Ground,     // 地面
+    PowerGear,  // 電源ギア
+    GimmickGear,// ギミックギア
+    Bridge,     // 橋
+    Obstacle,   // 障害物
+    Goal,       // ゴール
+    Bag         // 荷物
 }
 
 [System.Serializable]
