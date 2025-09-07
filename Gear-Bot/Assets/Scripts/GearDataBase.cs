@@ -20,7 +20,12 @@ public class GearDataBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gearRotateCount <= 0)
+        {
+            GridManager.Instance.UnregisterGear(transform.parent.parent.gameObject);
+            // 0.5•bŒã‚É©•ª‚ğ”j‰ó
+            Destroy(transform.parent.gameObject, 1f);
+        }
     }
     /// <summary>
     /// ƒMƒA‚Éî•ñ‚ğó‚¯“n‚·ŠÖ”

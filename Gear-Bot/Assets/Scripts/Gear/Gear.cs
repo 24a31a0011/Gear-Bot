@@ -44,7 +44,7 @@ public class Gear : MonoBehaviour
                 // ©•ª©g‚Ü‚½‚ÍŠù‚É’TõÏ‚İ‚ÌƒMƒA‚Í–³‹
                 if (!visitedObjects.Contains(hitObj))
                 {
-                    GearManager.Instance.RegisterClickGear(hitObj);
+                    GearManager.Instance.RegisterChainGear(hitObj);
                     visitedObjects.Add(hitObj);
                     SearchGear(hit.transform); // –¢’Tõ‚È‚çÄ‹A“I‚É’Tõ
                 }
@@ -67,8 +67,18 @@ public class Gear : MonoBehaviour
         }
     }
 
+    public void DecrementGearNum()
+    {
+        foreach (var obj in visitedObjects)
+        {
+            if (obj.transform.parent.GetComponentInChildren<GearDataBase>() == null) return;
+            obj.transform.parent.GetComponentInChildren<GearDataBase>().RotatingGear();
+        }
+    }
+
     public void Search()
     {
+        visitedObjects.Clear();
         SearchGear(transform);
     }
 }

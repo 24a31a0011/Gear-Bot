@@ -1,3 +1,6 @@
+///
+/// ì¬Ò : ƒOƒGƒ“
+///
 using UnityEngine;
 
 public class Bridge : MonoBehaviour
@@ -12,5 +15,10 @@ public class Bridge : MonoBehaviour
     public void Deactivate()
     {
         animator.SetBool("Open", false);
+    }
+
+    public bool GetActiv()
+    {
+        return animator.GetBool("Open");
     }
 }

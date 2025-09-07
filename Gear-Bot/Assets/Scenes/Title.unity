@@ -290,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
       propertyPath: mainGameStageList.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
       propertyPath: 'mainGameStageList.Array.data[0]'
@@ -298,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
       propertyPath: 'mainGameStageList.Array.data[1]'
-      value: Bit_Stage3
+      value: Stage2
       objectReference: {fileID: 0}
     - target: {fileID: 8470045594582743638, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
       propertyPath: m_Name

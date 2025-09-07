@@ -44,16 +44,24 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         {
             if ((currentState & GridState.OnClick) == 0 && SetGears.Instance.CheckGearPlacement())
             {
-                // OnClick ‚ğ’Ç‰Á
-                currentState |= GridState.OnClick;
-                meshRenderer.material = offMaterial;
-                SetGears.Instance.SetGear(this.transform);
+                // áŠQ•¨‚ª–³‚¢êŠ‚Å‚Ì‚İ
+                TileData tile = MapData.Instance.GetTileData(this.transform.position);
+                if (tile != null && (tile.type == TileType.Abyss || tile.type == TileType.Ground))
+                {
+                    // OnClick ‚ğ’Ç‰Á
+                    currentState |= GridState.OnClick;
+                    meshRenderer.material = offMaterial;
+                    SetGears.Instance.SetGear(this.transform);
+                    GridManager.Instance.RegisterGear(this.gameObject);
+                }
             }
             else if ((currentState & GridState.OnClick) != 0)
             {
                 // OnClick ‚ğ‰ğœ
                 currentState &= ~GridState.OnClick;
                 meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? offMaterial : onMaterial; ;
+
+                GridManager.Instance.UnregisterGear(this.gameObject);
 
                 GearDataBase gearData = GetComponentInChildren<GearDataBase>();
                 if (gearData != null)
@@ -116,6 +124,7 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 return;
 
             currentState |= GridState.OnDrag; // OnDrag ‚ğ’Ç‰Á
+            meshRenderer.material = offMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if ((currentState & GridState.OnDrag) != 0)
@@ -140,6 +149,7 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         if (currentState != GridState.OnDrag)
         {
             currentState = GridState.OnDrag;
+            meshRenderer.material = offMaterial;
             GridManager.Instance.RegisterRouteGrid(this);
         }
         else if (currentState == GridState.OnDrag)

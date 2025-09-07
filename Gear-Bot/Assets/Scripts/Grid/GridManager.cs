@@ -21,9 +21,6 @@ public class GridManager : MonoBehaviour
     [Header("荷物のオブジェクト")]
     [SerializeField] GameObject bagObject;
 
-    [Header("ゴールのオブジェクト")]
-    [SerializeField] GameObject goalObject;
-
     [Header("矢印のオブジェクト")]
     [SerializeField] GameObject arrowTipPrefab;
     [SerializeField] GameObject verticalPrefab;
@@ -41,11 +38,11 @@ public class GridManager : MonoBehaviour
     // シーン内の全てのGridを登録するリスト
     private List<SetGrid> clickGrids = new List<SetGrid>();
 
+    // どの座標にGearが設置されているか登録するリスト
+    private List<Transform> gearPos = new List<Transform>();
+
     // プレイヤーが進むルートを登録するリスト
     private routeGrids<SetGrid> routes = new routeGrids<SetGrid>();
-
-    // 開始buttonを押した直前のルートの状態を保存
-    private routeGrids<SetGrid> currentRouteGrids = new routeGrids<SetGrid>();
 
     // 左クリックドラッグ中かどうか
     private bool isLeftDragging = false;
@@ -120,6 +117,33 @@ public class GridManager : MonoBehaviour
             isLeftDragging = false;
         }
     }
+
+    /// <summary>
+    /// Gearをマネージャーに登録する
+    /// </summary>
+    public void RegisterGear(GameObject gear)
+    {
+        if (!gearPos.Contains(gear.transform))
+        {
+            gearPos.Add(gear.transform);
+            // マップに現在設置されているGearの情報を障害物として送る
+            MapData.Instance.SetObstacles(gearPos);
+        }
+    }
+
+    /// <summary>
+    /// Gearをマネージャーから登録解除
+    /// </summary>
+    public void UnregisterGear(GameObject gear)
+    {
+        if (gearPos.Contains(gear.transform))
+        {
+            gearPos.Remove(gear.transform);
+            // マップに現在設置されているGearの情報を障害物として送る
+            MapData.Instance.SetObstacles(gearPos);
+        }
+    }
+
 
     /// <summary>
     /// Gridをマネージャーに登録する
@@ -301,13 +325,13 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
-        currentRouteGrids = new routeGrids<SetGrid>(routes.ToList());
         if (isButtonEnabled)
         {
             isButtonEnabled = false;
             if (routes.Count == 0)
             {
                 Debug.LogWarning("ルートが設定されていません");
+                isButtonEnabled = true;
                 return;
             }
 
@@ -316,6 +340,7 @@ public class GridManager : MonoBehaviour
                 playerObject.transform.position.z != routes[0].transform.position.z)
             {
                 Debug.LogWarning("ルートの最初のマスがプレイヤーの位置と合致していません");
+                isButtonEnabled = true;
                 return;
             }
 
@@ -326,6 +351,7 @@ public class GridManager : MonoBehaviour
                 if (distance != 1)
                 {
                     Debug.LogWarning("ルートが途中で途切れています");
+                    isButtonEnabled = true;
                     return;
                 }
             }
@@ -344,7 +370,9 @@ public class GridManager : MonoBehaviour
 
         int index = copyRouteList.Count;
 
-        for (int i = 1; i < copyRouteList.Count; i++)
+        bool exitLoop = false;
+
+        for (int i = 1; i < copyRouteList.Count && !exitLoop; i++)
         {
             Vector3 startPos = playerObject.transform.position;
             Vector3 targetPos = new Vector3(
@@ -370,6 +398,16 @@ public class GridManager : MonoBehaviour
             // 最後に正確に回転を合わせる
             playerObject.transform.rotation = targetRotation;
 
+            TileData nextTile = MapData.Instance.GetTileData(targetPos);
+
+            // 次に進む場所に障害物があればやり直し
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle))
+            {
+                Debug.LogWarning("次に進む方向に障害物があります");
+                StartCoroutine(FadeSequence());
+                break;
+            }
+
             // --- ② 回転が終わってから移動 ---
             float distance = Vector3.Distance(startPos, targetPos);
             float elapsed = 0f;
@@ -387,11 +425,31 @@ public class GridManager : MonoBehaviour
             // すでに進んだ分のルートは消す
             routes[copyRouteList.Count - index].ResetState();
 
+            // 電源ギアから接続しているギアをすべて確認する
             GearManager.Instance.SearchGears();
-            GearManager.Instance.ActivGimmcik();
+            GearManager.Instance.DecrementGearNumber();
+
+            TileData tile = MapData.Instance.GetTileData(playerObject.transform.position);
+
+            // 現在地とマップ上の位置を考慮し、TileTypeごとに処理を変更
+            if (tile != null && tile.type == TileType.Abyss)
+            {
+                Debug.LogWarning("空中です");
+                StartCoroutine(FadeSequence());
+                break;
+            }
+            else if (tile != null && tile.type == TileType.Bridge && tile.gimmickPrefab != null)
+            {
+                if (!tile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                {
+                    Debug.LogWarning("ギミックが作動していません");
+                    StartCoroutine(FadeSequence());
+                    break;
+                }
+            }
 
             // プレイヤーがbagと接触したら
-            if (playerObject.transform.position.x == bagObject.transform.position.x && playerObject.transform.position.z == bagObject.transform.position.z)
+            if (tile != null && tile.type == TileType.Bag)
             {
                 bagObject.SetActive(false);
                 if (pBagObject == null) break;
@@ -413,31 +471,24 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            // プレイヤーがゴールと接触したら
-            if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
+            // プレイヤーがゴールと接触し、かつbagを持ってたら
+            if (tile != null && tile.type == TileType.Goal && activeBag)
             {
                 SceneController.Instance.ClearScene();
             }
             else if (i + 1 == copyRouteList.Count)
             {
                 // 最終地点でゴールに接触していなかったら
+                Debug.LogWarning("ゴールに触れていません");
                 StartCoroutine(FadeSequence());
+                break;
             }
 
             yield return new WaitForSeconds(0.5f);
         }
         yield return null;
 
-        // プレイヤーがゴールと接触したら
-        if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
-        {
-            SceneController.Instance.ClearScene();
-        }
-        else
-        {
-            // 最終地点でゴールに接触していなかったら
-            StartCoroutine(FadeSequence());
-        }
+        
 
         routes[0].ResetState();
 
@@ -472,16 +523,9 @@ public class GridManager : MonoBehaviour
         yield return StartCoroutine(fadeController.FadeOut());
 
         // 2. 演出
-        playerObject.transform.position = startPosition;
-        ResetState();
-        remainingMoves = availableMoves;
-        for (int i = 0; i < currentRouteGrids.Count; i++)
-        {
-            currentRouteGrids[i].SetOnDrag();
-        }
-        yield return new WaitForSeconds(1f); // 例: 2秒待機
+        yield return new WaitForSeconds(1f); // 例: 1秒待機
 
-        // 3. 明るく戻す
-        yield return StartCoroutine(fadeController.FadeIn());
+        // 3. Scene再読み込み
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

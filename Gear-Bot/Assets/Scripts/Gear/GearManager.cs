@@ -10,8 +10,8 @@ public class GearManager : MonoBehaviour
     // シングルトンパターン:どこからでもアクセス出来るように
     public static GearManager Instance { get; private set; }
 
-    // シーン内の全てのGearを登録するリスト
-    private List<GameObject> gearObj = new List<GameObject>();
+    // PowerGearから繋がっているGearを登録するリスト
+    private List<GameObject> chainGear = new List<GameObject>();
 
     // シーン内の全てのPowerGearを登録するリスト
     private List<GameObject> powerGear = new List<GameObject>();
@@ -35,24 +35,13 @@ public class GearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gearをマネージャーに登録する
+    /// 繋がっているGearをマネージャーに登録する
     /// </summary>
-    public void RegisterClickGear(GameObject gear)
+    public void RegisterChainGear(GameObject gear)
     {
-        if (!gearObj.Contains(gear))
+        if (!chainGear.Contains(gear))
         {
-            gearObj.Add(gear);
-        }
-    }
-
-    /// <summary>
-    /// Gearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterClickGear(GameObject gear)
-    {
-        if (gearObj.Contains(gear))
-        {
-            gearObj.Remove(gear);
+            chainGear.Add(gear);
         }
     }
 
@@ -68,42 +57,28 @@ public class GearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// PowerGearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterPowerGear(GameObject gear)
-    {
-        if (powerGear.Contains(gear))
-        {
-            powerGear.Remove(gear);
-        }
-    }
-
-    /// <summary>
     /// GimmcikGearをマネージャーに登録する
     /// </summary>
     public void RegisterGimmickGear(GameObject gear)
     {
-        if (!currentGimmick.Contains(gear))
-        {
-            currentGimmick.Add(gear);
-        }
+        currentGimmick.Add(gear);
     }
 
-    /// <summary>
-    /// GimmickGearをマネージャーから登録解除する（オブジェクトが破壊された時など）
-    /// </summary>
-    public void UnregisterGimmickGear(GameObject gear)
+    private void Update()
     {
-        if (currentGimmick.Contains(gear))
+        // null（Destroyされたもの）が含まれていないかチェック
+        for (int i = chainGear.Count - 1; i >= 0; i--)
         {
-            currentGimmick.Remove(gear);
+            if (chainGear[i] == null)
+            {
+                chainGear.RemoveAt(i);
+            }
         }
     }
 
     public void SearchGears()
     {
-        currentGimmick.Clear();
-
+        chainGear.Clear();
         for (int i = 0; i < powerGear.Count; i++)
         {
             powerGear[i].GetComponent<Gear>().Search();
@@ -112,12 +87,16 @@ public class GearManager : MonoBehaviour
         // AにあってBにないもの
         var onlyInA = previewGimmcik.Except(currentGimmick).ToList();
 
-        foreach (var obj in onlyInA)
+        if (previewGimmcik.Count != 0)
         {
-            obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+            foreach (var obj in onlyInA)
+            {
+                obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+            }
         }
 
         previewGimmcik = currentGimmick.ToList();
+        ActivGimmcik();
     }
 
     public void ActivGimmcik()
@@ -125,6 +104,15 @@ public class GearManager : MonoBehaviour
         for (int i = 0; i < currentGimmick.Count; i++)
         {
             currentGimmick[i].GetComponent<GimmcikGear>().ActivGimmick();
+        }
+        currentGimmick.Clear();
+    }
+
+    public void DecrementGearNumber()
+    {
+        for (int i = 0; i < powerGear.Count; i++)
+        {
+            powerGear[i].GetComponent<Gear>().DecrementGearNum();
         }
     }
 }
