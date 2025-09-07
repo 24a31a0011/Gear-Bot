@@ -1,5 +1,6 @@
 // 榊の担当スクリプト
 // 主にギアの設置と取り外しをするスクリプト
+// (シングルトンを使っているのでギアのマテリアルも格納しています。)
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ public class SetGears : MonoBehaviour
 {
     // シングルトンパターン:どこからでもアクセス出来るように
     public static SetGears Instance { get; private set; }
-
+    // ギアのオブジェクト
     [SerializeField] private GameObject gearObject;
     // 各ギアの情報
     [System.Serializable]
@@ -33,6 +34,10 @@ public class SetGears : MonoBehaviour
     // ギアに表示する数字のマテリアル
     [SerializeField] private Material[] gearMaterial;
 
+    // どのボタンを押しているかを表示する画像
+    [Tooltip("PositionのY値は0で良いです。")]
+    [SerializeField] private Image buttonFrameImage;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -54,6 +59,8 @@ public class SetGears : MonoBehaviour
         {
             GearNumTextChange(i);
         }
+        // 最初はフレームの画像を非表示にする
+        buttonFrameImage.enabled = false;
     }
 
     // Update is called once per frame
@@ -70,11 +77,20 @@ public class SetGears : MonoBehaviour
         if (num == seleteGearNumber)
         {
             seleteGearNumber = -1;
+            // フレームの画像を非表示にする
+            buttonFrameImage.enabled = false;
+            
         }
         // そうでなければそのギアが選ばれた状態にする
         else
         {
             seleteGearNumber = (sbyte)num;
+            // フレームの画像を押されたボタンへ移動し、表示する
+            buttonFrameImage.transform.position =
+                new Vector3(gearList[seleteGearNumber].gearprefab.transform.position.x,
+                            gearList[seleteGearNumber].gearprefab.transform.position.y - 45.0f,
+                            gearList[seleteGearNumber].gearprefab.transform.position.z);
+            buttonFrameImage.enabled = true;
         }
     }
     /// <summary>
@@ -85,7 +101,7 @@ public class SetGears : MonoBehaviour
     {
         // Transformをギアの生成に必要なVectorに変換する
         Vector3 gearpostion = new Vector3 (pos.position.x, pos.position.y, pos.position.z);
-        // ギアが選ばれているかつギアが1個以上持っている時、ギアを設置する
+        // ギアが選ばれているかつギアを1個以上持っている時、ギアを設置する
         if (seleteGearNumber >= 0 && gearList[seleteGearNumber].gearPieces > 0)
         {
             // ギアを生成する
@@ -134,7 +150,7 @@ public class SetGears : MonoBehaviour
         gearList[num].gearPiecesText.text =
                 gearList[num].gearPieces.ToString();
     }
-
+    // 各種ゲッター
     public Material[] GetgearMaterialLength
     {
         get { return this.gearMaterial; }
