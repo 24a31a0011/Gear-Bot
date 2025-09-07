@@ -1861,6 +1861,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 405293943}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
+      propertyPath: availableMoves
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: showRemainingMoves
       value: 
       objectReference: {fileID: 2143720661}

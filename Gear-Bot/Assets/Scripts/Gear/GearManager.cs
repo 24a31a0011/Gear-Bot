@@ -10,8 +10,10 @@ public class GearManager : MonoBehaviour
     // シングルトンパターン:どこからでもアクセス出来るように
     public static GearManager Instance { get; private set; }
 
-    // シーン内の全てのGearを登録するリスト
-    private List<GameObject> gearObj = new List<GameObject>();
+
+
+    // PowerGearから繋がっているGearを登録するリスト
+    private List<GameObject> chainGear = new List<GameObject>();
 
     // シーン内の全てのPowerGearを登録するリスト
     private List<GameObject> powerGear = new List<GameObject>();
@@ -39,9 +41,9 @@ public class GearManager : MonoBehaviour
     /// </summary>
     public void RegisterClickGear(GameObject gear)
     {
-        if (!gearObj.Contains(gear))
+        if (!chainGear.Contains(gear))
         {
-            gearObj.Add(gear);
+            chainGear.Add(gear);
         }
     }
 
@@ -67,19 +69,19 @@ public class GearManager : MonoBehaviour
     private void Update()
     {
         // null（Destroyされたもの）が含まれていないかチェック
-        for (int i = gearObj.Count - 1; i >= 0; i--)
+        for (int i = chainGear.Count - 1; i >= 0; i--)
         {
-            if (gearObj[i] == null)
+            if (chainGear[i] == null)
             {
                 Debug.Log("リスト内のオブジェクトが削除されました！");
-                gearObj.RemoveAt(i);
+                chainGear.RemoveAt(i);
             }
         }
     }
 
     public void SearchGears()
     {
-        gearObj.Clear();
+        chainGear.Clear();
         for (int i = 0; i < powerGear.Count; i++)
         {
             powerGear[i].GetComponent<Gear>().Search();

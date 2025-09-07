@@ -16,4 +16,9 @@ public class Bridge : MonoBehaviour
     {
         animator.SetBool("Open", false);
     }
+
+    public bool GetActiv()
+    {
+        return animator.GetBool("Open");
+    }
 }

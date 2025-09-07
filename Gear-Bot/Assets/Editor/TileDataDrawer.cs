@@ -1,3 +1,6 @@
+///
+/// 作成者 : グエン
+///
 using UnityEditor;
 using UnityEngine;
 
@@ -18,8 +21,8 @@ public class TileDataDrawer : PropertyDrawer
         Rect typeRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
         EditorGUI.PropertyField(typeRect, typeProp);
 
-        // TileType が Gimmick のときだけ gimmickPrefab を表示
-        if ((TileType)typeProp.enumValueIndex == TileType.Gimmick)
+        // TileType が Bridge のときだけ gimmickPrefab を表示
+        if ((TileType)typeProp.enumValueIndex == TileType.Bridge)
         {
             Rect gimmickRect = new Rect(
                 position.x,
@@ -38,7 +41,7 @@ public class TileDataDrawer : PropertyDrawer
         var typeProp = property.FindPropertyRelative("type");
 
         // Gimmick のときは 2 行分、それ以外は 1 行分
-        if ((TileType)typeProp.enumValueIndex == TileType.Gimmick)
+        if ((TileType)typeProp.enumValueIndex == TileType.Bridge)
             return EditorGUIUtility.singleLineHeight * 2 + 2;
         else
             return EditorGUIUtility.singleLineHeight;

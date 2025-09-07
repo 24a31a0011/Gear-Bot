@@ -343,7 +343,9 @@ public class GridManager : MonoBehaviour
 
         int index = copyRouteList.Count;
 
-        for (int i = 1; i < copyRouteList.Count; i++)
+        bool exitLoop = false;
+
+        for (int i = 1; i < copyRouteList.Count && !exitLoop; i++)
         {
             Vector3 startPos = playerObject.transform.position;
             Vector3 targetPos = new Vector3(
@@ -369,6 +371,16 @@ public class GridManager : MonoBehaviour
             // 最後に正確に回転を合わせる
             playerObject.transform.rotation = targetRotation;
 
+            TileData nextTile = MapData.Instance.GetTileData(targetPos);
+
+            // 次に進む場所に障害物があればやり直し
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear))
+            {
+                Debug.LogWarning("次に進む方向に障害物があります");
+                StartCoroutine(FadeSequence());
+                break;
+            }
+
             // --- ② 回転が終わってから移動 ---
             float distance = Vector3.Distance(startPos, targetPos);
             float elapsed = 0f;
@@ -386,15 +398,27 @@ public class GridManager : MonoBehaviour
             // すでに進んだ分のルートは消す
             routes[copyRouteList.Count - index].ResetState();
 
+            // 電源ギアから接続しているギアをすべて確認する
             GearManager.Instance.SearchGears();
             GearManager.Instance.DecrementGearNumber();
 
             TileData tile = MapData.Instance.GetTileData(playerObject.transform.position);
 
+            // 現在地とマップ上の位置を考慮し、TileTypeごとに処理を変更
             if (tile != null && tile.type == TileType.Abyss)
             {
+                Debug.LogWarning("空中です");
                 StartCoroutine(FadeSequence());
                 break;
+            }
+            else if (tile != null && tile.type == TileType.Bridge && tile.gimmickPrefab != null)
+            {
+                if (!tile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                {
+                    Debug.LogWarning("ギミックが作動していません");
+                    StartCoroutine(FadeSequence());
+                    break;
+                }
             }
 
             // プレイヤーがbagと接触したら
@@ -428,6 +452,7 @@ public class GridManager : MonoBehaviour
             else if (i + 1 == copyRouteList.Count)
             {
                 // 最終地点でゴールに接触していなかったら
+                Debug.LogWarning("ゴールに触れていません");
                 StartCoroutine(FadeSequence());
                 break;
             }
@@ -436,16 +461,7 @@ public class GridManager : MonoBehaviour
         }
         yield return null;
 
-        // プレイヤーがゴールと接触したら
-        if (goalObject != null && playerObject.transform.position.x == goalObject.transform.position.x && playerObject.transform.position.z == goalObject.transform.position.z && activeBag)
-        {
-            SceneController.Instance.ClearScene();
-        }
-        else
-        {
-            // 最終地点でゴールに接触していなかったら
-            StartCoroutine(FadeSequence());
-        }
+        
 
         routes[0].ResetState();
 

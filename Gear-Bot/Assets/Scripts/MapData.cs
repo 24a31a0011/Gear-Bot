@@ -1,6 +1,7 @@
 ///
 /// 作成者 : グエン
 ///
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum TileType
@@ -9,7 +10,8 @@ public enum TileType
     Ground = 1,     // 地面
     PowerGear = 2,  // 電源ギア
     GimmickGear = 3,// ギミックギア
-    Gimmick = 4     // ギミック
+    Bridge = 4,     // 橋
+    Obstacle        // 障害物
 }
 
 [System.Serializable]
@@ -38,6 +40,9 @@ public class MapData : MonoBehaviour
     [Header("マップ左上のワールド座標")]
     public Vector3 worldTopLeft = Vector3.zero; // yは無視
 
+    // 障害物のワールド座標を登録するリスト
+    private List<Vector3> obstaclePositions = new List<Vector3>();
+
     private void Awake()
     {
         // シングルトンの設定
@@ -57,18 +62,59 @@ public class MapData : MonoBehaviour
     }
 
     /// <summary>
-    /// ワールド座標(x,z)を入力して対応する TileData を返す
+    /// 外部から障害物のリストを渡す
+    /// </summary>
+    public void SetObstacles(List<GameObject> obstacles)
+    {
+        obstaclePositions.Clear();
+
+        foreach (var obs in obstacles)
+        {
+            if (obs != null)
+            {
+                obstaclePositions.Add(obs.transform.position);
+            }
+        }
+    }
+
+    /// <summary>
+    /// ワールド座標(x,z)から TileData を取得する
     /// </summary>
     public TileData GetTileData(Vector3 worldPos)
     {
-        // ワールド座標からマップ座標に変換
-        int mapX = Mathf.FloorToInt((worldPos.x - worldTopLeft.x) / 1);
-        int mapY = Mathf.FloorToInt((worldTopLeft.z - worldPos.z) / 1); // 上が0なので z方向は反転
+        Vector3Int mapPos = WorldToMap(worldPos);
 
         // 範囲外チェック
-        if (mapY < 0 || mapY >= map.Length) return null;
-        if (mapX < 0 || mapX >= map[mapY].tiles.Length) return null;
+        if (mapPos.y < 0 || mapPos.y >= map.Length ||
+            mapPos.x < 0 || mapPos.x >= map[mapPos.y].tiles.Length)
+        {
+            return new TileData { type = TileType.Abyss };
+        }
 
-        return map[mapY].tiles[mapX];
+        // 基本タイル
+        TileData baseTile = map[mapPos.y].tiles[mapPos.x];
+
+        // 障害物チェック
+        foreach (var obsPos in obstaclePositions)
+        {
+            Vector3Int obsMapPos = WorldToMap(obsPos);
+
+            if (obsMapPos.x == mapPos.x && obsMapPos.y == mapPos.y)
+            {
+                return new TileData { type = TileType.Obstacle };
+            }
+        }
+
+        return baseTile;
+    }
+
+    /// <summary>
+    /// ワールド座標をマップ座標に変換
+    /// </summary>
+    public Vector3Int WorldToMap(Vector3 worldPos)
+    {
+        int x = Mathf.FloorToInt((worldPos.x - worldTopLeft.x) / 1);
+        int y = Mathf.FloorToInt((worldTopLeft.z - worldPos.z) / 1);
+        return new Vector3Int(x, y, 0);
     }
 }
