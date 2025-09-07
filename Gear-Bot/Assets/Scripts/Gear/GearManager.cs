@@ -10,8 +10,6 @@ public class GearManager : MonoBehaviour
     // シングルトンパターン:どこからでもアクセス出来るように
     public static GearManager Instance { get; private set; }
 
-
-
     // PowerGearから繋がっているGearを登録するリスト
     private List<GameObject> chainGear = new List<GameObject>();
 
@@ -37,9 +35,9 @@ public class GearManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gearをマネージャーに登録する
+    /// 繋がっているGearをマネージャーに登録する
     /// </summary>
-    public void RegisterClickGear(GameObject gear)
+    public void RegisterChainGear(GameObject gear)
     {
         if (!chainGear.Contains(gear))
         {
@@ -73,7 +71,6 @@ public class GearManager : MonoBehaviour
         {
             if (chainGear[i] == null)
             {
-                Debug.Log("リスト内のオブジェクトが削除されました！");
                 chainGear.RemoveAt(i);
             }
         }

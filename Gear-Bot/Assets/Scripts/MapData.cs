@@ -64,7 +64,7 @@ public class MapData : MonoBehaviour
     /// <summary>
     /// ŠO•”‚©‚çáŠQ•¨‚ÌƒŠƒXƒg‚ğ“n‚·
     /// </summary>
-    public void SetObstacles(List<GameObject> obstacles)
+    public void SetObstacles(List<Transform> obstacles)
     {
         obstaclePositions.Clear();
 
@@ -72,7 +72,7 @@ public class MapData : MonoBehaviour
         {
             if (obs != null)
             {
-                obstaclePositions.Add(obs.transform.position);
+                obstaclePositions.Add(obs.position);
             }
         }
     }

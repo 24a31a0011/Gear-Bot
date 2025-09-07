@@ -48,12 +48,15 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 currentState |= GridState.OnClick;
                 meshRenderer.material = offMaterial;
                 SetGears.Instance.SetGear(this.transform);
+                GridManager.Instance.RegisterGear(this.gameObject);
             }
             else if ((currentState & GridState.OnClick) != 0)
             {
                 // OnClick ‚ğ‰ğœ
                 currentState &= ~GridState.OnClick;
                 meshRenderer.material = (currentState & GridState.OnDrag) != 0 ? offMaterial : onMaterial; ;
+
+                GridManager.Instance.UnregisterGear(this.gameObject);
 
                 GearDataBase gearData = GetComponentInChildren<GearDataBase>();
                 if (gearData != null)

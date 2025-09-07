@@ -41,6 +41,9 @@ public class GridManager : MonoBehaviour
     // シーン内の全てのGridを登録するリスト
     private List<SetGrid> clickGrids = new List<SetGrid>();
 
+    // どの座標にGearが設置されているか登録するリスト
+    public List<Transform> gearPos = new List<Transform>();
+
     // プレイヤーが進むルートを登録するリスト
     private routeGrids<SetGrid> routes = new routeGrids<SetGrid>();
 
@@ -117,6 +120,33 @@ public class GridManager : MonoBehaviour
             isLeftDragging = false;
         }
     }
+
+    /// <summary>
+    /// Gearをマネージャーに登録する
+    /// </summary>
+    public void RegisterGear(GameObject gear)
+    {
+        if (!gearPos.Contains(gear.transform))
+        {
+            gearPos.Add(gear.transform);
+            // マップに現在設置されているGearの情報を障害物として送る
+            MapData.Instance.SetObstacles(gearPos);
+        }
+    }
+
+    /// <summary>
+    /// Gearをマネージャーから登録解除
+    /// </summary>
+    public void UnregisterGear(GameObject gear)
+    {
+        if (gearPos.Contains(gear.transform))
+        {
+            gearPos.Remove(gear.transform);
+            // マップに現在設置されているGearの情報を障害物として送る
+            MapData.Instance.SetObstacles(gearPos);
+        }
+    }
+
 
     /// <summary>
     /// Gridをマネージャーに登録する
@@ -374,7 +404,7 @@ public class GridManager : MonoBehaviour
             TileData nextTile = MapData.Instance.GetTileData(targetPos);
 
             // 次に進む場所に障害物があればやり直し
-            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear))
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle))
             {
                 Debug.LogWarning("次に進む方向に障害物があります");
                 StartCoroutine(FadeSequence());
