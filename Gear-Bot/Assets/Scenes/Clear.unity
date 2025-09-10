@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3219207463808522684, guid: bede69b43ad9ae3498ceb2c8446ce334, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3320155337166040520, guid: bede69b43ad9ae3498ceb2c8446ce334, type: 3}
       propertyPath: m_Name
       value: ClearCanvas
