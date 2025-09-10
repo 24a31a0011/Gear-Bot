@@ -408,6 +408,16 @@ public class GridManager : MonoBehaviour
                 break;
             }
 
+            if (nextTile != null && nextTile.type == TileType.Gate && nextTile.gimmickPrefab != null)
+            {
+                if (!nextTile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                {
+                    Debug.LogWarning("ƒMƒ~ƒbƒN‚ªì“®‚µ‚Ä‚¢‚Ü‚¹‚ñ");
+                    StartCoroutine(FadeSequence());
+                    break;
+                }
+            }
+
             // --- ‡A ‰ñ“]‚ªI‚í‚Á‚Ä‚©‚çˆÚ“® ---
             float distance = Vector3.Distance(startPos, targetPos);
             float elapsed = 0f;

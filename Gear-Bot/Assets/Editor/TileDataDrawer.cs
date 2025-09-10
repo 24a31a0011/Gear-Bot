@@ -22,7 +22,7 @@ public class TileDataDrawer : PropertyDrawer
         EditorGUI.PropertyField(typeRect, typeProp);
 
         // TileType が Bridge のときだけ gimmickPrefab を表示
-        if ((TileType)typeProp.enumValueIndex == TileType.Bridge)
+        if ((TileType)typeProp.enumValueIndex == TileType.Bridge || (TileType)typeProp.enumValueIndex == TileType.Gate)
         {
             Rect gimmickRect = new Rect(
                 position.x,
@@ -41,7 +41,7 @@ public class TileDataDrawer : PropertyDrawer
         var typeProp = property.FindPropertyRelative("type");
 
         // Gimmick のときは 2 行分、それ以外は 1 行分
-        if ((TileType)typeProp.enumValueIndex == TileType.Bridge)
+        if ((TileType)typeProp.enumValueIndex == TileType.Bridge || (TileType)typeProp.enumValueIndex == TileType.Gate)
             return EditorGUIUtility.singleLineHeight * 2 + 2;
         else
             return EditorGUIUtility.singleLineHeight;
