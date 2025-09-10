@@ -48,6 +48,9 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 TileData tile = MapData.Instance.GetTileData(this.transform.position);
                 if (tile != null && (tile.type == TileType.Abyss || tile.type == TileType.Ground))
                 {
+                    // SEÇçƒê∂
+                    Audio.Instance.PlaySE();
+
                     // OnClick Çí«â¡
                     currentState |= GridState.OnClick;
                     meshRenderer.material = offMaterial;

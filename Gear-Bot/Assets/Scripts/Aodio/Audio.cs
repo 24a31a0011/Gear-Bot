@@ -54,9 +54,9 @@ public class Audio : MonoBehaviour
     }
 
     // ===== SE Н─Р╢К╓ШA =====
-    public void PlaySE(AudioClip clip)
+    public void PlaySE()
     {
-        seSource.PlayOneShot(clip);
+        seSource.PlayOneShot(seSource.clip);
     }
 
     // ===== Й╣Ч╩Т▓Ро =====
