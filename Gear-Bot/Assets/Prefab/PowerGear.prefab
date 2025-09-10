@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -122,6 +122,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2391341593331302908}
+    - targetCorrespondingSourceObject: {fileID: 8532981112198554223, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6871883018000884951}
   m_SourcePrefab: {fileID: 100100000, guid: e3b3f4be3154a0b4fb6463dce8de6dc9, type: 3}
 --- !u!1 &4677236474441080893 stripped
 GameObject:
@@ -168,3 +171,25 @@ MonoBehaviour:
   gimmickGearMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!95 &6871883018000884951
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4677236474441080893}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 596bae03bc0c853469a405877d09f133, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

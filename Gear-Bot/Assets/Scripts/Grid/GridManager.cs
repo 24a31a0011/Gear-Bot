@@ -437,6 +437,7 @@ public class GridManager : MonoBehaviour
 
             // 電源ギアから接続しているギアをすべて確認する
             GearManager.Instance.SearchGears();
+            GearManager.Instance.ActiveAnime();
             GearManager.Instance.DecrementGearNumber();
 
             TileData tile = MapData.Instance.GetTileData(playerObject.transform.position);

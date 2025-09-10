@@ -76,6 +76,9 @@ public class GearManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 繋がっている歯車を探す
+    /// </summary>
     public void SearchGears()
     {
         chainGear.Clear();
@@ -84,7 +87,7 @@ public class GearManager : MonoBehaviour
             powerGear[i].GetComponent<Gear>().Search();
         }
 
-        // AにあってBにないもの
+        // 以前のギミックと現在のギミックを比べ、違いがあればそれは途切れているとして止める
         var onlyInA = previewGimmcik.Except(currentGimmick).ToList();
 
         if (previewGimmcik.Count != 0)
@@ -99,6 +102,9 @@ public class GearManager : MonoBehaviour
         ActivGimmcik();
     }
 
+    /// <summary>
+    /// ギミックを作動させる
+    /// </summary>
     public void ActivGimmcik()
     {
         for (int i = 0; i < currentGimmick.Count; i++)
@@ -108,11 +114,35 @@ public class GearManager : MonoBehaviour
         currentGimmick.Clear();
     }
 
+    /// <summary>
+    /// 歯車の回転可能数を減らす
+    /// </summary>
     public void DecrementGearNumber()
     {
         for (int i = 0; i < powerGear.Count; i++)
         {
             powerGear[i].GetComponent<Gear>().DecrementGearNum();
+        }
+    }
+
+    /// <summary>
+    /// 歯車の回転アニメーションを再生
+    /// </summary>
+    public void ActiveAnime()
+    {
+        for (int i = 0; i < powerGear.Count; i++)
+        {
+            powerGear[i].GetComponent<Animator>().SetTrigger("rote");
+        }
+
+        for (int i = 0; i < chainGear.Count; i++)
+        {
+            chainGear[i].GetComponent<Animator>().SetTrigger("rote");
+        }
+
+        for (int i = 0; i < previewGimmcik.Count; i++)
+        {
+            previewGimmcik[i].GetComponent<Animator>().SetTrigger("rote");
         }
     }
 }
