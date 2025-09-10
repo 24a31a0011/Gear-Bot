@@ -284,7 +284,7 @@ Transform:
   m_GameObject: {fileID: 2603683281629890894}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 93526661355480058}
   - component: {fileID: 782535218439181930}
   - component: {fileID: 8382323456991630150}
+  - component: {fileID: 6749935187965813159}
   m_Layer: 0
   m_Name: Belt
   m_TagString: Untagged
@@ -479,8 +480,21 @@ MonoBehaviour:
   detectionLength: 0.75
   affectedLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   animator: {fileID: 946291801502824882}
+--- !u!114 &6749935187965813159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4160770342868182470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d372042228f279e468e08d6a1ee87bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBelt: {fileID: 8382323456991630150}
 --- !u!1 &5566844998670169042
 GameObject:
   m_ObjectHideFlags: 0

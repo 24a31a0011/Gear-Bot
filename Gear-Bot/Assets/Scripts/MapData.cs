@@ -11,10 +11,11 @@ public enum TileType
     PowerGear,  // 電源ギア
     GimmickGear,// ギミックギア
     Bridge,     // 橋
-    Belt,
+    Belt,       // ベルトコンベア
     Obstacle,   // 障害物
     Goal,       // ゴール
-    Bag         // 荷物
+    Bag,        // 荷物
+    Gate        // ゲート
 }
 
 [System.Serializable]
