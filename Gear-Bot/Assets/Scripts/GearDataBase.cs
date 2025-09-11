@@ -23,8 +23,8 @@ public class GearDataBase : MonoBehaviour
         if (gearRotateCount <= 0)
         {
             GridManager.Instance.UnregisterGear(transform.parent.parent.gameObject);
-            // 0.5•bŒã‚ÉŽ©•ª‚ð”j‰ó
-            Destroy(transform.parent.gameObject, 1f);
+            // Ž©•ª‚ð”j‰ó
+            Destroy(transform.parent.gameObject);
         }
     }
     /// <summary>
