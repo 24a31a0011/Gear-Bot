@@ -39,10 +39,10 @@ public class MapData : MonoBehaviour
     public static MapData Instance { get; private set; }
 
     [Header("マップデータ")]
-    public MapRow[] map;
+    [SerializeField] MapRow[] map;
 
     [Header("マップ左上のワールド座標")]
-    public Vector3 worldTopLeft = Vector3.zero; // yは無視
+    [SerializeField] Vector3 worldTopLeft = Vector3.zero; // yは無視
 
     // 障害物のワールド座標を登録するリスト
     private List<Vector3> obstaclePositions = new List<Vector3>();
