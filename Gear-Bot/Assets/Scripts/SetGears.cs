@@ -84,6 +84,12 @@ public class SetGears : MonoBehaviour
         // そうでなければそのギアが選ばれた状態にする
         else
         {
+            if (seleteGearNumber > -1)
+            {
+                // 以前のボタンの画像を切り替える
+                gearList[seleteGearNumber].gearprefab.GetComponent<Image>().sprite = fastImage;
+            }
+
             seleteGearNumber = (sbyte)num;
             // ボタンの画像を切り替える
             gearList[seleteGearNumber].gearprefab.GetComponent<Image>().sprite = secoundImage;

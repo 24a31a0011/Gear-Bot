@@ -422,12 +422,16 @@ public class GridManager : MonoBehaviour
             float distance = Vector3.Distance(startPos, targetPos);
             float elapsed = 0f;
 
+            PlayerAnimation.Instance.NextAnime();
+
             while (elapsed < distance / moveSpeed)
             {
                 elapsed += Time.deltaTime;
                 playerObject.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / (distance / moveSpeed));
                 yield return null;
             }
+
+            PlayerAnimation.Instance.NextAnime();
 
             // 最後に正確にターゲットに合わせる
             playerObject.transform.position = targetPos;
