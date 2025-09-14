@@ -34,9 +34,11 @@ public class SetGears : MonoBehaviour
     // ギアに表示する数字のマテリアル
     [SerializeField] private Material[] gearMaterial;
 
-    // どのボタンを押しているかを表示する画像
-    [Tooltip("PositionのY値は0で良いです。")]
-    [SerializeField] private Image buttonFrameImage;
+    [Header("ボタンが押された時のイラスト")]
+    [SerializeField] private Sprite secoundImage;
+
+    [Header("ボタンが押さる前のイラスト")]
+    [SerializeField] private Sprite fastImage;
 
     private void Awake()
     {
@@ -59,8 +61,6 @@ public class SetGears : MonoBehaviour
         {
             GearNumTextChange(i);
         }
-        // 最初はフレームの画像を非表示にする
-        buttonFrameImage.enabled = false;
     }
 
     // Update is called once per frame
@@ -76,21 +76,17 @@ public class SetGears : MonoBehaviour
         // 選ばれているギアのボタンが押されたとき
         if (num == seleteGearNumber)
         {
+            // ボタンの画像を切り替える
+            gearList[seleteGearNumber].gearprefab.GetComponent<Image>().sprite = fastImage;
+
             seleteGearNumber = -1;
-            // フレームの画像を非表示にする
-            buttonFrameImage.enabled = false;
-            
         }
         // そうでなければそのギアが選ばれた状態にする
         else
         {
             seleteGearNumber = (sbyte)num;
-            // フレームの画像を押されたボタンへ移動し、表示する
-            buttonFrameImage.transform.position =
-                new Vector3(gearList[seleteGearNumber].gearprefab.transform.position.x,
-                            gearList[seleteGearNumber].gearprefab.transform.position.y - 45.0f,
-                            gearList[seleteGearNumber].gearprefab.transform.position.z);
-            buttonFrameImage.enabled = true;
+            // ボタンの画像を切り替える
+            gearList[seleteGearNumber].gearprefab.GetComponent<Image>().sprite = secoundImage;
         }
     }
     /// <summary>

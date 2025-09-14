@@ -64,6 +64,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2652ab87a92869247909a254ba0caaf7, type: 2}
   - {fileID: 2100000, guid: bbf687d0fafd2b349a95c1d14569a7cb, type: 2}
   - {fileID: 2100000, guid: ba37da0fca67f8846a7c9f21ba111f0c, type: 2}
+  secoundImage: {fileID: 21300000, guid: 1f73cfcb4179e00449a0143dbf4199ab, type: 3}
+  fastImage: {fileID: 21300000, guid: f5b994ec9c3a328499e9e5aef72e0bf0, type: 3}
 --- !u!114 &5539552324533566244
 MonoBehaviour:
   m_ObjectHideFlags: 0
