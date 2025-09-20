@@ -8,9 +8,6 @@ public class OptionUI : MonoBehaviour
     [SerializeField] GameObject OpenObjectCanvas;
     [SerializeField] GameObject CloseOptionCanvas;
 
-    [Header("Scene‚Ì–¼‘O")]
-    [SerializeField] string StageSelectScene;
-
     void Start()
     {
         OpenObjectCanvas.SetActive(false);
@@ -30,6 +27,9 @@ public class OptionUI : MonoBehaviour
     // Option‚ğŠJ‚­
     public void OpenOption()
     {
+        // SE‚ğÄ¶
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
+
         OpenObjectCanvas.SetActive(true);
         CloseOptionCanvas.SetActive(false);
     }
@@ -37,6 +37,9 @@ public class OptionUI : MonoBehaviour
     // Option‚ğ•Â‚¶‚é
     public void CloseOption()
     {
+        // SE‚ğÄ¶
+        Audio.Instance.SetClip(Audio.SEClips.Cansel);
+
         OpenObjectCanvas.SetActive(false);
         CloseOptionCanvas.SetActive(true);
     }

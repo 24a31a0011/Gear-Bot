@@ -48,6 +48,9 @@ public class SceneController : MonoBehaviour
     // ゲームを開始。ステージ選択画面に移行する
     public void GameStart()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
+
         previousSceneName = currentSceneName;
         SceneManager.LoadScene(startScene);
     }
@@ -55,6 +58,9 @@ public class SceneController : MonoBehaviour
     // チュートリアルへと移行
     public void TutorialStart()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
+
         previousSceneName = currentSceneName;
         SceneManager.LoadScene(tutorialScene);
     }
@@ -62,6 +68,9 @@ public class SceneController : MonoBehaviour
     // オプション画面へと移行
     public void OptionStart()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
+
         previousSceneName = currentSceneName;
         SceneManager.LoadScene(optionScene);
     }
@@ -76,6 +85,9 @@ public class SceneController : MonoBehaviour
     // ゲームを終了する
     public void EndGame()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
+
         // エディター上で実行中かどうか
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // エディターを停止
@@ -87,6 +99,9 @@ public class SceneController : MonoBehaviour
     // 一つ前のSceneへと戻る
     public void ReturnScene()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Cansel);
+
         SceneManager.LoadScene(previousSceneName);
         previousSceneName = currentSceneName;
     }
@@ -123,7 +138,8 @@ public class SceneController : MonoBehaviour
 
         }
 
-
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Decision);
 
         SceneManager.LoadScene(mainGameStageList[stageNum]);
 
@@ -137,6 +153,9 @@ public class SceneController : MonoBehaviour
 
     public void TitleScene()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.Cansel);
+
         SceneManager.LoadScene(titleScene);
     }
 }

@@ -49,7 +49,7 @@ public class SetGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
                 if (tile != null && (tile.type == TileType.Abyss || tile.type == TileType.Ground))
                 {
                     // SE‚ğÄ¶
-                    Audio.Instance.PlaySE();
+                    Audio.Instance.SetClip(Audio.SEClips.Gear);
 
                     // OnClick ‚ğ’Ç‰Á
                     currentState |= GridState.OnClick;

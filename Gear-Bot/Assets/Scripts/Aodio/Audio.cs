@@ -4,12 +4,20 @@
 using UnityEngine.Audio;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class Audio : MonoBehaviour
 {
     // シングルトンパターン:どこからでもアクセス出来るように
     public static Audio Instance { get; private set; }
+
+    public enum SEClips
+    {
+        Cansel,
+        Decision,
+        StageClear,
+        StageReset,
+        Gear
+    }
 
     //Audioミキサーを入れる
     [SerializeField] AudioMixer audioMixer;
@@ -18,10 +26,15 @@ public class Audio : MonoBehaviour
     [SerializeField] private AudioSource bgmSource;   // BGM 用
     [SerializeField] private AudioSource seSource;    // SE 用
 
+    // SE
+    [Header("SEClip")]
+    [SerializeField] private AudioClip[] seClips;
 
     //それぞれのスライダーを入れる
     private Slider bgmSlider;
     private Slider seSlider;
+
+    private AudioClip currentClip;
 
     private void Awake()
     {
@@ -57,9 +70,13 @@ public class Audio : MonoBehaviour
     }
 
     // ===== SE 再生関連 =====
-    public void PlaySE()
+    private void PlaySE()
     {
-        seSource.PlayOneShot(seSource.clip);
+        if (currentClip == null) return;
+
+        seSource.PlayOneShot(currentClip);
+
+        currentClip = null;
     }
 
     // ===== 音量調整 =====
@@ -89,5 +106,30 @@ public class Audio : MonoBehaviour
         // 値変更イベントを登録
         bgmSlider.onValueChanged.AddListener(SetBGMVolume);
         seSlider.onValueChanged.AddListener(SetSEVolume);
+    }
+
+    public void SetClip(SEClips sEClips)
+    {
+        // enumごとに再生するSEを変える
+        switch (sEClips)
+        {
+            case SEClips.Cansel:
+                currentClip = seClips[0];
+                break;
+            case SEClips.Decision:
+                currentClip = seClips[1];
+                break;
+            case SEClips.StageClear:
+                currentClip = seClips[2];
+                break;
+            case SEClips.StageReset:
+                currentClip = seClips[3];
+                break;
+            case SEClips.Gear:
+                currentClip = seClips[4];
+                break;
+        }
+
+        PlaySE();
     }
 }
