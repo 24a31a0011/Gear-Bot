@@ -8,14 +8,21 @@ public class OptionUI : MonoBehaviour
     [SerializeField] GameObject OpenObjectCanvas;
     [SerializeField] GameObject CloseOptionCanvas;
 
+    [SerializeField] private Image blocker;         // 全画面を覆う透明なImage
+
     void Start()
     {
         OpenObjectCanvas.SetActive(false);
     }
 
-    void Update()
+    void OnEnable()
     {
-        
+        blocker.raycastTarget = true;  // 有効時はブロックON
+    }
+
+    void OnDisable()
+    {
+        blocker.raycastTarget = false; // 無効時はブロックOFF
     }
 
     // 現在のsceneを再読み込みする
@@ -27,6 +34,7 @@ public class OptionUI : MonoBehaviour
     // Optionを開く
     public void OpenOption()
     {
+        OnEnable();
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.Decision);
 
@@ -37,6 +45,7 @@ public class OptionUI : MonoBehaviour
     // Optionを閉じる
     public void CloseOption()
     {
+        OnDisable();
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.Cansel);
 

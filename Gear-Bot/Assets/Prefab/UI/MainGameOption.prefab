@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &4273227496755847113
 MonoBehaviour:
@@ -788,7 +788,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &5725441273467466316
 MonoBehaviour:
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenObjectCanvas: {fileID: 2946770801762497363}
   CloseOptionCanvas: {fileID: 126360297858831809}
-  StageSelectScene: 
+  blocker: {fileID: 0}
 --- !u!114 &2545059959242449187
 MonoBehaviour:
   m_ObjectHideFlags: 0
