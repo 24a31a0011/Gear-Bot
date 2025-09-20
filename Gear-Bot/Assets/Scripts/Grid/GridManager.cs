@@ -535,6 +535,10 @@ public class GridManager : MonoBehaviour
     private IEnumerator FadeSequence()
     {
         // 1. ˆÃ“]
+
+        // SE‚ğÄ¶
+        Audio.Instance.SetClip(Audio.SEClips.StageReset);
+
         yield return StartCoroutine(fadeController.FadeOut());
 
         // 2. ‰‰o
