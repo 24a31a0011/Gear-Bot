@@ -450,6 +450,7 @@ public class GridManager : MonoBehaviour
             if (tile != null && tile.type == TileType.Abyss)
             {
                 Debug.LogWarning("空中です");
+                StartCoroutine(FallDown(playerObject, 3f, 2f)); // (対象, 下げる量, 速度)
                 StartCoroutine(FadeSequence());
                 break;
             }
@@ -458,6 +459,7 @@ public class GridManager : MonoBehaviour
                 if (!tile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
                 {
                     Debug.LogWarning("ギミックが作動していません");
+                    StartCoroutine(FallDown(playerObject, 3f, 2f)); // (対象, 下げる量, 速度)
                     StartCoroutine(FadeSequence());
                     break;
                 }
@@ -509,6 +511,25 @@ public class GridManager : MonoBehaviour
 
         isButtonEnabled = true;
     }
+
+    private IEnumerator FallDown(GameObject obj, float fallAmount, float speed)
+    {
+        Vector3 startPos = obj.transform.position;
+        Vector3 targetPos = new Vector3(startPos.x, startPos.y - fallAmount, startPos.z);
+
+        float elapsed = 0f;
+        float duration = 1f / speed; // 速度を補間に使う
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            obj.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            yield return null;
+        }
+
+        obj.transform.position = targetPos;
+    }
+
 
     /// <summary>
     /// すでにあるルートの最後の位置と新しいルートの位置の絶対値が1（隣接している）かどうか

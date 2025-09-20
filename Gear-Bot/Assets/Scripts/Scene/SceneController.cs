@@ -148,6 +148,9 @@ public class SceneController : MonoBehaviour
 
     public void ClearScene()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.StageClear);
+
         SceneManager.LoadScene(clearScene);
     }
 
