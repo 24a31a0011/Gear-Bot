@@ -50,6 +50,6 @@ MonoBehaviour:
   titleScene: Title
   clearScene: clear
   mainGameStageList:
-  - Bit_Stage1
-  - Bit_Stage2
-  - Bit_Stage3
+  - Stage1
+  - Stage2
+  - Stage3
