@@ -80,6 +80,17 @@ public class SceneController : MonoBehaviour
     {
         currentSceneName = scene.name;
         Debug.Log("currentSceneName:" + currentSceneName + "\npreviousSceneName:" + previousSceneName);
+
+        if (mainGameStageList.Contains(scene.name))
+        {
+            // ステージ中
+            Audio.Instance.SetBGMClip(Audio.BGMClips.StageBGM);
+        }
+        else
+        {
+            // それ以外
+            Audio.Instance.SetBGMClip(Audio.BGMClips.DefaultBGM);
+        }
     }
 
     // ゲームを終了する

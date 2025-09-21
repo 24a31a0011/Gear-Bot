@@ -316,6 +316,9 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらルートを消す
     public void OnClickResetRoute()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.ResetRoute);
+
         if (isButtonEnabled)
         {
             ResetState();
@@ -325,6 +328,9 @@ public class GridManager : MonoBehaviour
     // ボタンが押されたらプレイヤーをルート通りに動かす
     public void OnClickStartPlayerMove()
     {
+        // SEを再生
+        Audio.Instance.SetClip(Audio.SEClips.RouteStart);
+
         if (isButtonEnabled)
         {
             isButtonEnabled = false;

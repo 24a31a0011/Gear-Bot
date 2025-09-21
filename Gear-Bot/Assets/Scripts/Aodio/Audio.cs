@@ -16,7 +16,15 @@ public class Audio : MonoBehaviour
         Decision,
         StageClear,
         StageReset,
-        Gear
+        Gear,
+        ResetRoute,
+        RouteStart
+    }
+
+    public enum BGMClips
+    {
+        DefaultBGM,
+        StageBGM
     }
 
     //Audioミキサーを入れる
@@ -30,11 +38,17 @@ public class Audio : MonoBehaviour
     [Header("SEClip")]
     [SerializeField] private AudioClip[] seClips;
 
+    // BGM
+    [Header("BGMClip")]
+    [SerializeField] private AudioClip[] bgmClips;
+
     //それぞれのスライダーを入れる
     private Slider bgmSlider;
     private Slider seSlider;
 
     private AudioClip currentClip;
+
+    private AudioClip currentBGMClip;
 
     private void Awake()
     {
@@ -54,12 +68,16 @@ public class Audio : MonoBehaviour
 
     private void Start()
     {
-        PlayBGM();
+
     }
 
     // ===== BGM 再生関連 =====
     public void PlayBGM(bool loop = true)
     {
+        if (currentBGMClip == null) return;
+        if (bgmSource.clip == currentBGMClip) return;
+
+        bgmSource.clip = currentBGMClip;
         bgmSource.loop = loop;
         bgmSource.Play();
     }
@@ -75,8 +93,6 @@ public class Audio : MonoBehaviour
         if (currentClip == null) return;
 
         seSource.PlayOneShot(currentClip);
-
-        currentClip = null;
     }
 
     // ===== 音量調整 =====
@@ -128,8 +144,30 @@ public class Audio : MonoBehaviour
             case SEClips.Gear:
                 currentClip = seClips[4];
                 break;
+            case SEClips.ResetRoute:
+                currentClip = seClips[5];
+                break;
+            case SEClips.RouteStart:
+                currentClip = seClips[6];
+                break;
         }
 
         PlaySE();
+    }
+
+    public void SetBGMClip(BGMClips bGMClips)
+    {
+        // enumごとに再生するBGMを変える
+        switch (bGMClips)
+        {
+            case BGMClips.DefaultBGM:
+                currentBGMClip = bgmClips[0];
+                break;
+            case BGMClips.StageBGM:
+                currentBGMClip = bgmClips[1];
+                break;
+        }
+
+        PlayBGM();
     }
 }
