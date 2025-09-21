@@ -2648,6 +2648,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainGameOption
       objectReference: {fileID: 0}
+    - target: {fileID: 4575583212531929456, guid: 6f6dbdb143a6a384f96649b96e657ed6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4737239548701988250, guid: 6f6dbdb143a6a384f96649b96e657ed6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -16054,6 +16058,10 @@ PrefabInstance:
       propertyPath: deactivateGimmickGearEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6114178686609331884, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5cc55d850f9d81647af1ee4b4fba6176, type: 2}
     - target: {fileID: 8172512270093803262, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: m_Name
       value: Gimmick_Gear

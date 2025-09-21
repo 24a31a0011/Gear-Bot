@@ -1500,6 +1500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainGameOption
       objectReference: {fileID: 0}
+    - target: {fileID: 4575583212531929456, guid: 6f6dbdb143a6a384f96649b96e657ed6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4737239548701988250, guid: 6f6dbdb143a6a384f96649b96e657ed6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -17186,6 +17186,10 @@ PrefabInstance:
       propertyPath: deactivateGimmickGearEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 577752011}
+    - target: {fileID: 6114178686609331884, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98647ee1414618546a16ccfebc535a79, type: 2}
     - target: {fileID: 8172512270093803262, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: m_Name
       value: Gimmick_Gear
