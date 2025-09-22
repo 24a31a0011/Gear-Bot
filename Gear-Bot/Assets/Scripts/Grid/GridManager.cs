@@ -16,7 +16,6 @@ public class GridManager : MonoBehaviour
     [Header("プレイヤー関連のデータ")]
     [SerializeField] GameObject playerObject;
     [SerializeField] GameObject pBagObject;
-    [SerializeField] Vector3 startPosition;
 
     [Header("荷物のオブジェクト")]
     [SerializeField] GameObject bagObject;
@@ -407,7 +406,7 @@ public class GridManager : MonoBehaviour
             TileData nextTile = MapData.Instance.GetTileData(targetPos);
 
             // 次に進む場所に障害物があればやり直し
-            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle))
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle || nextTile.type == TileType.Belt || nextTile.type == TileType.Arm))
             {
                 Debug.LogWarning("次に進む方向に障害物があります");
                 StartCoroutine(FadeSequence());
