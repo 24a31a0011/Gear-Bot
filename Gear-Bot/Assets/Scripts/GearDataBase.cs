@@ -67,5 +67,4 @@ public class GearDataBase : MonoBehaviour
         get { return this.gearNumber; }
         private set { this.gearNumber = value; }
     }
-
 }

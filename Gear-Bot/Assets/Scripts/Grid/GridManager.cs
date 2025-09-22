@@ -506,8 +506,19 @@ public class GridManager : MonoBehaviour
                 StartCoroutine(FadeSequence());
                 break;
             }
-
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
+            GearManager.Instance.SearchGears();
+            if (tile != null && tile.type == TileType.Bridge && tile.gimmickPrefab != null)
+            {
+                if (!tile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                {
+                    Debug.LogWarning("ギミックが作動していません");
+                    StartCoroutine(FallDown(playerObject, 3f, 2f)); // (対象, 下げる量, 速度)
+                    StartCoroutine(FadeSequence());
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(0.4f);
         }
         yield return null;
 
