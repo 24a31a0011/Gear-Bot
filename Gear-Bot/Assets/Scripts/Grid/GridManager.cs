@@ -407,7 +407,7 @@ public class GridManager : MonoBehaviour
             TileData nextTile = MapData.Instance.GetTileData(targetPos);
 
             // Ÿ‚Éi‚ŞêŠ‚ÉáŠQ•¨‚ª‚ ‚ê‚Î‚â‚è’¼‚µ
-            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle))
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle || nextTile.type == TileType.Belt))
             {
                 Debug.LogWarning("Ÿ‚Éi‚Ş•ûŒü‚ÉáŠQ•¨‚ª‚ ‚è‚Ü‚·");
                 StartCoroutine(FadeSequence());
