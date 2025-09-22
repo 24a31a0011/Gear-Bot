@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageCanvas1: {fileID: 2097219241}
   StageCanvas2: {fileID: 229890375}
+  value: 1.2
 --- !u!1 &67164531
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +325,7 @@ GameObject:
   - component: {fileID: 147013033}
   - component: {fileID: 147013032}
   - component: {fileID: 147013031}
+  - component: {fileID: 147013035}
   m_Layer: 5
   m_Name: Stage5Button
   m_TagString: Untagged
@@ -456,6 +458,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147013029}
   m_CullTransparentMesh: 1
+--- !u!114 &147013035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147013029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 147013029}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 147013029}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &154799116
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +840,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4377389134014436163, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1133466491}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8005848595666523331, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 630681259}
+    - targetCorrespondingSourceObject: {fileID: 5700482723650341153, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1016509063}
   m_SourcePrefab: {fileID: 100100000, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
 --- !u!224 &229890374 stripped
 RectTransform:
@@ -955,6 +1008,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508485796}
   m_CullTransparentMesh: 1
+--- !u!1 &630681253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8005848595666523331, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+  m_PrefabInstance: {fileID: 229890373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &630681259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630681253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 630681253}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 630681253}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &759628417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1351,7 @@ GameObject:
   - component: {fileID: 867577168}
   - component: {fileID: 867577167}
   - component: {fileID: 867577166}
+  - component: {fileID: 867577169}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1329,6 +1433,100 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &867577169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867577165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1016509057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5700482723650341153, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+  m_PrefabInstance: {fileID: 229890373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1016509063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016509057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1016509057}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1016509057}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1133466490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1736,7 @@ GameObject:
   - component: {fileID: 1204846722}
   - component: {fileID: 1204846721}
   - component: {fileID: 1204846720}
+  - component: {fileID: 1204846724}
   m_Layer: 5
   m_Name: Stage4Button
   m_TagString: Untagged
@@ -1670,6 +1869,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204846718}
   m_CullTransparentMesh: 1
+--- !u!114 &1204846724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204846718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1204846718}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1204846718}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1445276615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +2139,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672800455}
   m_CullTransparentMesh: 1
+--- !u!1 &1696525531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1632742962212455366, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+  m_PrefabInstance: {fileID: 2097219239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1696525537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696525531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1696525531}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1696525531}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1726214145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,6 +2339,106 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736937625}
   m_CullTransparentMesh: 1
+--- !u!1 &1821726787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5700482723650341153, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+  m_PrefabInstance: {fileID: 2097219239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1821726793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821726787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1821726787}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1821726787}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!1 &1919541554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8005848595666523331, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+  m_PrefabInstance: {fileID: 2097219239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1919541560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919541554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickExpansionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1919541554}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 53251629}
+          m_TargetAssemblyTypeName: ChangeSelectScene, Assembly-CSharp
+          m_MethodName: OnClickReductionImage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1919541554}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2034889990
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,7 +2909,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4377389134014436163, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 372362910}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8005848595666523331, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1919541560}
+    - targetCorrespondingSourceObject: {fileID: 5700482723650341153, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1821726793}
+    - targetCorrespondingSourceObject: {fileID: 1632742962212455366, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1696525537}
   m_SourcePrefab: {fileID: 100100000, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
 --- !u!224 &2097219240 stripped
 RectTransform:
