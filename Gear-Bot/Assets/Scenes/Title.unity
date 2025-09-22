@@ -288,6 +288,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
+      propertyPath: mainGameStageList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491215306964574561, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
+      propertyPath: 'mainGameStageList.Array.data[3]'
+      value: Stage4
+      objectReference: {fileID: 0}
     - target: {fileID: 8470045594582743638, guid: 350ab614e33a36f48bdbdc77471d716b, type: 3}
       propertyPath: m_Name
       value: SceneManager

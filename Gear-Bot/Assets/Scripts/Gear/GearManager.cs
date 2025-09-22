@@ -17,7 +17,7 @@ public class GearManager : MonoBehaviour
     private List<GameObject> powerGear = new List<GameObject>();
 
     // 現在電源が届いているGimmcikを登録するリスト
-    private List<GameObject> currentGimmick = new List<GameObject>();
+    private HashSet<GameObject> currentGimmick = new HashSet<GameObject>();
     // 以前電源が届いていたGimmcikを登録するリスト
     private List<GameObject> previewGimmcik = new List<GameObject>();
 
@@ -102,14 +102,36 @@ public class GearManager : MonoBehaviour
         ActivGimmcik();
     }
 
+    public void SearchOnly()
+    {
+        chainGear.Clear();
+        for (int i = 0; i < powerGear.Count; i++)
+        {
+            powerGear[i].GetComponent<Gear>().Search();
+        }
+
+        // 以前のギミックと現在のギミックを比べ、違いがあればそれは途切れているとして止める
+        var onlyInA = previewGimmcik.Except(currentGimmick).ToList();
+
+        if (previewGimmcik.Count != 0)
+        {
+            foreach (var obj in onlyInA)
+            {
+                obj.GetComponent<GimmcikGear>().DeactivateGimmick();
+            }
+        }
+
+        previewGimmcik = currentGimmick.ToList();
+    }
+
     /// <summary>
     /// ギミックを作動させる
     /// </summary>
     public void ActivGimmcik()
     {
-        for (int i = 0; i < currentGimmick.Count; i++)
+        foreach (var obj in currentGimmick)
         {
-            currentGimmick[i].GetComponent<GimmcikGear>().ActivGimmick();
+            obj.GetComponent<GimmcikGear>().ActivGimmick();
         }
         currentGimmick.Clear();
     }

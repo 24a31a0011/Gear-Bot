@@ -14,7 +14,6 @@ public class Bridge : MonoBehaviour
 
     public void Deactivate()
     {
-        Debug.Log("hi");
         animator.SetBool("Open", false);
     }
 

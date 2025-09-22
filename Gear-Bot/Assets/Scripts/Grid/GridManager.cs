@@ -507,7 +507,7 @@ public class GridManager : MonoBehaviour
                 break;
             }
             yield return new WaitForSeconds(0.1f);
-            GearManager.Instance.SearchGears();
+            GearManager.Instance.SearchOnly();
             if (tile != null && tile.type == TileType.Bridge && tile.gimmickPrefab != null)
             {
                 if (!tile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
