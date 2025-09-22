@@ -545,7 +545,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 2
+  m_AspectRatio: 5
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -680,12 +680,20 @@ PrefabInstance:
       value: TutorialCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4364819321788729355, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364819321788729355, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364819321788729355, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.8
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4364819321788729355, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.8
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: videoPlayer
