@@ -406,7 +406,11 @@ public class GridManager : MonoBehaviour
             TileData nextTile = MapData.Instance.GetTileData(targetPos);
 
             // Ÿ‚Éi‚ŞêŠ‚ÉáŠQ•¨‚ª‚ ‚ê‚Î‚â‚è’¼‚µ
+<<<<<<< HEAD
             if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle || nextTile.type == TileType.Belt || nextTile.type == TileType.Arm))
+=======
+            if (nextTile != null && (nextTile.type == TileType.PowerGear || nextTile.type == TileType.GimmickGear || nextTile.type == TileType.Obstacle || nextTile.type == TileType.Belt))
+>>>>>>> b8f382af87bab3a3bc5486b8430bb5719eca7f6a
             {
                 Debug.LogWarning("Ÿ‚Éi‚Ş•ûŒü‚ÉáŠQ•¨‚ª‚ ‚è‚Ü‚·");
                 StartCoroutine(FadeSequence());
