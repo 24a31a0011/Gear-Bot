@@ -15,7 +15,9 @@ public enum TileType
     Obstacle,   // 障害物
     Goal,       // ゴール
     Bag,        // 荷物
-    Gate        // ゲート
+    Gate,       // ゲート
+    Arm,        // アーム
+    WaitingArea // アームの待機所
 }
 
 [System.Serializable]

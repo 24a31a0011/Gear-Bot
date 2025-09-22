@@ -471,6 +471,12 @@ public class GridManager : MonoBehaviour
                 }
             }
 
+            // アームのアニメーション時、プレイヤーが待機していないとbagとの接触判定が取れないため
+            if (tile != null && tile.type == TileType.WaitingArea)
+            {
+                yield return new WaitForSeconds(2f);
+            }
+
             // プレイヤーがbagと接触したら
             if (bagObject.transform.position.x == copyRouteList[i].transform.position.x && bagObject.transform.position.z == copyRouteList[i].transform.position.z)
             {
@@ -507,6 +513,7 @@ public class GridManager : MonoBehaviour
                 break;
             }
             yield return new WaitForSeconds(0.1f);
+            // ギアが壊れたそのターンにギミックを解除するため
             GearManager.Instance.SearchOnly();
             if (tile != null && tile.type == TileType.Bridge && tile.gimmickPrefab != null)
             {
@@ -518,6 +525,7 @@ public class GridManager : MonoBehaviour
                     break;
                 }
             }
+
             yield return new WaitForSeconds(0.4f);
         }
         yield return null;
