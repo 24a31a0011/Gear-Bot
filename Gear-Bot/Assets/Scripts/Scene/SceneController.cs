@@ -1,3 +1,6 @@
+///
+/// 作成者 : グエン
+///
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
