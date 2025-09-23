@@ -2437,7 +2437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1738473159888118793, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2079709675567813984, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_Color.b
@@ -2479,6 +2479,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4934326725453770716, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5301415302763304713, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -2493,7 +2497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707778979297476114, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5904675154714837652, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3435,7 +3439,7 @@ PrefabInstance:
       objectReference: {fileID: 405293943}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: availableMoves
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: showRemainingMoves
@@ -11641,6 +11645,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 14970e27df945fc4489ce141033a2b1a, type: 2}
     - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
+      propertyPath: gearList.Array.data[0].gearPieces
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
       propertyPath: gearList.Array.data[0].gearprefab
       value: 
       objectReference: {fileID: 1057846699}
@@ -11649,12 +11657,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 29564969}
     - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
+      propertyPath: gearList.Array.data[2].gearPieces
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
       propertyPath: gearList.Array.data[2].gearprefab
       value: 
       objectReference: {fileID: 2062983557}
     - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
+      propertyPath: gearList.Array.data[0].rotatecount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
       propertyPath: gearList.Array.data[1].rotatecount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
+      propertyPath: gearList.Array.data[2].rotatecount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1997982933974452866, guid: cb39db7871b2ff94eadab3b1e3584507, type: 3}
       propertyPath: gearList.Array.data[0].gearPiecesText
