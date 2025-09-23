@@ -197,6 +197,7 @@ public class GearManager : MonoBehaviour
                 if (animController.GetIsAnimating())
                 {
                     anyAnimating = true;
+
                     break; // 1‚Â‚Å‚à animating ‚ª true ‚È‚çƒ‹[ƒv‘±s
                 }
             }

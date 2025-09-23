@@ -125,6 +125,18 @@ public class ConveyorBelt : MonoBehaviour
         // 移動先をグリッドにスナップ
         Vector3 targetPos = SnapToGrid(obj.position + offset);
 
+        // 追加 移動先のギミックが動作しているか？
+        //TileData nextTile = MapData.Instance.GetTileData(targetPos);
+
+        //if (nextTile != null && nextTile.type == TileType.Gate && nextTile.gimmickPrefab != null)
+        //{
+        //    if (!nextTile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+        //    {
+        //        Debug.LogWarning("ギミックが作動していません");
+        //        return false;
+        //    }
+        //}
+
         // 移動先に他の荷物がいないかOverlapBoxで確認
         int hitCount = Physics.OverlapBoxNonAlloc(targetPos, Vector3.one * 0.3f, pushCheckBuffer, Quaternion.identity, affectedLayers);
 
