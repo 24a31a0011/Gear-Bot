@@ -3444,7 +3444,7 @@ PrefabInstance:
     - target: {fileID: 3694671574406174186, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: fadeImage
       value: 
-      objectReference: {fileID: 1553890011}
+      objectReference: {fileID: 0}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: bagObject
       value: 
@@ -3469,7 +3469,8 @@ PrefabInstance:
       propertyPath: showRemainingMoves
       value: 
       objectReference: {fileID: 2143720661}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3694671574406174186, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -13369,17 +13370,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7469712483635949557, guid: 9a5e6d8b1c6ecc940a83162bd9fda87d, type: 3}
   m_PrefabInstance: {fileID: 1540430970}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1553890011 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8024385005104652107, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
-  m_PrefabInstance: {fileID: 242190716}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1563764634
 PrefabInstance:
   m_ObjectHideFlags: 0
