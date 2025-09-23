@@ -529,7 +529,7 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
         }
         yield return null;
 
