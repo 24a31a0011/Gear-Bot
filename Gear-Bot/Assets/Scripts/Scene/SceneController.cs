@@ -165,6 +165,7 @@ public class SceneController : MonoBehaviour
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.StageClear);
 
+        previousSceneName = currentSceneName;
         SceneManager.LoadScene(clearScene);
     }
 
