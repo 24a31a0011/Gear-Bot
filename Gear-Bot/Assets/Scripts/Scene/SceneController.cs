@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 
 public class SceneController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class SceneController : MonoBehaviour
     // 現在のscene名を記憶
     private string currentSceneName;
 
+    private FadeController fadeController;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -31,6 +34,7 @@ public class SceneController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+            fadeController = GetComponent<FadeController>();
         }
         else
         {
@@ -55,7 +59,7 @@ public class SceneController : MonoBehaviour
         Audio.Instance.SetClip(Audio.SEClips.Decision);
 
         previousSceneName = currentSceneName;
-        SceneManager.LoadScene(startScene);
+        LoadScene(startScene);
     }
 
     // チュートリアルへと移行
@@ -65,7 +69,7 @@ public class SceneController : MonoBehaviour
         Audio.Instance.SetClip(Audio.SEClips.Decision);
 
         previousSceneName = currentSceneName;
-        SceneManager.LoadScene(tutorialScene);
+        LoadScene(tutorialScene);
     }
 
     // オプション画面へと移行
@@ -75,7 +79,7 @@ public class SceneController : MonoBehaviour
         Audio.Instance.SetClip(Audio.SEClips.Decision);
 
         previousSceneName = currentSceneName;
-        SceneManager.LoadScene(optionScene);
+        LoadScene(optionScene);
     }
 
     // sceneが読み込まれたら今いるsceneを記憶する
@@ -116,7 +120,7 @@ public class SceneController : MonoBehaviour
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.Cansel);
 
-        SceneManager.LoadScene(previousSceneName);
+        LoadScene(previousSceneName);
         previousSceneName = currentSceneName;
     }
 
@@ -155,7 +159,7 @@ public class SceneController : MonoBehaviour
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.Decision);
 
-        SceneManager.LoadScene(mainGameStageList[stageNum]);
+        LoadScene(mainGameStageList[stageNum]);
 
     }
 
@@ -166,7 +170,7 @@ public class SceneController : MonoBehaviour
         Audio.Instance.SetClip(Audio.SEClips.StageClear);
 
         previousSceneName = currentSceneName;
-        SceneManager.LoadScene(clearScene);
+        LoadScene(clearScene);
     }
 
     public void TitleScene()
@@ -174,6 +178,23 @@ public class SceneController : MonoBehaviour
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.Cansel);
 
-        SceneManager.LoadScene(titleScene);
+        LoadScene(titleScene);
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        StartCoroutine(LoadSceneSequence(sceneName));
+    }
+
+    private IEnumerator LoadSceneSequence(string sceneName)
+    {
+        // フェードアウト
+        yield return StartCoroutine(fadeController.FadeOut());
+
+        // シーン読み込み
+        yield return SceneManager.LoadSceneAsync(sceneName);
+
+        // フェードイン
+        yield return StartCoroutine(fadeController.FadeIn());
     }
 }

@@ -25,6 +25,7 @@ public class OptionUI : MonoBehaviour
 
     void OnDisable()
     {
+        if (blocker == null) return;
         blocker.raycastTarget = false; // –³Œø‚ÍƒuƒƒbƒNOFF
     }
 

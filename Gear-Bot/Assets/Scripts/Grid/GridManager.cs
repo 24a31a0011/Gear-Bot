@@ -32,8 +32,6 @@ public class GridManager : MonoBehaviour
     private int remainingMoves;
     [SerializeField] Text showRemainingMoves;
 
-    private FadeController fadeController;
-
     // シーン内の全てのGridを登録するリスト
     private List<SetGrid> clickGrids = new List<SetGrid>();
 
@@ -68,7 +66,6 @@ public class GridManager : MonoBehaviour
     {
         routes.OnChanged += () => PlaceArrows();
         remainingMoves = availableMoves;
-        fadeController = GetComponent<FadeController>();
         if (pBagObject == null) return;
         pBagObject.SetActive(false);
     }
@@ -587,14 +584,11 @@ public class GridManager : MonoBehaviour
 
         // SEを再生
         Audio.Instance.SetClip(Audio.SEClips.StageReset);
-
-        yield return StartCoroutine(fadeController.FadeOut());
-
         // 2. 演出
-        yield return new WaitForSeconds(1f); // 例: 1秒待機
+        yield return null;
 
         // 3. Scene再読み込み
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneController.Instance.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void SetAnimating(bool value)
