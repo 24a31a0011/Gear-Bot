@@ -417,11 +417,14 @@ public class GridManager : MonoBehaviour
 
             if (nextTile != null && nextTile.type == TileType.Gate && nextTile.gimmickPrefab != null)
             {
-                if (!nextTile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                if (MapData.Instance.GetGateTaegetPos() == playerObject.transform.position)
                 {
-                    Debug.LogWarning("ギミックが作動していません");
-                    StartCoroutine(FadeSequence());
-                    break;
+                    if (!nextTile.gimmickPrefab.GetComponent<Bridge>().GetActiv())
+                    {
+                        Debug.LogWarning("ギミックが作動していません");
+                        StartCoroutine(FadeSequence());
+                        break;
+                    }
                 }
             }
 

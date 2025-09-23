@@ -18216,6 +18216,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
+      propertyPath: gateTarget.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
+      propertyPath: gateTarget.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583351968443321780, guid: 58601621a14851e4cb43c4e801a09804, type: 3}
       propertyPath: map.Array.size
       value: 7
       objectReference: {fileID: 0}

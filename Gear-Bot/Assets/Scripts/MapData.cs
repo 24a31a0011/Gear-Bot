@@ -1,6 +1,3 @@
-///
-/// 作成者 : グエン
-///
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,6 +45,9 @@ public class MapData : MonoBehaviour
     // 障害物のワールド座標を登録するリスト
     private List<Vector3> obstaclePositions = new List<Vector3>();
 
+    // ゲートの判定座標
+    [SerializeField] private Vector3 gateTarget = Vector3.zero;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -59,11 +59,6 @@ public class MapData : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        
     }
 
     /// <summary>
@@ -121,5 +116,10 @@ public class MapData : MonoBehaviour
         int x = Mathf.FloorToInt((worldPos.x - worldTopLeft.x) / 1);
         int y = Mathf.FloorToInt((worldTopLeft.z - worldPos.z) / 1);
         return new Vector3Int(x, y, 0);
+    }
+
+    public Vector3 GetGateTaegetPos()
+    {
+        return gateTarget;
     }
 }
