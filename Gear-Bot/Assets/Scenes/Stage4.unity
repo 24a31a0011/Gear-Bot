@@ -7312,13 +7312,24 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4160770342868182470, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1441348487}
+      addedObject: {fileID: 1441348486}
   m_SourcePrefab: {fileID: 100100000, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
 --- !u!4 &960873739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 93526661355480058, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
   m_PrefabInstance: {fileID: 960873738}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &960873740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6749935187965813159, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
+  m_PrefabInstance: {fileID: 960873738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441348484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d372042228f279e468e08d6a1ee87bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &962433549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8443,6 +8454,7 @@ GameObject:
   - component: {fileID: 1121689209}
   - component: {fileID: 1121689210}
   - component: {fileID: 1121689211}
+  - component: {fileID: 1121689212}
   m_Layer: 0
   m_Name: BridgeL
   m_TagString: Untagged
@@ -8501,6 +8513,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1121689210}
+--- !u!114 &1121689212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121689208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe191b76c81c9d4bb3a74c45bb66f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1135520657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10762,18 +10786,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4160770342868182470, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
   m_PrefabInstance: {fileID: 960873738}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1441348485 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8382323456991630150, guid: 5109199577dccda408a9f5b0831ff05b, type: 3}
-  m_PrefabInstance: {fileID: 960873738}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441348484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f31df0467f0ac43a710fb92f8b9c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1441348487
+--- !u!114 &1441348486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10782,10 +10795,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1441348484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d372042228f279e468e08d6a1ee87bef, type: 3}
+  m_Script: {fileID: 11500000, guid: abe191b76c81c9d4bb3a74c45bb66f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBelt: {fileID: 1441348485}
 --- !u!1001 &1450048357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14537,6 +14549,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: animeObj
+      value: 
+      objectReference: {fileID: 2103413640}
+    - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -15851,6 +15867,7 @@ GameObject:
   - component: {fileID: 2103413641}
   - component: {fileID: 2103413642}
   - component: {fileID: 2103413643}
+  - component: {fileID: 2103413644}
   m_Layer: 0
   m_Name: BridgeR
   m_TagString: Untagged
@@ -15909,6 +15926,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2103413642}
+--- !u!114 &2103413644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103413640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe191b76c81c9d4bb3a74c45bb66f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2103966179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16240,6 +16269,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: animeObj
+      value: 
+      objectReference: {fileID: 1441348484}
+    - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -16254,7 +16287,7 @@ PrefabInstance:
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1441348487}
+      objectReference: {fileID: 960873740}
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -16818,6 +16851,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: animeObj
+      value: 
+      objectReference: {fileID: 1121689208}
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1

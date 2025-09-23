@@ -415,7 +415,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -661,6 +661,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 127262842572893470, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 459094844014572113, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 148.9
@@ -821,6 +825,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d66dbea2ff7f10c438a2b835ade6d68e, type: 3}
+    - target: {fileID: 7658898284535701803, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1632742962212455366, guid: 23ed7b88d084b994c8aad8f6af3880a9, type: 3}

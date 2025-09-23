@@ -17,7 +17,6 @@ public enum TileType
     Bag,        // 荷物
     Gate,       // ゲート
     Arm,        // アーム
-    WaitingArea // アームの待機所
 }
 
 [System.Serializable]

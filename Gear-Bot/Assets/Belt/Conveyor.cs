@@ -53,6 +53,11 @@ public class ConveyorBelt : MonoBehaviour
             moveOnce = false;
             MoveOneGrid();  // 1マス分の移動処理を呼ぶ
         }
+
+        if (!IsMoving())
+        {
+            GetComponent<AnimationController>().SetFalseAnime();
+        }
     }
 
     /// <summary>

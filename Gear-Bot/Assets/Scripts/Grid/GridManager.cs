@@ -49,6 +49,8 @@ public class GridManager : MonoBehaviour
     bool isButtonEnabled = true;
     bool activeBag = false;
 
+    bool isAnimating = false;
+
     private void Awake()
     {
         // シングルトンの設定
@@ -423,6 +425,16 @@ public class GridManager : MonoBehaviour
                 }
             }
 
+            // 電源ギアから接続しているギアをすべて確認する
+            GearManager.Instance.SearchGears();
+            GearManager.Instance.ActiveAnime();
+            GearManager.Instance.DecrementGearNumber();
+
+
+            // アニメーション中なら待機
+            yield return new WaitWhile(() => isAnimating);
+            Debug.Log("hi");
+
             // --- ② 回転が終わってから移動 ---
             float distance = Vector3.Distance(startPos, targetPos);
             float elapsed = 0f;
@@ -444,11 +456,6 @@ public class GridManager : MonoBehaviour
             // すでに進んだ分のルートは消す
             routes[copyRouteList.Count - index].ResetState();
 
-            // 電源ギアから接続しているギアをすべて確認する
-            GearManager.Instance.SearchGears();
-            GearManager.Instance.ActiveAnime();
-            GearManager.Instance.DecrementGearNumber();
-
             TileData tile = MapData.Instance.GetTileData(playerObject.transform.position);
 
             // 現在地とマップ上の位置を考慮し、TileTypeごとに処理を変更
@@ -468,12 +475,6 @@ public class GridManager : MonoBehaviour
                     StartCoroutine(FadeSequence());
                     break;
                 }
-            }
-
-            // アームのアニメーション時、プレイヤーが待機していないとbagとの接触判定が取れないため
-            if (tile != null && tile.type == TileType.WaitingArea)
-            {
-                yield return new WaitForSeconds(2f);
             }
 
             // プレイヤーがbagと接触したら
@@ -525,7 +526,7 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
         }
         yield return null;
 
@@ -591,5 +592,10 @@ public class GridManager : MonoBehaviour
 
         // 3. Scene再読み込み
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SetAnimating(bool value)
+    {
+        isAnimating = value;
     }
 }

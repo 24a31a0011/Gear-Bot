@@ -16125,6 +16125,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
+      propertyPath: animeObj
+      value: 
+      objectReference: {fileID: 362327209}
+    - target: {fileID: 357217013619502661, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: activGimmcikGearEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

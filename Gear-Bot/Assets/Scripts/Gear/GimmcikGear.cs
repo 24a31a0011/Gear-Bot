@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class GimmcikGear : MonoBehaviour
 {
+    [SerializeField] GameObject animeObj;
     [SerializeField] UnityEvent activGimmcikGearEvent;
     [SerializeField] UnityEvent deactivateGimmickGearEvent = null;
 
@@ -18,5 +19,10 @@ public class GimmcikGear : MonoBehaviour
     {
         if (deactivateGimmickGearEvent == null) return;
         deactivateGimmickGearEvent.Invoke();
+    }
+
+    public GameObject GetAnimeObj()
+    {
+        return animeObj;
     }
 }

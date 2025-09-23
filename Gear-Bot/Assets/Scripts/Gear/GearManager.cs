@@ -1,6 +1,7 @@
 ///
 /// 作成者 : グエン
 ///
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -162,9 +163,49 @@ public class GearManager : MonoBehaviour
             chainGear[i].GetComponent<Animator>().SetTrigger("rote");
         }
 
+        if (previewGimmcik.Count > 0)
+        {
+            GridManager.Instance.SetAnimating(true);
+            StartAnime();
+            StartCoroutine(SearchAnimeCoroutine());
+        }
+
         for (int i = 0; i < previewGimmcik.Count; i++)
         {
             previewGimmcik[i].GetComponent<Animator>().SetTrigger("rote");
         }
     }
+
+    private void StartAnime()
+    {
+        for (int i = 0; i < previewGimmcik.Count; i++)
+        {
+            previewGimmcik[i].GetComponent<GimmcikGear>().GetAnimeObj().GetComponent<AnimationController>().SetTrueAnime();
+        }
+    }
+
+    private IEnumerator SearchAnimeCoroutine()
+    {
+        // previewGimmcik の中で1つでもアニメーション中なら待つ
+        bool anyAnimating = true;
+        while (anyAnimating)
+        {
+            anyAnimating = false;
+            for (int i = 0; i < previewGimmcik.Count; i++)
+            {
+                var animController = previewGimmcik[i].GetComponent<GimmcikGear>().GetAnimeObj().GetComponent<AnimationController>();
+                if (animController.GetIsAnimating())
+                {
+                    anyAnimating = true;
+                    break; // 1つでも animating が true ならループ続行
+                }
+            }
+
+            yield return null; // 1フレーム待機
+        }
+
+        GridManager.Instance.SetAnimating(false);
+        Debug.Log("start");
+    }
+
 }
