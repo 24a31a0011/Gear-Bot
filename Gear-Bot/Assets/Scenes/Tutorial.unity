@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 1085204346}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[0].sprite
@@ -807,13 +807,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 0abe390a57dba4f40a98854d3d11976d, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[7].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0e1282c88e1c754981a1b2b221bd73f, type: 3}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[8].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c265ccddc420e394f8fee42175a64d86, type: 3}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[1].videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 7daeb6f145f08b84ba0bef1b9f1410ce, type: 3}
+      objectReference: {fileID: 32900000, guid: 048038763ab39714587ff9368cca74ab, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[2].videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 461a299258a1a0347920a9ffb25d2bb5, type: 3}
+      objectReference: {fileID: 32900000, guid: 6bebe68e09dcbbd4eb77dfcaeb20236b, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[3].videoClip
       value: 
@@ -821,15 +829,23 @@ PrefabInstance:
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[4].videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 708f5896173701f40a0a35be2d2a4493, type: 3}
+      objectReference: {fileID: 32900000, guid: 9a9effbc8e7d87a459abbe3c43cedb08, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[5].videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: facab77f8778f8e42bda519da030754d, type: 3}
+      objectReference: {fileID: 32900000, guid: 9a9effbc8e7d87a459abbe3c43cedb08, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[6].videoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 0e5990edb126e40478f584e75138b5cb, type: 3}
+      objectReference: {fileID: 32900000, guid: ec1ef59812153eb4cbf2e71e2b9505d3, type: 3}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[7].videoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 60eda465d841a6d4087802efc93e4bd5, type: 3}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[8].videoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: dc828c9225c3fca45943b31d3a63347f, type: 3}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[1].videoTarget
       value: 
@@ -852,6 +868,14 @@ PrefabInstance:
       objectReference: {fileID: 1303784205}
     - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
       propertyPath: pages.Array.data[6].videoTarget
+      value: 
+      objectReference: {fileID: 1303784205}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[7].videoTarget
+      value: 
+      objectReference: {fileID: 1303784205}
+    - target: {fileID: 7720315013344683112, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
+      propertyPath: pages.Array.data[8].videoTarget
       value: 
       objectReference: {fileID: 1303784205}
     - target: {fileID: 8810142206370439457, guid: 33670bf5107f7584a92acb7225427b1a, type: 3}
