@@ -2133,6 +2133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3087687877335389434, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4516813051890942524, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3010,7 +3014,7 @@ PrefabInstance:
     - target: {fileID: 3694671574406174186, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: fadeImage
       value: 
-      objectReference: {fileID: 1553890011}
+      objectReference: {fileID: 0}
     - target: {fileID: 4010249936203917280, guid: a22f03e284f08514e90c4b9a699db82d, type: 3}
       propertyPath: bagObject
       value: 
@@ -11503,17 +11507,6 @@ Transform:
   - {fileID: 730073518}
   m_Father: {fileID: 526345352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1553890011 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8024385005104652107, guid: f163b227b8ea30f49ae6d5121be76c66, type: 3}
-  m_PrefabInstance: {fileID: 242190716}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1563764634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11750,7 +11743,7 @@ Transform:
   m_GameObject: {fileID: 1571615623}
   serializedVersion: 2
   m_LocalRotation: {x: 0.58693767, y: 0, z: 0, w: 0.8096321}
-  m_LocalPosition: {x: 4, y: 6.5, z: -4}
+  m_LocalPosition: {x: 4, y: 7.5, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
