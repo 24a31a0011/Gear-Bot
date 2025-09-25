@@ -15208,7 +15208,7 @@ PrefabInstance:
     - target: {fileID: 6114178686609331884, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 98647ee1414618546a16ccfebc535a79, type: 2}
+      objectReference: {fileID: 2100000, guid: 8d1c64d4b59a6b64198f059e5fe5c52c, type: 2}
     - target: {fileID: 8172512270093803262, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: m_Name
       value: Gimmick_Gear (1)
@@ -18146,7 +18146,7 @@ PrefabInstance:
     - target: {fileID: 6114178686609331884, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 5cc55d850f9d81647af1ee4b4fba6176, type: 2}
+      objectReference: {fileID: 2100000, guid: 8d1c64d4b59a6b64198f059e5fe5c52c, type: 2}
     - target: {fileID: 8172512270093803262, guid: cde31d56a63298746be191dff05e76dc, type: 3}
       propertyPath: m_Name
       value: Gimmick_Gear
