@@ -57,9 +57,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6236891391182080765, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6236891391182080765, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 90ea1711c56fba441b3e4609b99f2557, type: 2}
+    - target: {fileID: -1990684805428185980, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a1b85d12de5c3a4c80150fe54fc8649, type: 3}
       propertyPath: m_Name
       value: gear_number
