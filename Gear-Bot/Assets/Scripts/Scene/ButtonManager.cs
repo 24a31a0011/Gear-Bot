@@ -2,6 +2,7 @@
 /// çÏê¨é“ : ÉOÉGÉì
 ///
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -38,5 +39,10 @@ public class ButtonManager : MonoBehaviour
     public void OnClickStageChange(int stageNum)
     {
         SceneController.Instance.StageChange(stageNum);
+    }
+
+    public void OnclickNextScene()
+    {
+        SceneController.Instance.NextScene();
     }
 }

@@ -433,7 +433,6 @@ public class GridManager : MonoBehaviour
 
             // アニメーション中なら待機
             yield return new WaitWhile(() => isAnimating);
-            Debug.Log("hi");
 
             // --- ② 回転が終わってから移動 ---
             float distance = Vector3.Distance(startPos, targetPos);

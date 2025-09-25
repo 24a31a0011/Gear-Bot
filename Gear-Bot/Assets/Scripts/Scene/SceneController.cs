@@ -197,4 +197,34 @@ public class SceneController : MonoBehaviour
         // フェードイン
         yield return StartCoroutine(fadeController.FadeIn());
     }
+
+    public void NextScene()
+    {
+        // 現在のシーン名が mainGameStageList に含まれているか確認
+        int currentIndex = mainGameStageList.IndexOf(previousSceneName);
+
+        if (currentIndex == -1)
+        {
+            // 現在のシーンがリストにない場合、警告を表示して終了
+            Debug.LogWarning($"現在のシーン '{previousSceneName}' が mainGameStageList に存在しません");
+            return;
+        }
+
+        // 次のステージ（インデックス + 1）に進む
+        int nextIndex = currentIndex + 1;
+
+        if (nextIndex >= mainGameStageList.Count)
+        {
+            // 次のステージがリストの範囲外の場合、警告を表示して終了
+            Debug.LogWarning("次のステージはありません");
+            return;
+        }
+
+        string nextScene = mainGameStageList[nextIndex];
+
+        // 次のステージに進む
+        Audio.Instance.SetClip(Audio.SEClips.Decision); // SEの再生
+        LoadScene(nextScene); // 次のステージを読み込む
+    }
+
 }
